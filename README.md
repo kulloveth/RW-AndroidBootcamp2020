@@ -1,5 +1,10 @@
 # Raywenderlich Android Bootcamp Challenge One
-Black Jack Game to deal A Hand of Card
+
+# Problem Description
+
+##### Deal and Evaluate an Initial Hand of Blackjack
+Blackjack is a game played with regular playing cards. Playing cards consist of a ‘pip’, the numeric or face value of the card, and a suit.  Initially, the player receives two cards in a hand. The goal of the game is for the cards’ pip total to equal and not exceed 21. Face cards are counted as 10, Aces as 11 and the other cards as their numeric pip value. You will create a subset of this game that deals and evaluates the first two cards from a deck. Create a program that creates a deck of cards, deals two cards from that deck into a hand and evaluates that hand of cards by finding the sum of the pips. Display the cards in the hand and the total of the pips in the hand. Utilize classes, collections and functions. 
+
 
 # Sample Output
 
