@@ -24,7 +24,9 @@ Black Jack Game to deal A Hand of Card
 </table>
 
 
-# BIO
+# PROFILE
+![Loveth](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/bootcamp.jpg)
+
 ##### Name 
  * Loveth Nwokike
 ##### Discord Name
