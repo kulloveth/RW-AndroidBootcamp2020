@@ -1,4 +1,4 @@
-# Raywenderlich Android Bootcamp Challenge One
+# Raywenderlich.com Android Bootcamp Challenge One
 
 # Problem Description
 
