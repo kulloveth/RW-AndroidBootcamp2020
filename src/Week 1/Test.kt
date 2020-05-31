@@ -1,4 +1,3 @@
-
 class Test {
 
     companion object {
@@ -8,6 +7,7 @@ class Test {
             val deal = dealHand(createDeck(), 2)
             val evaluate = evaluateHand(deal)
             printResult(deal, evaluate)
+
         }
     }
 }
