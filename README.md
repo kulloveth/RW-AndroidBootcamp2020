@@ -14,17 +14,17 @@ Blackjack is a game played with regular playing cards. Playing cards consist of 
 <tr>
 <td>
   
- ![Loose](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/loser.PNG)
+ ![Loose](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/newLoose.PNG)
  
  </td>
  <td>
   
- ![Random](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/rand.PNG)
+ ![Random](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/newRand2.PNG)
     
  </td>
    <td>
   
-  ![Winner](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/win.PNG)
+  ![Winner](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/newWin.PNG)
   
   </td>
   </tr>
