@@ -44,15 +44,27 @@ val printResult = fun(hand: MutableList<Card>, total: Int) {
     var message = ""
     val cards: ArrayList<String> = arrayListOf()
     for (card in hand) {
-        cards.add("Your Hand was ${card.pip} ${card.suit}")
+        cards.add(
+            """
+.-------.                                             
+|${card.pip}          
+|        |
+|    ${card.suit}                  
+|        |
+|        |                                  
+|        |     
+'--------' """.trimIndent()
+        )
         message = when (total) {
             21 -> "You are a winner"
             22 -> "You Lose!"
             else -> ""
         }
     }
+    println("Your Hand Was")
     cards.forEach {
-        println(it)
+        print("$it \n")
+
     }
     println(
         "For a total of $total \n" +
