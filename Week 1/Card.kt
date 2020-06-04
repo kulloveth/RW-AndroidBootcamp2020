@@ -7,10 +7,17 @@
 
 data class Card(val pip: String, val suit: Char)
 
+
+/*
+* THis method creates a deck as a MutableSet using the Card class
+*
+* */
 fun createDeck(): MutableSet<Card> {
     val suits = listOf('\u2663', '\u2660', '\u2666', '\u2665')
     val pips = listOf("J", "Q", "K", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10")
     val deck = mutableSetOf<Card>()
+
+    //loop through the suits and pips providing a suit for each pip
     for (p in pips.indices) {
         for (s in suits.indices) {
             deck.add(Card(pips[p], suits[s]))
@@ -19,6 +26,11 @@ fun createDeck(): MutableSet<Card> {
     return deck
 }
 
+/**
+ * dealHand method to deal an initial hand of card with params [deck] and [noOfCards]
+ * @param noOfCards cards are dealt from
+ * @param deck randomly
+ */
 fun dealHand(deck: MutableSet<Card>, noOfCards: Int): MutableList<Card> {
     val hand = mutableListOf<Card>()
     for (i in 1..noOfCards) {
@@ -28,6 +40,7 @@ fun dealHand(deck: MutableSet<Card>, noOfCards: Int): MutableList<Card> {
     }
     return hand
 }
+
 
 fun evaluateHand(hand: MutableList<Card>): Int {
     var total = 0
@@ -44,6 +57,11 @@ fun evaluateHand(hand: MutableList<Card>): Int {
     return total
 }
 
+/**
+ * printResult prints dealt card
+ * @param hand with
+ * @param total of pips
+ * */
 fun printResult(hand: MutableList<Card>, total: Int) {
     var message = ""
     val cards: ArrayList<String> = arrayListOf()
