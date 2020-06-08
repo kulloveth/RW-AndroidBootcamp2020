@@ -119,4 +119,8 @@ class Cafe {
     fun getMostPopularCats(): Set<Cat> {
         return emptySet()
     }
+
+    fun getTotalNoOfCustomers(day: String): Int? {
+        return receiptsByDay[day]?.map { it.customerId }?.size
+    }
 }

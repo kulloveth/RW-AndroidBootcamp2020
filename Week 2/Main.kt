@@ -15,5 +15,5 @@ fun main() {
     }
 
     println(cafe.totalNoOfNonEmployeesForTheDay("Monday"))
-
+    println(cafe.getTotalNoOfCustomers("Monday"))
 }
