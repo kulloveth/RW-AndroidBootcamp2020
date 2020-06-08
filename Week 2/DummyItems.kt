@@ -11,7 +11,7 @@ class DummyItems {
 
 
         //Cats
-        val carol = Cat(id = 911, name = "Lewis Carol", color = "purple", sex = "male", breed = "CHESHIRE")
+        val carol = Cat(id = 919, name = "Lewis Carol", color = "purple", sex = "male", breed = "CHESHIRE")
 
         val orangey = Cat(id = 929, name = "Orangey", breed = "marmalade", color = "orange", sex = "male")
 

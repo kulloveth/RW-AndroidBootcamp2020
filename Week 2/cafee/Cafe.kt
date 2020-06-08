@@ -1,6 +1,7 @@
 package cafee
 
 import DummyItems
+import cafee.product.Cat
 import cafee.product.Item
 import people.Employee
 import people.Person
@@ -22,11 +23,9 @@ class Cafe {
     )
 
     val sponsorship = mutableSetOf(
-        Sponsorship("2454", "435"),
-        Sponsorship("8764", "415"),
-        Sponsorship("9087", "321"),
-        Sponsorship("6785", "876"),
-        Sponsorship("3324", "546")
+        Sponsorship("2454", 919),
+        Sponsorship("8764", 929),
+        Sponsorship("9087", 918)
     )
 
     val employee = mutableSetOf(DummyItems.chris, DummyItems.james, DummyItems.richy)
@@ -75,7 +74,7 @@ class Cafe {
     /**
      * adds sponsorship with [catId] and [personId]
      * */
-    fun addSponsorship(catId: String, personId: String) {
+    fun addSponsorship(catId: Int, personId: String) {
         sponsorship.add(Sponsorship(personId, catId))
     }
 
@@ -85,5 +84,26 @@ class Cafe {
 
     fun getWorkingEmployees(): Set<Employee> = employee
 
+    fun getTotalCustomerForTheDay(day: String) {
+        val customer = receiptsByDay[day]?.map { it.customerId }?.size
+        println(customer)
+    }
+
+    /**
+     * get total [cat] from two shelter
+     * match spored cat id to id in shelter
+     * get the details of sponsored cats
+     * */
+    fun getSponsoredCat(cat: List<Cat>): Set<Cat> {
+        val sponsoredCat = mutableSetOf<Cat>()
+        sponsorship.forEach {
+            val catId = it.catId
+            cat.forEach { cats ->
+                if (catId == cats.id)
+                    sponsoredCat.add(cats)
+            }
+        }
+        return sponsoredCat
+    }
 
 }
