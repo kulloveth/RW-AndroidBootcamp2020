@@ -4,6 +4,7 @@ import DummyItems
 import cafee.product.Cat
 import cafee.product.Item
 import people.Employee
+import people.Patron
 import people.Person
 import people.isEmploye
 import java.time.LocalDate
@@ -106,4 +107,16 @@ class Cafe {
         return sponsoredCat
     }
 
+    fun totalNoOfNonEmployeesForTheDay(day: String): Int? {
+        return receiptsByDay[day]?.map { it.customerId }?.toSet()
+            ?.map { customerId -> patron.find { it.id == customerId } }?.filterIsInstance<Patron>()?.size
+    }
+
+    fun getAdoptedCats(): Set<Cat> {
+        return emptySet()
+    }
+
+    fun getMostPopularCats(): Set<Cat> {
+        return emptySet()
+    }
 }

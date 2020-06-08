@@ -4,7 +4,7 @@ fun main() {
     val cafe = Cafe()
     val items = listOf(DummyItems.salad, DummyItems.friedChicken)
     cafe.getReceipt(items, DummyItems.chidi.id)
-    //cafe.printReceiptForTheDay("Wednesday")
+    cafe.printReceiptForTheDay("Monday")
 
     // println(DummyItems.chris.clockIn())
     //println(cafe.getTotalCustomerForTheDay("Monday"))
@@ -13,5 +13,7 @@ fun main() {
     sponsoredCat.forEach {
         println(it.name)
     }
+
+    println(cafe.totalNoOfNonEmployeesForTheDay("Monday"))
 
 }
