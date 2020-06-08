@@ -1,0 +1,4 @@
+package cafee
+
+class Product {
+}
