@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    kotlin array-->
+    <string-array name="kotlin_array">
+        <item>@string/why_kotlin</item>
+        <item>@string/kotlin_usages</item>
+        <item>@string/aim</item>
+        <item>@string/variable</item>
+        <item>@string/main</item>
+    </string-array>
+
+    <!--    java array-->
+    <string-array name="java_array">
+        <item>@string/why_java</item>
+        <item>@string/java_usages</item>
+        <item>@string/java_type</item>
+        <item>@string/java_data_types</item>
+        <item>@string/java_variable_declarations</item>
+    </string-array>
+
+    <!--    python array-->
+    <string-array name="python_array">
+        <item>@string/why_python</item>
+        <item>@string/python_comment</item>
+        <item>@string/python_collections</item>
+        <item>@string/python_style</item>
+        <item>@string/python_usages</item>
+    </string-array>
+</resources>
