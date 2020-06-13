@@ -31,4 +31,8 @@
     <string name="my_email">kulloveth@gmail.com</string>
     <string name="my_address">Lagos Nigeria</string>
     <string name="chidi_loveth">Chidi Loveth</string>
+    <string name="share">Share</string>
+    <string name="select_language">Select Language</string>
+    <string name="app_title">About Business Card App</string>
+    <string name="developer">Developed by Loveth in RW BootCamp</string>
 </resources>

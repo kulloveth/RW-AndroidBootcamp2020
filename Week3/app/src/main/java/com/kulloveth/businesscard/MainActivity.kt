@@ -1,6 +1,7 @@
 package com.kulloveth.businesscard
 
-import android.content.DialogInterface
+
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
@@ -8,9 +9,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import com.kulloveth.businesscard.databinding.ActivityMainBinding
-import java.util.ArrayList
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         private val Title_KEY = "TITLE_KEY"
         private val TOOLBAR_KEY = "TTHEME_KEY"
         private val LANGUAGE_KEY = "LANG_KEY"
+
+
     }
 
     /**
@@ -98,15 +102,41 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * create actions for the menu item
+     * by referencing its it through [item]
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.filter -> optionDialog()
             R.id.about -> aboutDialog()
+            R.id.share -> shareTips()
         }
         return super.onOptionsItemSelected(item)
     }
 
+    //creates an intent share feature
+    private fun shareTips() {
+        startActivity(
+            Intent.createChooser(
+                ShareCompat.IntentBuilder.from(this)
+                    .setType("text/plain")
+                    .setText(currentTips)
+                    .intent, getString(toolbarTitle) + " tips"
+            )
+        )
+    }
+
+    //create dialog to show app information
     private fun aboutDialog() {
+        val alertdialog = AlertDialog.Builder(this)
+        alertdialog.apply {
+            setTitle(getString(R.string.app_title))
+            setMessage(getString(R.string.developer))
+            setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            show()
+        }
+
 
     }
 
@@ -124,17 +154,22 @@ class MainActivity : AppCompatActivity() {
         bundle.putStringArrayList(LIST_KEY, tipsList.toList() as ArrayList<String>)
     }
 
+    /**
+     * creates an Alertdialog with different
+     * language otion to select from
+     * */
     private fun optionDialog() {
         val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setTitle("Select Language")
+        alertDialog.setTitle(getString(R.string.select_language))
         val items = arrayOf(
             resources.getString(R.string.kotlin_language),
             resources.getString(R.string.python_language),
             resources.getString(R.string.java_language)
         )
 
+
         alertDialog.setSingleChoiceItems(items, -1)
-        { dialog, which ->
+        { _, which ->
             when (which) {
                 0 -> {
                     imageRes = R.drawable.kotlin_logo
@@ -168,9 +203,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         alert = alertDialog.create()
-        alert?.setCanceledOnTouchOutside(true)
-        alert?.show()
+        alert?.apply {
+            setCanceledOnTouchOutside(true)
+            show()
+
+        }
+
     }
+
 
     //dismis dialog when activity is destroyed
     override fun onDestroy() {

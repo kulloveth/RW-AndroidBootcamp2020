@@ -6,4 +6,5 @@
     <dimen name="two00dp">200dp</dimen>
     <dimen name="three00dp">300dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
+    <dimen name="eigtheen_sp">18sp</dimen>
 </resources>

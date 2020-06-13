@@ -56,6 +56,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/underdog"
+                    android:textSize="@dimen/eigtheen_sp"
+                    android:textStyle="bold"
                     tools:text="@string/kotlin_language" />
             </LinearLayout>
 
@@ -68,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/eight_dp"
             android:layout_marginTop="@dimen/sixteen_dp"
+            android:fontFamily="@font/underdog"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/language_cv"

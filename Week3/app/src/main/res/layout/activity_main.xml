@@ -52,9 +52,12 @@
 
                 <TextView
                     android:id="@+id/language_tv"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/underdog"
+                    android:textSize="@dimen/eigtheen_sp"
                     tools:text="@string/kotlin_language" />
             </LinearLayout>
 
@@ -66,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sixteen_dp"
+            android:fontFamily="@font/underdog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/language_cv"
@@ -88,9 +92,9 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
         <ImageView
+            android:id="@+id/location_iv"
             style="@style/address_style"
             android:contentDescription="@string/address"
-            android:id="@+id/location_iv"
             android:src="@drawable/ic_location_on_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/address_tv"
             app:layout_constraintTop_toBottomOf="@id/name_tv" />
@@ -103,9 +107,9 @@
             app:layout_constraintTop_toBottomOf="@+id/name_tv" />
 
         <ImageView
+            android:id="@+id/email_iv"
             style="@style/address_style"
             android:contentDescription="@string/address"
-            android:id="@+id/email_iv"
             android:src="@drawable/ic_email_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/email_tv"
             app:layout_constraintTop_toBottomOf="@id/address_tv" />
@@ -113,6 +117,7 @@
         <TextView
             android:id="@+id/email_tv"
             style="@style/address_style"
+            android:fontFamily="@font/underdog"
             android:text="@string/my_email"
             app:layout_constraintStart_toStartOf="@id/name_tv"
             app:layout_constraintTop_toBottomOf="@+id/address_tv" />
