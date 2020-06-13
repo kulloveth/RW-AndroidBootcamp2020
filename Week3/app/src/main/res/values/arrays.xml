@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="item_array">
+        <item>@string/kotlin_language</item>
+        <item>@string/python_language</item>
+        <item>@string/java_language</item>
+    </string-array>
     <!--    kotlin array-->
     <string-array name="kotlin_array">
         <item>@string/why_kotlin</item>
