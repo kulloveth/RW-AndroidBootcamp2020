@@ -1,12 +1,14 @@
 package com.kulloveth.businesscard
 
 import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.kulloveth.businesscard.databinding.ActivityMainBinding
 import java.util.ArrayList
 
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     var tipsList = listOf<String>()
     var toolbarTitle: Int = 0
     var alert: AlertDialog? = null
+    var styeTHeme: Int = 0
+    var language: String? = null
 
 
     companion object {
@@ -28,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         private val IMAGE_KEY = "IMAGE_KEY"
         private val LIST_KEY = "LIST_KEY"
         private val Title_KEY = "TITLE_KEY"
+        private val TOOLBAR_KEY = "TTHEME_KEY"
+        private val LANGUAGE_KEY = "LANG_KEY"
     }
 
     /**
@@ -43,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = binding.toolbar
         val tipsBtn = binding.tipsBtn
         setSupportActionBar(toolbar)
+        language = getString(R.string.kotlin_language)
 
         tipsBtn.setOnClickListener {
             currentTips = tipsList.random()
@@ -52,8 +59,15 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             currentTips = savedInstanceState.getString(TIPS_KEY)
             imageRes = savedInstanceState.getInt(IMAGE_KEY)
+            styeTHeme = savedInstanceState.getInt(TOOLBAR_KEY, styeTHeme)
             toolbarTitle = savedInstanceState.getInt(Title_KEY)
+            language = savedInstanceState.getString(LANGUAGE_KEY)
+            binding.languageTv.text = language
             supportActionBar?.title = getString(toolbarTitle)
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(styeTHeme)))
+            binding.tipsBtn.backgroundTintList = ContextCompat.getColorStateList(this, styeTHeme)
+            binding.locationIv.imageTintList = ContextCompat.getColorStateList(this, styeTHeme)
+            binding.emailIv.imageTintList = ContextCompat.getColorStateList(this, styeTHeme)
             tipsList = savedInstanceState.getStringArrayList(LIST_KEY)?.toList() as List<String>
         } else {
             imageRes = R.drawable.kotlin_logo
@@ -61,6 +75,12 @@ class MainActivity : AppCompatActivity() {
             tipsList = resources.getStringArray(R.array.kotlin_array).toList()
             toolbarTitle = R.string.kotlin_language
             supportActionBar?.title = getString(toolbarTitle)
+            styeTHeme = R.color.colorPrimary
+            binding.languageTv.text = language
+            binding.locationIv.imageTintList = ContextCompat.getColorStateList(this, styeTHeme)
+            binding.emailIv.imageTintList = ContextCompat.getColorStateList(this, styeTHeme)
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(styeTHeme)))
+            binding.tipsBtn.backgroundTintList = ContextCompat.getColorStateList(this, styeTHeme)
         }
         binding.languageTipsTv.text = currentTips
         binding.languageIv.setImageResource(imageRes)
@@ -99,6 +119,8 @@ class MainActivity : AppCompatActivity() {
         bundle.putString(TIPS_KEY, currentTips)
         bundle.putInt(IMAGE_KEY, imageRes)
         bundle.putInt(Title_KEY, toolbarTitle)
+        bundle.putInt(TOOLBAR_KEY, styeTHeme)
+        bundle.putString(LANGUAGE_KEY, language)
         bundle.putStringArrayList(LIST_KEY, tipsList.toList() as ArrayList<String>)
     }
 
@@ -119,6 +141,8 @@ class MainActivity : AppCompatActivity() {
                     currentTips = getString(R.string.why_kotlin)
                     tipsList = resources.getStringArray(R.array.kotlin_array).toList()
                     toolbarTitle = R.string.kotlin_language
+                    styeTHeme = R.color.colorPrimary
+                    language = getString(R.string.kotlin_language)
                     recreate()
                 }
 
@@ -127,6 +151,8 @@ class MainActivity : AppCompatActivity() {
                     currentTips = getString(R.string.why_python)
                     tipsList = resources.getStringArray(R.array.python_array).toList()
                     toolbarTitle = R.string.python_language
+                    styeTHeme = R.color.pythonColorPrimary
+                    language = getString(R.string.python_language)
                     recreate()
                 }
 
@@ -135,6 +161,8 @@ class MainActivity : AppCompatActivity() {
                     currentTips = getString(R.string.why_java)
                     tipsList = resources.getStringArray(R.array.java_array).toList()
                     toolbarTitle = R.string.java_language
+                    styeTHeme = R.color.javaPrimaryDarkColor
+                    language = getString(R.string.java_language)
                     recreate()
                 }
             }

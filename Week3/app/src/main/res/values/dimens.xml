@@ -5,4 +5,5 @@
     <dimen name="eight_dp">8dp</dimen>
     <dimen name="two00dp">200dp</dimen>
     <dimen name="three00dp">300dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
 </resources>

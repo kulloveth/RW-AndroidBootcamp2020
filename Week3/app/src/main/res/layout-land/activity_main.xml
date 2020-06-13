@@ -64,8 +64,9 @@
 
         <TextView
             android:id="@+id/language_tips_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/eight_dp"
             android:layout_marginTop="@dimen/sixteen_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,18 +77,15 @@
 
         <TextView
             android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
+            android:text="@string/chidi_loveth"
             app:layout_constraintEnd_toEndOf="@id/language_cv"
             app:layout_constraintStart_toStartOf="@id/language_cv"
-            app:layout_constraintTop_toBottomOf="@+id/language_cv"
-            tools:text="Loveth" />
+            app:layout_constraintTop_toBottomOf="@+id/language_cv" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:id="@+id/location_iv"
+            style="@style/address_style"
             android:contentDescription="@string/address"
             android:src="@drawable/ic_location_on_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/address_tv"
@@ -95,18 +93,15 @@
 
         <TextView
             android:id="@+id/address_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
+            android:text="@string/my_address"
             app:layout_constraintEnd_toEndOf="@id/language_cv"
             app:layout_constraintStart_toStartOf="@id/language_cv"
-            app:layout_constraintTop_toBottomOf="@+id/name_tv"
-            tools:text="Lagos Nigeria" />
+            app:layout_constraintTop_toBottomOf="@+id/name_tv" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:id="@+id/email_iv"
+            style="@style/address_style"
             android:contentDescription="@string/address"
             android:src="@drawable/ic_email_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/email_tv"
@@ -114,12 +109,10 @@
 
         <TextView
             android:id="@+id/email_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
+            android:text="@string/my_email"
             app:layout_constraintStart_toStartOf="@id/address_tv"
-            app:layout_constraintTop_toBottomOf="@+id/address_tv"
-            tools:text="Loveth@gmail.com" />
+            app:layout_constraintTop_toBottomOf="@+id/address_tv" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/tips_btn"

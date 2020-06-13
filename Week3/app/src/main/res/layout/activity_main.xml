@@ -77,54 +77,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="405dp" />
+            app:layout_constraintGuide_begin="350dp" />
 
         <TextView
             android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
+            android:text="@string/chidi_loveth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline"
-            tools:text="Loveth" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
             android:contentDescription="@string/address"
+            android:id="@+id/location_iv"
             android:src="@drawable/ic_location_on_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/address_tv"
             app:layout_constraintTop_toBottomOf="@id/name_tv" />
 
         <TextView
             android:id="@+id/address_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_tv"
-            tools:text="Lagos Nigeria" />
+            style="@style/address_style"
+            android:text="@string/my_address"
+            app:layout_constraintStart_toStartOf="@id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/name_tv" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
             android:contentDescription="@string/address"
+            android:id="@+id/email_iv"
             android:src="@drawable/ic_email_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/email_tv"
             app:layout_constraintTop_toBottomOf="@id/address_tv" />
 
         <TextView
             android:id="@+id/email_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
-            app:layout_constraintStart_toStartOf="@id/address_tv"
-            app:layout_constraintTop_toBottomOf="@+id/address_tv"
-            tools:text="Loveth@gmail.com" />
+            style="@style/address_style"
+            android:text="@string/my_email"
+            app:layout_constraintStart_toStartOf="@id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/address_tv" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/tips_btn"

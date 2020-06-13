@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Python" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/pythonColorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/pythonColorPrimary</item>
+        <item name="colorAccent">@color/pythonColorAccent</item>
+    </style>
+
+    <style name="Java" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/javaPrimaryColor</item>
+        <item name="colorPrimaryDark">@color/javaPrimaryDarkColor</item>
+        <item name="colorAccent">@color/javaColorAccent</item>
+    </style>
+
+    <style name="address_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/eight_dp</item>
+    </style>
+
 </resources>

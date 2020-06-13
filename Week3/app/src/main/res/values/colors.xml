@@ -9,5 +9,6 @@
     <color name="javaColorAccent">#f0951a</color>
 
     <color name="pythonColorPrimary">#4378a4</color>
+    <color name="pythonColorPrimaryDark">#2a5174</color>
     <color name="pythonColorAccent">#f7d138</color>
 </resources>
