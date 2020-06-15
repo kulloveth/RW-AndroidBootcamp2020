@@ -35,4 +35,7 @@
     <string name="select_language">Select Language</string>
     <string name="app_title">About Business Card App</string>
     <string name="developer">Developed by Loveth in RW BootCamp</string>
+    <string name="kotlin_dev">Kotlin Developer</string>
+    <string name="python_devv">Python Developer</string>
+    <string name="java_dev">Java Developer</string>
 </resources>

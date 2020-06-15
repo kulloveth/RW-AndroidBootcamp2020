@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = binding.toolbar
         val tipsBtn = binding.tipsBtn
         setSupportActionBar(toolbar)
-        language = getString(R.string.kotlin_language)
+        language = getString(R.string.kotlin_dev)
 
         tipsBtn.setOnClickListener {
             currentTips = tipsList.random()
@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                     tipsList = resources.getStringArray(R.array.kotlin_array).toList()
                     toolbarTitle = R.string.kotlin_language
                     styeTHeme = R.color.colorPrimary
-                    language = getString(R.string.kotlin_language)
+                    language = getString(R.string.kotlin_dev)
                     recreate()
                 }
 
@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                     tipsList = resources.getStringArray(R.array.python_array).toList()
                     toolbarTitle = R.string.python_language
                     styeTHeme = R.color.pythonColorPrimary
-                    language = getString(R.string.python_language)
+                    language =getString(R.string.python_devv)
                     recreate()
                 }
 
@@ -197,7 +197,7 @@ class MainActivity : AppCompatActivity() {
                     tipsList = resources.getStringArray(R.array.java_array).toList()
                     toolbarTitle = R.string.java_language
                     styeTHeme = R.color.javaPrimaryDarkColor
-                    language = getString(R.string.java_language)
+                    language = getString(R.string.java_dev)
                     recreate()
                 }
             }
