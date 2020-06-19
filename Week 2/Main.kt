@@ -14,6 +14,7 @@ fun main() {
         println(it.name)
     }
 
-    println(cafe.totalNoOfNonEmployeesForTheDay("Monday"))
-    println(cafe.getTotalNoOfCustomers("Monday"))
+    // println(cafe.totalNoOfNonEmployeesForTheDay("Monday"))
+    // println(cafe.getTotalNoOfCustomers("Monday"))
+    cafe.getMostPopularCats()
 }

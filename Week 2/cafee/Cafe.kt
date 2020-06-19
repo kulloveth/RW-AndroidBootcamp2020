@@ -10,6 +10,7 @@ import people.isEmploye
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.*
+import kotlin.collections.HashSet
 
 class Cafe {
 
@@ -116,8 +117,9 @@ class Cafe {
         return emptySet()
     }
 
-    fun getMostPopularCats(): Set<Cat> {
-        return emptySet()
+    fun getMostPopularCats(){
+        val bothShelters = DummyItems.first_shelter.cats + DummyItems.second_shelter.cats
+       println(bothShelters.sortedBy { it.sponsorship.catId }.size)
     }
 
     fun getTotalNoOfCustomers(day: String): Int? {
