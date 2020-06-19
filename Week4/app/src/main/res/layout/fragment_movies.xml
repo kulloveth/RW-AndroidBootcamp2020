@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".movies.MoviesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/movies" />
+
+
+    <include
+        android:id="@+id/content_layout"
+        layout="@layout/movie_content" />
 
 </FrameLayout>

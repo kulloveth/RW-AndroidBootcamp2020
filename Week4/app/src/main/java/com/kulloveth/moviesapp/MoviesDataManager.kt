@@ -1,8 +1,14 @@
 package com.kulloveth.moviesapp
 
+import androidx.lifecycle.ViewModel
 import com.kulloveth.moviesapp.movies.Movie
 
-class DummyMovies {
+class MoviesDataManager : ViewModel() {
+
+
+    fun getMovieList(): MutableList<Movie> {
+        return movieList
+    }
 
     companion object {
         val movieList = mutableListOf<Movie>(
