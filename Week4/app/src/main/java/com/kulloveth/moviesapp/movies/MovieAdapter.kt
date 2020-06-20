@@ -135,6 +135,7 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
         HEADER, MOVIE
     }
 
+    //Onclicklistener for the movie items
     interface MovieItemCLickedListener {
         fun movieItemCLicked(movie: Movie)
     }

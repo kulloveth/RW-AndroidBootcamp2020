@@ -2,26 +2,20 @@ package com.kulloveth.moviesapp.movies
 
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.moviesapp.MoviesDataManager
-import com.kulloveth.moviesapp.R
-
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
 import com.kulloveth.moviesapp.models.Movie
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
     lateinit var adapter: MovieAdapter
@@ -77,6 +71,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     }
 
     override fun movieItemCLicked(movie: Movie) {
+        //used to get the clicked movie
         moviesDataManager.setUpMovie(movie)
         requireView().findNavController()
             .navigate(MoviesFragmentDirections.actionMovieListToMovieDetailFragment())

@@ -10,7 +10,8 @@ import androidx.preference.PreferenceManager
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Header
 import com.kulloveth.moviesapp.models.Movie
-import java.util.HashSet
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -23,9 +24,14 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
 
     private val KEY_FAVORITES = "KEY_FAVORITES"
 
-    fun isFavorite(movie:Movie): Boolean {
+    /*
+    * keeps track of favorited movies
+    * */
+    fun isFavorite(movie: Movie): Boolean {
         return getFavorites(context)?.contains(movie.title) == true
     }
+
+    // setting up movies to pass between fragments
     private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
     val movieLiveData = _movieLiveData
 
@@ -56,12 +62,21 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
         _movieLiveData.value = movie
     }
 
-    fun saveList(key: String, mutableList: MutableList<String>, context: Context) {
+    /**
+     * save list of movie [titles]
+     * with a [key] with [PreferenceManager]
+     * as a set
+     * */
+    fun saveList(key: String, titles: MutableList<String>, context: Context) {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        sharedPrefs.putStringSet(key, mutableList.toHashSet())
+        sharedPrefs.putStringSet(key, titles.toHashSet())
         sharedPrefs.apply()
     }
 
+    /**
+     * add your favorite [movie]
+     * into the list of favorites]
+     * */
     fun addFavorite(movie: Movie, context: Context) {
         val favorites = getFavorites(context)
         favorites?.let {
@@ -73,6 +88,9 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     }
 
 
+    /*
+    * remove movie from list of favorites
+    * */
     fun removeFavorite(movie: Movie, context: Context) {
         val favorites = getFavorites(context)
         favorites?.let {
@@ -82,6 +100,11 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
         }
     }
 
+    /*
+    * get favorites from using saved
+    * titles in the sharedPreference
+    *
+    * */
     private fun getFavorites(context: Context): MutableList<String>? {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         val content = sharedPrefs.all
@@ -96,14 +119,18 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
         return movieList
     }
 
+    /*
+    * setup the favorite movies to be observed
+    * */
     fun getFavoriteMovies(context: Context): LiveData<List<Movie>>? {
-        _favoriteLiveData.value = getFavorites(context)?.mapNotNull { getCreatureByTitle(it) }
+        _favoriteLiveData.value = getFavorites(context)?.mapNotNull { getMovieByTitle(it) }
         Log.d("favl", "" + _favoriteLiveData.value)
         return _favoriteLiveData
 
     }
 
-    fun getCreatureByTitle(title: String) = movieList.firstOrNull { it.title == title }
+
+    fun getMovieByTitle(title: String) = movieList.firstOrNull { it.title == title }
 
 
     //fun getMovieList(): MutableList<Movie> = movieList
