@@ -2,9 +2,10 @@ package com.kulloveth.moviesapp.models
 
 data class Movie(
     val id: Int,
-    val title: String,
+    var title: String,
     val overview: String,
     val releaseDate: String,
     val image: Int,
-    val genre: String
+    val genre: String,
+    var isFavorite:Boolean = false
 )

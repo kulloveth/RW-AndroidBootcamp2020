@@ -1,22 +1,30 @@
 package com.kulloveth.moviesapp
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
+import com.kulloveth.moviesapp.favorites.FavoriteList
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Header
 import com.kulloveth.moviesapp.models.Movie
+import java.util.HashSet
 
 
 /**
- * This is a viewmodel that helps to
- * manage data and simplify the control of data
+ * This is a viewModel that helps to
+ * manage data and simplify retaining data
  * during configuration change
  * */
 class MoviesDataManager : ViewModel() {
 
+    private val KEY_FAVORITES = "KEY_FAVORITES"
     private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
     val movieLiveData = _movieLiveData
+
+    private val _favoriteLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
 
 
     /*
@@ -30,15 +38,8 @@ class MoviesDataManager : ViewModel() {
         val compositeItem = mutableListOf<CompositeItem>()
         genres.let {
             genres.forEach { genre ->
-                compositeItem.add(
-                    CompositeItem.withHeader(
-                        Header(
-                            genre
-                        )
-                    )
-                )
-                val movies =
-                    moviesByGenre.filter { it.genre == genre }.map { CompositeItem.withMovie(it) }
+                compositeItem.add(CompositeItem.withHeader(Header(genre)))
+                val movies = moviesByGenre.filter { it.genre == genre }.map { CompositeItem.withMovie(it) }
                 compositeItem.addAll(movies)
             }
         }
@@ -49,13 +50,61 @@ class MoviesDataManager : ViewModel() {
         _movieLiveData.value = movie
     }
 
+    fun saveList(key: String, mutableList: MutableList<String>, context: Context) {
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        sharedPrefs.putStringSet(key, mutableList.toHashSet())
+        sharedPrefs.apply()
+    }
+
+    fun addFavorite(movie: Movie, context: Context) {
+        val favorites = getFavorites(context)
+        favorites?.let {
+            movie.isFavorite = true
+            favorites.add(movie.title)
+            saveList(KEY_FAVORITES, favorites, context)
+            Log.d("favs", "" + favorites)
+        }
+    }
+
+
+    fun removeFavorite(movie: Movie, context: Context) {
+        val favorites = getFavorites(context)
+        favorites?.let {
+            movie.isFavorite = false
+            favorites.remove(movie.title)
+            saveList(KEY_FAVORITES, favorites, context)
+        }
+    }
+
+    private fun getFavorites(context: Context): MutableList<String>? {
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val content = sharedPrefs.all
+        val movieList = mutableListOf<String>()
+        for (movie in content) {
+            val taskItem = ArrayList(movie.value as HashSet<String>)
+            taskItem.forEach {
+                movieList.add(it)
+            }
+
+        }
+        return movieList
+    }
+
+    fun getFavoriteMovies(context: Context): LiveData<List<Movie>>? {
+        _favoriteLiveData.value = getFavorites(context)?.mapNotNull { getCreatureByTitle(it) }
+        Log.d("favl", "" + _favoriteLiveData.value)
+        return _favoriteLiveData
+
+    }
+
+    fun getCreatureByTitle(title: String) = movieList.firstOrNull { it.title == title }
+
 
     //fun getMovieList(): MutableList<Movie> = movieList
 
 
     // create  movie data
-    companion object {
-        val movieList = mutableListOf<Movie>(
+        val movieList = mutableListOf(
             Movie(
                 1,
                 "Artemis Fowl",
@@ -137,5 +186,4 @@ class MoviesDataManager : ViewModel() {
             )
 
         )
-    }
 }
