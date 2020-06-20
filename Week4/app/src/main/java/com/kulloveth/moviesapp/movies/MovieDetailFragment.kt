@@ -1,20 +1,18 @@
 package com.kulloveth.moviesapp.movies
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kulloveth.moviesapp.MoviesDataManager
-
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentMovieDetailBinding
-import com.kulloveth.moviesapp.favorites.FavoriteList
 import com.kulloveth.moviesapp.models.Movie
 
 /**
@@ -25,9 +23,7 @@ class MovieDetailFragment : Fragment() {
     lateinit var binding: FragmentMovieDetailBinding
     lateinit var moviesDataManager: MoviesDataManager
     lateinit var favoriteButton: FloatingActionButton
-    lateinit var movie: Movie
-    lateinit var favoriteList: FavoriteList
-    var movieList: ArrayList<String> = ArrayList()
+   var movie: Movie? = null
 
 
     override fun onCreateView(
@@ -51,6 +47,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun getMovies() {
         moviesDataManager.movieLiveData.observe(requireActivity(), Observer {
+            binding.toolbar.title = it.title
             movie = it
             binding.title.text = it.title
             binding.genre.text = it.genre
@@ -61,12 +58,12 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupFavoriteButton() {
-        setupFavoriteButtonImage(movie)
-        setupFavoriteButtonClickListener(movie)
+        movie?.let { setupFavoriteButtonImage(it) }
+        movie?.let { setupFavoriteButtonClickListener(it) }
     }
 
     private fun setupFavoriteButtonImage(movie: Movie) {
-        if (movie.isFavorite) {
+        if (moviesDataManager.isFavorite(movie)) {
             favoriteButton.setImageDrawable(
                 getDrawable(
                     requireActivity(),
@@ -85,7 +82,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun setupFavoriteButtonClickListener(movie: Movie) {
         favoriteButton.setOnClickListener {
-            if (movie.isFavorite) {
+            if (moviesDataManager.isFavorite(movie)) {
                 favoriteButton.setImageDrawable(
                     getDrawable(
                         requireActivity(),

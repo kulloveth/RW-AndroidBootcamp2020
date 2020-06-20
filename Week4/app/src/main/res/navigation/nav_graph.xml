@@ -18,7 +18,11 @@
         android:id="@+id/favorite_list"
         android:name="com.kulloveth.moviesapp.favorites.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favorite_list_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.kulloveth.moviesapp.movies.MovieDetailFragment"

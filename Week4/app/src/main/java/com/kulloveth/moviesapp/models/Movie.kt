@@ -8,4 +8,7 @@ data class Movie(
     val image: Int,
     val genre: String,
     var isFavorite:Boolean = false
-)
+){
+    val thumbnail: String
+        get() = "drawable/image"
+}

@@ -1,11 +1,17 @@
 package com.kulloveth.moviesapp.movies
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.databinding.HeaderLayoutBinding
 import com.kulloveth.moviesapp.databinding.MovieListItemsBinding
@@ -62,12 +68,15 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
     }
 
 
+
+
     /**
      * A class responsible for creating and managing the view items
      * @param binding helps with easy reference to the views
      * eliminating findViewById
      * */
     class ViewHolder(var binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
+
 
 
         /**
@@ -80,11 +89,44 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
                 headerLayoutBinding.title.text = compositeItem.header.name
             } else {
                 val movieBinding: MovieListItemsBinding = binding as MovieListItemsBinding
-                movieBinding.title.text = compositeItem.movie.title
+                val context = itemView.context
+                val imageResource = context.resources.getIdentifier(compositeItem.movie.thumbnail, null, context.packageName)
                 movieBinding.moviePoster.setImageResource(compositeItem.movie.image)
+                movieBinding.title.text = compositeItem.movie.title
+                //setBackgroundColors(context, imageResource)
             }
         }
+
+        private fun setBackgroundColors(context: Context, imageResource: Int) {
+            val movieBinding: MovieListItemsBinding = binding as MovieListItemsBinding
+            val image = BitmapFactory.decodeResource(context.resources, imageResource)
+            Palette.from(image).generate { palette ->
+                val backgroundColor =
+                    palette?.getDominantColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.primaryDarkColor
+                        )
+                    )
+                backgroundColor?.let {
+                    movieBinding.movieCardContainer.setBackgroundColor(it) }
+                //itemView.nameHolder.setBackgroundColor(backgroundColor)
+                val textColor =
+                    if (backgroundColor?.let { isColorDark(it) }!!) Color.WHITE else Color.BLACK
+                movieBinding.title.setTextColor(textColor)
+            }
+        }
+
+        fun isColorDark(color: Int): Boolean {
+            val darkness =
+                1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(
+                    color
+                )) / 255
+            return darkness >= 0.5
+        }
     }
+
+
 
     /**
      * a special class to differentiate between the header and the items

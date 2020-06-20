@@ -1,5 +1,6 @@
 package com.kulloveth.moviesapp.favorites
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.moviesapp.MoviesDataManager
@@ -16,11 +19,7 @@ import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentFavoriteBinding
 import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.movies.MovieAdapter
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.kulloveth.moviesapp.movies.MoviesFragmentDirections
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +35,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
     }
 
@@ -44,7 +44,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentFavoriteBinding.inflate(inflater,container,false)
+        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -52,22 +52,36 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        binding.contentLayout.toolbar.title = "Favorite Movies"
         recyclerView = binding.contentLayout.showMoviesRv
         moviesDataManager = ViewModelProvider(this).get(MoviesDataManager::class.java)
 
         adapter = FavoriteAdapter(this)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        recyclerView.adapter = adapter
-        moviesDataManager.getFavoriteMovies(requireActivity())
-            ?.observe(requireActivity(), Observer {
-                Log.d("fav",""+it)
-                adapter.submitList(it)
-            })
+        bindDataToRecyclerView()
+
 
     }
 
-    override fun movieItemCLicked(movie: Movie) {
 
+    fun bindDataToRecyclerView() {
+        if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity())
+        } else {
+
+            val layoutManager =
+                GridLayoutManager(requireActivity(), 2)
+            recyclerView.layoutManager = layoutManager
+        }
+        recyclerView.adapter = adapter
+        moviesDataManager.getFavoriteMovies(requireActivity())
+            ?.observe(requireActivity(), Observer {
+                Log.d("fav", "" + it)
+                adapter.submitList(it)
+            })
+    }
+
+    override fun movieItemCLicked(movie: Movie) {
     }
 
 

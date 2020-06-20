@@ -29,6 +29,8 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     lateinit var recyclerView: RecyclerView
     lateinit var binding: FragmentMoviesBinding
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +43,8 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        binding.contentLayout.toolbar.title = "Movies"
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
         bindMoviesRecyclerView()
 
@@ -54,8 +58,18 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
             recyclerView.layoutManager =
                 LinearLayoutManager(requireActivity())
         } else {
-            recyclerView.layoutManager =
+
+            val layoutManager =
                 GridLayoutManager(requireActivity(), 2)
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                 return  when (adapter.getItemViewType(position)) {
+                        0 -> 2
+                        else -> 1
+                    }
+                }
+            }
+            recyclerView.layoutManager = layoutManager
         }
 
         adapter.submitList(moviesDataManager.getMovieComposites())
@@ -64,7 +78,8 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
     override fun movieItemCLicked(movie: Movie) {
         moviesDataManager.setUpMovie(movie)
-        requireView().findNavController().navigate(R.id.action_movie_list_to_movieDetailFragment)
+        requireView().findNavController()
+            .navigate(MoviesFragmentDirections.actionMovieListToMovieDetailFragment())
     }
 
 }
