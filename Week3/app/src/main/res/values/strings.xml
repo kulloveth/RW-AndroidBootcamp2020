@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">BusinessCard</string>
+    <string name="python_language">Python</string>
+    <string name="java_language">Java</string>
+    <string name="kotlin_language">Kotlin</string>
+
+    <!--    about java-->
+    <string name="why_java">The name java was inspired by a coffee</string>
+    <string name="java_usages">Java can be used for mobile,web,desktop,games,database and more</string>
+    <string name="java_type">Java is an object oriented programming language</string>
+    <string name="java_variable_declarations">To create a variable in java you must specify the type</string>
+    <string name="java_data_types">Java types can be either primitive or non-primitive</string>
+
+    <!--    about python-->
+    <string name="why_python">The name python was inspired by a comedy series</string>
+    <string name="python_usages">Python can be used for web servers,mathematics,scripting and more</string>
+    <string name="python_style">Python uses indentation to indicate a block of code</string>
+    <string name="python_comment">Comments in python can be # or multiline string</string>
+    <string name="python_collections">Python collections include List, Tuple,Set,Dictionary</string>
+
+    <!--    about kotlin-->
+    <string name="why_kotlin">Kotlin is concise, safe, interoperable and friendly</string>
+    <string name="kotlin_usages">kotlin can be used for mobile,data science,web and more</string>
+    <string name="main">An entry point of a kotlin application is the main function</string>
+    <string name="variable">You can declare variable with var and val</string>
+    <string name="aim">Kotlin is aimed at eliminating Null pointer exceptions</string>
+</resources>
