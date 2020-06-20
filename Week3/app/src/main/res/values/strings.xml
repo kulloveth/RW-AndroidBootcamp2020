@@ -24,4 +24,8 @@
     <string name="main">An entry point of a kotlin application is the main function</string>
     <string name="variable">You can declare variable with var and val</string>
     <string name="aim">Kotlin is aimed at eliminating Null pointer exceptions</string>
+    <string name="language">Language</string>
+    <string name="address">Address</string>
+    <string name="tips">Tips</string>
+    <string name="about">About</string>
 </resources>
