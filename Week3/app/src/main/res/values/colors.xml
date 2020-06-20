@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#776ddd</color>
-    <color name="colorPrimaryDark">#0076cb</color>
+    <color name="colorPrimaryDark">#556ddd</color>
     <color name="colorAccent">#78d5ff</color>
 
     <color name="javaPrimaryColor">#5281a1</color>
@@ -9,5 +9,6 @@
     <color name="javaColorAccent">#f0951a</color>
 
     <color name="pythonColorPrimary">#4378a4</color>
+    <color name="pythonColorPrimaryDark">#2a5174</color>
     <color name="pythonColorAccent">#f7d138</color>
 </resources>

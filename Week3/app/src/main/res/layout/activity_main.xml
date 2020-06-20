@@ -22,7 +22,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:titleTextColor="@android:color/white" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -51,9 +52,12 @@
 
                 <TextView
                     android:id="@+id/language_tv"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/underdog"
+                    android:textSize="@dimen/eigtheen_sp"
                     tools:text="@string/kotlin_language" />
             </LinearLayout>
 
@@ -62,9 +66,12 @@
 
         <TextView
             android:id="@+id/language_tips_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dp"
             android:layout_marginTop="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:fontFamily="@font/underdog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/language_cv"
@@ -76,22 +83,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="405dp" />
+            app:layout_constraintGuide_begin="350dp" />
 
         <TextView
             android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            style="@style/address_style"
+            android:text="@string/chidi_loveth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline"
-            tools:text="Loveth" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:id="@+id/location_iv"
+            style="@style/address_style"
             android:contentDescription="@string/address"
             android:src="@drawable/ic_location_on_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/address_tv"
@@ -99,18 +103,14 @@
 
         <TextView
             android:id="@+id/address_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_tv"
-            tools:text="Lagos Nigeria" />
+            style="@style/address_style"
+            android:text="@string/my_address"
+            app:layout_constraintStart_toStartOf="@id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/name_tv" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
+            android:id="@+id/email_iv"
+            style="@style/address_style"
             android:contentDescription="@string/address"
             android:src="@drawable/ic_email_black_24dp"
             app:layout_constraintEnd_toStartOf="@id/email_tv"
@@ -118,20 +118,20 @@
 
         <TextView
             android:id="@+id/email_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/eight_dp"
-            app:layout_constraintStart_toStartOf="@id/address_tv"
-            app:layout_constraintTop_toBottomOf="@+id/address_tv"
-            tools:text="Loveth@gmail.com" />
+            style="@style/address_style"
+            android:fontFamily="@font/underdog"
+            android:text="@string/my_email"
+            app:layout_constraintStart_toStartOf="@id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/address_tv" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/tips_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sixteen_dp"
+            android:text="@string/tips"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/tips"
-            android:layout_marginTop="@dimen/sixteen_dp"
             app:layout_constraintTop_toBottomOf="@id/email_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
