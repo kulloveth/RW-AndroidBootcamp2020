@@ -1,15 +1,59 @@
 package com.kulloveth.moviesapp
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kulloveth.moviesapp.movies.Movie
+import com.kulloveth.moviesapp.models.CompositeItem
+import com.kulloveth.moviesapp.models.Header
+import com.kulloveth.moviesapp.models.Movie
 
+
+/**
+ * This is a viewmodel that helps to
+ * manage data and simplify the control of data
+ * during configuration change
+ * */
 class MoviesDataManager : ViewModel() {
 
+    private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
+    val movieLiveData = _movieLiveData
 
-    fun getMovieList(): MutableList<Movie> {
-        return movieList
+
+    /*
+    * this method sorts  the movies and arrange
+    * according to its genres
+    * */
+    fun getMovieComposites(): List<CompositeItem>? {
+        val moviesByGenre = movieList.sortedBy { it.genre }
+        val genres = moviesByGenre.map { it.genre }.distinct()
+
+        val compositeItem = mutableListOf<CompositeItem>()
+        genres.let {
+            genres.forEach { genre ->
+                compositeItem.add(
+                    CompositeItem.withHeader(
+                        Header(
+                            genre
+                        )
+                    )
+                )
+                val movies =
+                    moviesByGenre.filter { it.genre == genre }.map { CompositeItem.withMovie(it) }
+                compositeItem.addAll(movies)
+            }
+        }
+        return compositeItem
     }
 
+    fun setUpMovie(movie: Movie) {
+        _movieLiveData.value = movie
+    }
+
+
+    //fun getMovieList(): MutableList<Movie> = movieList
+
+
+    // create  movie data
     companion object {
         val movieList = mutableListOf<Movie>(
             Movie(

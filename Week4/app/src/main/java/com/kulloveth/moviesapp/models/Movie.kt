@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.movies
+package com.kulloveth.moviesapp.models
 
 data class Movie(
     val id: Int,

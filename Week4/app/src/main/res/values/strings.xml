@@ -6,4 +6,6 @@
     <string name="movies">Movies</string>
     <string name="favorites">Favorites</string>
     <string name="movie_poster">Movie Poster</string>
+    <string name="released_date">Released Date :</string>
+    <string name="genre">Genre</string>
 </resources>

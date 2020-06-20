@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/movie_poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/movie_poster_height"
             android:contentDescription="@string/movie_poster"
             android:scaleType="centerCrop"
             android:src="@drawable/the_hobbit" />
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/sixteen_dp"
+            android:layout_marginTop="@dimen/padding_standard"
             android:textSize="@dimen/eighteen_sp"
             android:textStyle="bold"
             tools:text="Movie Title" />

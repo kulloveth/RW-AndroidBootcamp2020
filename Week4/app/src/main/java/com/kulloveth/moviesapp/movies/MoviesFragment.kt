@@ -1,22 +1,28 @@
 package com.kulloveth.moviesapp.movies
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.kulloveth.moviesapp.MoviesDataManager
-
 import com.kulloveth.moviesapp.R
+
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
+import com.kulloveth.moviesapp.models.Movie
+
 
 /**
  * A simple [Fragment] subclass.
  */
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
     lateinit var adapter: MovieAdapter
     lateinit var moviesDataManager: MoviesDataManager
@@ -35,15 +41,30 @@ class MoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
+        bindMoviesRecyclerView()
 
-        adapter = MovieAdapter()
+    }
+
+    //bind data to adapter and recyclerview
+    private fun bindMoviesRecyclerView() {
+        adapter = MovieAdapter(this)
         recyclerView = binding.contentLayout.showMoviesRv
-        recyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        moviesDataManager = ViewModelProvider(this).get(MoviesDataManager::class.java)
-        adapter.submitList(moviesDataManager.getMovieList())
-        recyclerView.adapter = adapter
+        if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity())
+        } else {
+            recyclerView.layoutManager =
+                GridLayoutManager(requireActivity(), 2)
+        }
 
+        adapter.submitList(moviesDataManager.getMovieComposites())
+        recyclerView.adapter = adapter
+    }
+
+    override fun movieItemCLicked(movie: Movie) {
+        moviesDataManager.setUpMovie(movie)
+        requireView().findNavController().navigate(R.id.action_movie_list_to_movieDetailFragment)
     }
 
 }
