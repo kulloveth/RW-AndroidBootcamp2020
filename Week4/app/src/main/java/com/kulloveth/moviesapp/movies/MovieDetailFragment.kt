@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -25,10 +22,16 @@ import com.kulloveth.moviesapp.models.Movie
  */
 class MovieDetailFragment : Fragment() {
 
-    lateinit var binding: FragmentMovieDetailBinding
-    lateinit var moviesDataManager: MoviesDataManager
-    lateinit var favoriteButton: FloatingActionButton
+    var binding: FragmentMovieDetailBinding? = null
+    var moviesDataManager: MoviesDataManager? = null
+    var favoriteButton: FloatingActionButton? = null
     var movie: Movie? = null
+    var favorite: Boolean? = null
+    var mOverview: String? = null
+    var mTitle: String? = null
+    var mGenre: String? = null
+    var mPoster: Int? = null
+    var mDate: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +45,7 @@ class MovieDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-        val view = binding.root
+        val view = binding?.root
         return view
     }
 
@@ -50,48 +53,70 @@ class MovieDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val toolbar = binding.toolbar
+
+        if (savedInstanceState != null){
+            favorite = savedInstanceState.getBoolean("movie_isFavourite")
+        }
+        arguments?.let {
+            mTitle = it.getString("movie_title")
+            mGenre = it.getString("movie_genre")
+            mOverview = it.getString("movie_overview")
+            mDate = it.getString("movie_date")
+            mPoster = it.getInt("movie_poster")
+            favorite = it.getBoolean("movie_isFavourite")
+        }
+        val toolbar = binding?.toolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener {
+        toolbar?.setNavigationOnClickListener {
             requireView().findNavController()
                 .navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToMovieList())
         }
-        favoriteButton = binding.favoriteBtn
+        favoriteButton = binding?.favoriteBtn
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
-
+        moviesDataManager?.movieLiveData?.observe(requireActivity(), Observer {
+            //favorite = moviesDataManager?.isFavorite(it)
+            movie = it
+        })
         getMovies()
         setupFavoriteButton()
+
     }
 
     //set movie detail
     private fun getMovies() {
-        //observing movie items from the viewmodel
-        moviesDataManager.movieLiveData.observe(requireActivity(), Observer {
-            binding.toolbar.title = it.title
-            movie = it
-            binding.title.text = it.title
-            binding.genre.text = it.genre
-            binding.overview.text = it.overview
-            binding.releaseDate.text = it.releaseDate
-            binding.moviePoster.setImageResource(it.image)
-        })
+
+
+        binding?.apply {
+            toolbar.title = mTitle
+            title.text = mTitle
+            genre.text = mGenre
+            overview.text = mOverview
+            releaseDate.text = mDate
+            mPoster?.let {
+                moviePoster.setImageResource(it)
+            }
+
+        }
+
     }
 
     private fun setupFavoriteButton() {
-        movie?.let { setupFavoriteButtonImage(it) }
-        movie?.let { setupFavoriteButtonClickListener(it) }
+        movie?.apply {
+            setupFavoriteButtonImage()
+            setupFavoriteButtonClickListener(this)
+        }
     }
 
-    private fun setupFavoriteButtonImage(movie: Movie) {
-        if (moviesDataManager.isFavorite(movie)) {
-            favoriteButton.setImageDrawable(
+    private fun setupFavoriteButtonImage() {
+        if (favorite == true) {
+            favoriteButton?.setImageDrawable(
                 getDrawable(
                     requireActivity(),
                     R.drawable.ic_favorite_black_24dp
                 )
             )
         } else {
-            favoriteButton.setImageDrawable(
+            favoriteButton?.setImageDrawable(
                 getDrawable(
                     requireActivity(),
                     R.drawable.ic_favorite_border_black_24dp
@@ -104,32 +129,34 @@ class MovieDetailFragment : Fragment() {
      * setup favorite onclick listener checking
      * */
     private fun setupFavoriteButtonClickListener(movie: Movie) {
-        favoriteButton.setOnClickListener {
-            if (moviesDataManager.isFavorite(movie)) {
-                favoriteButton.setImageDrawable(
+        favoriteButton?.setOnClickListener {
+            if (favorite == true) {
+                favoriteButton?.setImageDrawable(
                     getDrawable(
                         requireActivity(),
                         R.drawable.ic_favorite_border_black_24dp
                     )
                 )
-                moviesDataManager.removeFavorite(movie, requireActivity())
+                moviesDataManager?.removeFavorite(movie, requireActivity())
                 Snackbar.make(requireView(), getString(R.string.unlike), Snackbar.LENGTH_SHORT)
                     .show()
             } else {
-                favoriteButton.setImageDrawable(
+                favoriteButton?.setImageDrawable(
                     getDrawable(
                         requireActivity(),
                         R.drawable.ic_favorite_black_24dp
                     )
                 )
-                moviesDataManager.addFavorite(movie, requireActivity())
+                moviesDataManager?.addFavorite(movie, requireActivity())
                 Snackbar.make(requireView(), getString(R.string.like), Snackbar.LENGTH_SHORT).show()
             }
         }
     }
 
 
-
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("movie_isFavourite",favorite!!)
+    }
 
 }

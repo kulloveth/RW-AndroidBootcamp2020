@@ -38,7 +38,7 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
         holder.bind(getItem(position))
         //setup click listener passing the movie through an interface
         holder.itemView.setOnClickListener {
-            movieItemCLickedListener.movieItemCLicked(getItem(position).movie)
+            getItem(position).movie?.let { it1 -> movieItemCLickedListener.movieItemCLicked(it1) }
         }
     }
 
@@ -59,7 +59,7 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
      * */
     class MovieDiffCallBack : DiffUtil.ItemCallback<CompositeItem>() {
         override fun areItemsTheSame(oldItem: CompositeItem, newItem: CompositeItem): Boolean {
-            return oldItem.movie.id == newItem.movie.id
+            return oldItem.movie?.id == newItem.movie?.id
         }
 
         override fun areContentsTheSame(oldItem: CompositeItem, newItem: CompositeItem): Boolean {
@@ -84,17 +84,17 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
         fun bind(compositeItem: CompositeItem) {
             if (compositeItem.isHeader) {
                 val headerLayoutBinding: HeaderLayoutBinding = binding as HeaderLayoutBinding
-                headerLayoutBinding.title.text = compositeItem.header.name
+                headerLayoutBinding.title.text = compositeItem.header?.name
             } else {
                 val movieBinding: MovieListItemsBinding = binding as MovieListItemsBinding
                 val context = itemView.context
                 val imageResource = context.resources.getIdentifier(
-                    compositeItem.movie.image.toString(),
+                    compositeItem.movie?.image.toString(),
                     null,
                     context.packageName
                 )
                 movieBinding.moviePoster.setImageResource(imageResource)
-                movieBinding.title.text = compositeItem.movie.title
+                movieBinding.title.text = compositeItem.movie?.title
                 setBackgroundColors(context, imageResource)
             }
         }

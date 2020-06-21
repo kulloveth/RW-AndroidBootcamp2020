@@ -15,14 +15,17 @@ import kotlin.collections.ArrayList
 
 
 /**
- * This is a viewModel that helps to
+ * This is a viewModel class that helps to
  * manage data and simplify retaining data
  * during configuration change
  * */
 class MoviesDataManager(application: Application) : AndroidViewModel(application) {
+
+
+    private val TAG = MoviesDataManager::class.java.simpleName
     val context = application.applicationContext
 
-    private val KEY_FAVORITES = "KEY_FAVORITES"
+    val KEY_FAVORITES = "KEY_FAVORITES"
 
     /*
     * keeps track of favorited movies
@@ -83,7 +86,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
             movie.isFavorite = true
             favorites.add(movie.title)
             saveList(KEY_FAVORITES, favorites, context)
-            Log.d("favs", "" + favorites)
+            Log.d(TAG, "$favorites")
         }
     }
 
@@ -124,7 +127,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     * */
     fun getFavoriteMovies(context: Context): LiveData<List<Movie>>? {
         _favoriteLiveData.value = getFavorites(context)?.mapNotNull { getMovieByTitle(it) }
-        Log.d("favl", "" + _favoriteLiveData.value)
+        Log.d(TAG, "${_favoriteLiveData.value}")
         return _favoriteLiveData
 
     }

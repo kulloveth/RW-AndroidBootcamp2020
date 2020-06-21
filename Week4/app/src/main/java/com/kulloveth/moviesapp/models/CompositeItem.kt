@@ -1,10 +1,12 @@
 package com.kulloveth.moviesapp.models
 
+
+
 class CompositeItem {
-    lateinit var movie: Movie
+     var movie: Movie? = null
         private set
 
-    lateinit var header: Header
+     var header: Header? = null
         private set
 
     var isHeader = false
@@ -27,7 +29,7 @@ class CompositeItem {
     }
 
     override fun toString(): String {
-        return if (isHeader) header.name else movie.title
+        return (if (isHeader) header?.name else movie?.title) as String
     }
 }
 

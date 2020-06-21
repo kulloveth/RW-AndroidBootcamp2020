@@ -5,8 +5,8 @@
     android:id="@+id/movie_card_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/four_dp"
     android:layout_margin="@dimen/padding_standard"
+    app:cardCornerRadius="@dimen/four_dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/padding_standard"
-            android:textSize="@dimen/eighteen_sp"
+            android:fontFamily="@font/montserrat_bold"
             android:textStyle="bold"
             tools:text="Movie Title" />
 

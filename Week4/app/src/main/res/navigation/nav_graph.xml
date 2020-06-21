@@ -35,5 +35,26 @@
             app:destination="@id/movie_list"
             app:popUpTo="@id/movie_list"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="movie_title"
+            app:argType="string" />
+        <argument
+            android:name="movie_isFavourite"
+            app:argType="boolean" />
+        <argument
+            android:name="movie_genre"
+            app:argType="string" />
+        <argument
+            android:name="movie_id"
+            app:argType="integer" />
+        <argument
+            android:name="movie_overview"
+            app:argType="string" />
+        <argument
+            android:name="movie_date"
+            app:argType="string" />
+        <argument
+            android:name="movie_poster"
+            app:argType="integer" />
     </fragment>
 </navigation>

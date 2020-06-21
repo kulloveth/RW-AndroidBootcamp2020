@@ -12,9 +12,8 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@android:color/white"
+            style="@style/toolbar_layout" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

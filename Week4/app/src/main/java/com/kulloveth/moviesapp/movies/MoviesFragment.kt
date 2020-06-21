@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.moviesapp.MoviesDataManager
+import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
 import com.kulloveth.moviesapp.models.Movie
 
 
 class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
-    lateinit var adapter: MovieAdapter
-    lateinit var moviesDataManager: MoviesDataManager
-    lateinit var recyclerView: RecyclerView
-    lateinit var binding: FragmentMoviesBinding
-
+    var adapter: MovieAdapter? = null
+    var moviesDataManager: MoviesDataManager? = null
+    var recyclerView: RecyclerView? = null
+    var binding: FragmentMoviesBinding? = null
 
 
     override fun onCreateView(
@@ -31,14 +31,14 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMoviesBinding.inflate(layoutInflater)
-        val view = binding.root
+        val view = binding?.root
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.contentLayout.toolbar.title = "Movies"
+        binding?.contentLayout?.toolbar?.title = getString(R.string.movies)
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
         bindMoviesRecyclerView()
 
@@ -47,9 +47,9 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     //bind data to adapter and recyclerview
     private fun bindMoviesRecyclerView() {
         adapter = MovieAdapter(this)
-        recyclerView = binding.contentLayout.showMoviesRv
+        recyclerView = binding?.contentLayout?.showMoviesRv
         if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView.layoutManager =
+            recyclerView?.layoutManager =
                 LinearLayoutManager(requireActivity())
         } else {
 
@@ -57,24 +57,25 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                 GridLayoutManager(requireActivity(), 2)
             layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
-                 return  when (adapter.getItemViewType(position)) {
+                    return when (adapter?.getItemViewType(position)) {
                         0 -> 2
                         else -> 1
                     }
                 }
             }
-            recyclerView.layoutManager = layoutManager
+            recyclerView?.layoutManager = layoutManager
         }
 
-        adapter.submitList(moviesDataManager.getMovieComposites())
-        recyclerView.adapter = adapter
+        adapter?.submitList(moviesDataManager?.getMovieComposites())
+        recyclerView?.adapter = adapter
     }
 
     override fun movieItemCLicked(movie: Movie) {
         //used to get the clicked movie
-        moviesDataManager.setUpMovie(movie)
+        moviesDataManager?.setUpMovie(movie)
+        movie.isFavorite  = moviesDataManager?.isFavorite(movie)!!
         requireView().findNavController()
-            .navigate(MoviesFragmentDirections.actionMovieListToMovieDetailFragment())
+            .navigate(MoviesFragmentDirections.actionMovieListToMovieDetailFragment(movie.title,movie.isFavorite,movie.genre,movie.id,movie.overview,movie.releaseDate,movie.image))
     }
 
 }

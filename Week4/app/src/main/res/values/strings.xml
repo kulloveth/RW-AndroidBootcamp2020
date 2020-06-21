@@ -47,4 +47,5 @@
     <string name="avenger_genre">Thriller</string>
     <string name="unlike">You Unliked a movie</string>
     <string name="like">You Liked a movie</string>
+    <string name="no_like">You have not liked any Movie</string>
 </resources>

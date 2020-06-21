@@ -31,8 +31,8 @@
             android:id="@+id/movie_poster"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/movie_poster_height"
-            android:layout_marginTop="@dimen/padding_standard"
             android:layout_marginStart="@dimen/padding_standard"
+            android:layout_marginTop="@dimen/padding_standard"
             android:contentDescription="@string/movie_poster"
             android:scaleType="centerCrop"
             android:src="@drawable/the_hobbit"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_standard"
-            android:textSize="@dimen/eighteen_sp"
+            android:fontFamily="@font/montserrat_bold"
             app:layout_constraintEnd_toEndOf="@id/movie_poster"
             app:layout_constraintStart_toStartOf="@id/movie_poster"
             app:layout_constraintTop_toBottomOf="@id/movie_poster"
@@ -60,11 +60,11 @@
         <View
             android:layout_width="@dimen/movie_poster_height"
             android:layout_height="@dimen/view_height"
+            android:layout_marginTop="@dimen/padding_standard"
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="@id/movie_poster"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/padding_standard"
-            app:layout_constraintTop_toBottomOf="@id/title"/>
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <LinearLayout
             android:id="@+id/container_linear"
@@ -83,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/genre_margin"
                 android:background="@drawable/genre_backgrouund"
+                android:fontFamily="@font/montserrat"
                 tools:text="22-5-20" />
 
             <TextView
@@ -91,9 +92,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableTop="@drawable/ic_date_range_black_24dp"
+                android:fontFamily="@font/montserrat"
+                android:paddingStart="@dimen/padding_standard"
                 android:paddingTop="@dimen/padding_standard"
                 android:paddingBottom="@dimen/padding_standard"
-                android:paddingStart="@dimen/padding_standard"
                 tools:text="Drama" />
         </LinearLayout>
 
@@ -103,11 +105,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_standard"
             android:layout_marginEnd="@dimen/padding_standard"
+            android:fontFamily="@font/montserrat"
             android:paddingStart="@dimen/padding_standard"
+            app:layout_constraintBottom_toBottomOf="@id/movie_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/movie_poster"
             app:layout_constraintTop_toTopOf="@id/movie_poster"
-            app:layout_constraintBottom_toBottomOf="@id/movie_poster"
             tools:text="overview" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
