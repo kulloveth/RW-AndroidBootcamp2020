@@ -1,5 +1,7 @@
 package com.kulloveth.moviesapp.movies
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +39,9 @@ class MovieDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setupFavoriteButton()
+
+
     }
 
     override fun onCreateView(
@@ -54,9 +59,6 @@ class MovieDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        if (savedInstanceState != null){
-            favorite = savedInstanceState.getBoolean("movie_isFavourite")
-        }
         arguments?.let {
             mTitle = it.getString("movie_title")
             mGenre = it.getString("movie_genre")
@@ -78,7 +80,7 @@ class MovieDetailFragment : Fragment() {
             movie = it
         })
         getMovies()
-        setupFavoriteButton()
+        //setupFavoriteButton()
 
     }
 
@@ -154,9 +156,38 @@ class MovieDetailFragment : Fragment() {
     }
 
 
+    override fun onPause() {
+        super.onPause()
+        setupFavoriteButton()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupFavoriteButton()
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        setupFavoriteButton()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        setupFavoriteButton()
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            favorite = savedInstanceState.getBoolean("movie_isFavourite")
+        }else{
+            setupFavoriteButton()
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("movie_isFavourite",favorite!!)
     }
-
 }
