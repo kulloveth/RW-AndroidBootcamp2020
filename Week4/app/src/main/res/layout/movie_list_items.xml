@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/four_dp"
+    android:layout_margin="@dimen/padding_standard"
     app:cardUseCompatPadding="true">
 
     <LinearLayout

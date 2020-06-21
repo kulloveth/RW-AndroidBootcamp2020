@@ -10,5 +10,5 @@ data class Movie(
     var isFavorite:Boolean = false
 ){
     val thumbnail: String
-        get() = "drawable/image"
+        get() = "drawable/thumbnail_$image"
 }

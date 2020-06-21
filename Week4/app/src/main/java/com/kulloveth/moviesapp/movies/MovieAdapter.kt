@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.kulloveth.moviesapp.R
-import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.databinding.HeaderLayoutBinding
 import com.kulloveth.moviesapp.databinding.MovieListItemsBinding
+import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Movie
+
 
 class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
     ListAdapter<CompositeItem, MovieAdapter.ViewHolder>(MovieDiffCallBack()) {
@@ -68,15 +69,12 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
     }
 
 
-
-
     /**
      * A class responsible for creating and managing the view items
      * @param binding helps with easy reference to the views
      * eliminating findViewById
      * */
     class ViewHolder(var binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
-
 
 
         /**
@@ -90,13 +88,22 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
             } else {
                 val movieBinding: MovieListItemsBinding = binding as MovieListItemsBinding
                 val context = itemView.context
-                val imageResource = context.resources.getIdentifier(compositeItem.movie.thumbnail, null, context.packageName)
-                movieBinding.moviePoster.setImageResource(compositeItem.movie.image)
+                val imageResource = context.resources.getIdentifier(
+                    compositeItem.movie.image.toString(),
+                    null,
+                    context.packageName
+                )
+                movieBinding.moviePoster.setImageResource(imageResource)
                 movieBinding.title.text = compositeItem.movie.title
-                //setBackgroundColors(context, imageResource)
+                setBackgroundColors(context, imageResource)
             }
         }
 
+        /**
+         * creating a background color same as the image
+         * for its sourrounding using
+         * the [imageResource]
+         * */
         private fun setBackgroundColors(context: Context, imageResource: Int) {
             val movieBinding: MovieListItemsBinding = binding as MovieListItemsBinding
             val image = BitmapFactory.decodeResource(context.resources, imageResource)
@@ -109,13 +116,15 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
                         )
                     )
                 backgroundColor?.let {
-                    movieBinding.movieCardContainer.setBackgroundColor(it) }
-                //itemView.nameHolder.setBackgroundColor(backgroundColor)
+                    movieBinding.movieCardContainer.setBackgroundColor(it)
+                }
                 val textColor =
                     if (backgroundColor?.let { isColorDark(it) }!!) Color.WHITE else Color.BLACK
                 movieBinding.title.setTextColor(textColor)
+
             }
         }
+
 
         fun isColorDark(color: Int): Boolean {
             val darkness =
@@ -125,7 +134,6 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
             return darkness >= 0.5
         }
     }
-
 
 
     /**

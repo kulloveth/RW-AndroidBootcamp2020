@@ -3,7 +3,7 @@
     <dimen name="padding_standard">16dp</dimen>
     <dimen name="eighteen_sp">18sp</dimen>
     <dimen name="four_dp">4dp</dimen>
-    <dimen name="sixty_dp">60dp</dimen>
+    <dimen name="header_layout_height">40dp</dimen>
     <dimen name="movie_poster_height">200dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
 </resources>

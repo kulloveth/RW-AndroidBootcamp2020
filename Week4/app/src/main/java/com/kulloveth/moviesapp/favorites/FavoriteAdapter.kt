@@ -1,10 +1,16 @@
 package com.kulloveth.moviesapp.favorites
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.MovieListItemsBinding
 import com.kulloveth.moviesapp.models.Movie
 
@@ -60,8 +66,48 @@ class FavoriteAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
          * viewholder using the [movie] class created for the purpose
          * */
         fun bind(movie: Movie) {
+            val context = itemView.context
+            val imageResource = context.resources.getIdentifier(
+                movie.image.toString(),
+                null,
+                context.packageName
+            )
+            movieListItemsBinding.moviePoster.setImageResource(imageResource)
             movieListItemsBinding.title.text = movie.title
-            movieListItemsBinding.moviePoster.setImageResource(movie.image)
+            setBackgroundColors(context, imageResource)
+        }
+        /**
+         * creating a background color same as the image
+         * for its sourrounding using
+         * the [imageResource]
+         * */
+        private fun setBackgroundColors(context: Context, imageResource: Int) {
+            val image = BitmapFactory.decodeResource(context.resources, imageResource)
+            Palette.from(image).generate { palette ->
+                val backgroundColor =
+                    palette?.getDominantColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.primaryDarkColor
+                        )
+                    )
+                backgroundColor?.let {
+                    movieListItemsBinding.movieCardContainer.setBackgroundColor(it)
+                }
+                val textColor =
+                    if (backgroundColor?.let { isColorDark(it) }!!) Color.WHITE else Color.BLACK
+                movieListItemsBinding.title.setTextColor(textColor)
+
+            }
+        }
+
+
+        fun isColorDark(color: Int): Boolean {
+            val darkness =
+                1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(
+                    color
+                )) / 255
+            return darkness >= 0.5
         }
 
     }

@@ -2,16 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/sixty_dp"
+    android:layout_height="@dimen/header_layout_height"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
+        android:textColor="@color/primaryDarkColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/padding_standard"
-        android:layout_marginBottom="@dimen/padding_standard"
         android:textSize="@dimen/eighteen_sp"
         android:textStyle="bold"
         tools:text="Genre" />
