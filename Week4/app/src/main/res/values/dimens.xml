@@ -6,4 +6,7 @@
     <dimen name="header_layout_height">40dp</dimen>
     <dimen name="movie_poster_height">200dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
+    <dimen name="half_standard">8dp</dimen>
+    <dimen name="genre_margin">20dp</dimen>
+    <dimen name="view_height">1dp</dimen>
 </resources>
