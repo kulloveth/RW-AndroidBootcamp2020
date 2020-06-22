@@ -73,9 +73,8 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     override fun movieItemCLicked(movie: Movie) {
         //used to get the clicked movie
         moviesDataManager?.setUpMovie(movie)
-        movie.isFavorite  = moviesDataManager?.isFavorite(movie)!!
         requireView().findNavController()
-            .navigate(MoviesFragmentDirections.actionMovieListToMovieDetailFragment(movie.title,movie.isFavorite,movie.genre,movie.id,movie.overview,movie.releaseDate,movie.image))
+            .navigate(MoviesFragmentDirections.actionMovieListToMovieDetailFragment(movie.title,movie.genre,movie.id,movie.overview,movie.releaseDate,movie.image))
     }
 
 }

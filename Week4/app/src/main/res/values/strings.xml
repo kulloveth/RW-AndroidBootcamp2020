@@ -45,7 +45,7 @@
     <string name="avenger_overview">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.</string>
     <string name="avenger_release_date">2018-04-25</string>
     <string name="avenger_genre">Thriller</string>
-    <string name="unlike">You Unliked a movie</string>
-    <string name="like">You Liked a movie</string>
+    <string name="unlike">You Unliked %1$s</string>
+    <string name="like">You Liked %1$s</string>
     <string name="no_like">You have not liked any Movie</string>
 </resources>

@@ -39,9 +39,6 @@
             android:name="movie_title"
             app:argType="string" />
         <argument
-            android:name="movie_isFavourite"
-            app:argType="boolean" />
-        <argument
             android:name="movie_genre"
             app:argType="string" />
         <argument
