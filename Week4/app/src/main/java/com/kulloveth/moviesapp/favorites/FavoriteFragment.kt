@@ -1,13 +1,11 @@
 package com.kulloveth.moviesapp.favorites
 
 import android.content.res.Configuration
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,9 +19,9 @@ import com.kulloveth.moviesapp.models.Movie
 class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
 
     var moviesDataManager: MoviesDataManager? = null
-   var binding: FragmentFavoriteBinding? = null
+    var binding: FragmentFavoriteBinding? = null
     var recyclerView: RecyclerView? = null
-     var adapter: FavoriteAdapter? = null
+    var adapter: FavoriteAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,11 +70,10 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
             ?.observe(requireActivity(), Observer {
                 Log.d("fav", "" + it)
                 adapter?.submitList(it)
-                if(it.isEmpty()){
+                if (it.isEmpty()) {
                     binding?.noLikeTv?.visibility = View.VISIBLE
                     recyclerView?.visibility = View.INVISIBLE
-                }
-                else{
+                } else {
                     binding?.noLikeTv?.visibility = View.INVISIBLE
                     recyclerView?.visibility = View.VISIBLE
                 }

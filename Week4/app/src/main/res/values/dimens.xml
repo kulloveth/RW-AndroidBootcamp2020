@@ -9,4 +9,7 @@
     <dimen name="half_standard">8dp</dimen>
     <dimen name="genre_margin">20dp</dimen>
     <dimen name="view_height">1dp</dimen>
+    <dimen name="linear_container_width">2dp</dimen>
+    <dimen name="genre_border_width">1dp</dimen>
+    <dimen name="genre_radius">500dp</dimen>
 </resources>

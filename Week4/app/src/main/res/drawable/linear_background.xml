@@ -3,6 +3,6 @@
     android:shape="rectangle">
 
     <stroke android:color="@android:color/darker_gray"
-        android:width="2dp"/>
+        android:width="@dimen/linear_container_width"/>
 
 </shape>

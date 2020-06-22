@@ -54,7 +54,7 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
      * this a diffutil class which uses your Object type
      * [CompositeItem] in this class to automatically
      * manage changes in you adapter without
-     * the need to call notifyDataItemChanged
+     * the need to call notifyDataSetChanged
      * from every method updating the adapter
      * */
     class MovieDiffCallBack : DiffUtil.ItemCallback<CompositeItem>() {
