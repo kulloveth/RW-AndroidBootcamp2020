@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_standard">16dp</dimen>
+    <dimen name="eighteen_sp">18sp</dimen>
+    <dimen name="four_dp">4dp</dimen>
+    <dimen name="header_layout_height">40dp</dimen>
+    <dimen name="movie_poster_height">200dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="half_standard">8dp</dimen>
+    <dimen name="genre_margin">20dp</dimen>
+    <dimen name="view_height">1dp</dimen>
+    <dimen name="linear_container_width">2dp</dimen>
+    <dimen name="genre_border_width">1dp</dimen>
+    <dimen name="genre_radius">500dp</dimen>
+</resources>
