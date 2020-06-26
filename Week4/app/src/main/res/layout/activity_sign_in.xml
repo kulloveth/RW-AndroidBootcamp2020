@@ -30,7 +30,7 @@
             app:layout_constraintTop_toBottomOf="@id/guideline" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dropdown_input_layout"
+            android:id="@+id/username_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,38 +41,40 @@
             app:layout_constraintTop_toBottomOf="@id/userImage">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dropdown_textview"
+                android:id="@+id/user_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/task_editText"
+            android:id="@+id/password_inputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:hint="@string/enter_your_password"
             app:boxStrokeColor="@color/primaryColor"
-            app:layout_constraintEnd_toEndOf="@id/dropdown_input_layout"
-            app:layout_constraintStart_toStartOf="@id/dropdown_input_layout"
-            app:layout_constraintTop_toBottomOf="@id/dropdown_input_layout">
+            app:passwordToggleEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/username_input_layout"
+            app:layout_constraintStart_toStartOf="@id/username_input_layout"
+            app:layout_constraintTop_toBottomOf="@id/username_input_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/task"
+                android:id="@+id/password_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/signIn"
+            android:id="@+id/signIn_btn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/signin_btn_height"
             android:layout_margin="@dimen/padding_standard"
             android:backgroundTint="@color/primaryColor"
             android:text="@string/sign_in"
-            app:layout_constraintTop_toBottomOf="@id/task_editText" />
+            app:layout_constraintTop_toBottomOf="@id/password_inputLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
