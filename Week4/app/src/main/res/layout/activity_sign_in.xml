@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signin.SignInActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="100dp" />
+
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="@dimen/movie_poster_height"
+            android:layout_height="@dimen/movie_poster_height"
+            android:contentDescription="@string/profile_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_movie_filter_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dropdown_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:hint="@string/enter_your_username"
+            app:boxStrokeColor="@color/primaryColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userImage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dropdown_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/task_editText"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:hint="@string/enter_your_password"
+            app:boxStrokeColor="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="@id/dropdown_input_layout"
+            app:layout_constraintStart_toStartOf="@id/dropdown_input_layout"
+            app:layout_constraintTop_toBottomOf="@id/dropdown_input_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/task"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signIn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/signin_btn_height"
+            android:layout_margin="@dimen/padding_standard"
+            android:backgroundTint="@color/primaryColor"
+            android:text="@string/sign_in"
+            app:layout_constraintTop_toBottomOf="@id/task_editText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

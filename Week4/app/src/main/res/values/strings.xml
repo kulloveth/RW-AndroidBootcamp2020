@@ -48,4 +48,8 @@
     <string name="unlike">You Unliked %1$s</string>
     <string name="like">You Liked %1$s</string>
     <string name="no_like">You have not liked any Movie</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="enter_your_username">Enter your Username</string>
+    <string name="profile_image">Profile Image</string>
 </resources>
