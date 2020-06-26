@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.textfield.TextInputEditText
 import com.kulloveth.moviesapp.databinding.ActivitySignInBinding
 import com.kulloveth.moviesapp.main.MainActivity
@@ -27,6 +28,7 @@ class SignInActivity : AppCompatActivity() {
         userEditText?.setHintTextColor(Color.GRAY)
         userPassword = binding.passwordEditText
 
+        retrieveUser()
         binding.signInBtn.setOnClickListener {
             validateUser()
         }
@@ -45,8 +47,10 @@ class SignInActivity : AppCompatActivity() {
         } else if (!isValidPassword(password.toString())) {
             userPassword?.setError("password must contain upper and lower case letters, numbers, special characters and should not beless thean 8 ")
         } else {
+            saveUser(userName.toString(),password.toString())
             startActivity(Intent(this, MainActivity::class.java))
         }
+
 
 
     }
@@ -60,6 +64,33 @@ class SignInActivity : AppCompatActivity() {
         pattern = Pattern.compile(PASSWORD_PATTERN)
         matcher = pattern.matcher(password)
         return matcher.matches()
+    }
+
+
+    fun saveUser(userName: String, userPassWord: String) {
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this).edit()
+        sharedPrefs.putString(USER_NAME_KEY, userName)
+        sharedPrefs.putString(USER_PASS_KEY, userPassWord)
+        sharedPrefs.apply()
+    }
+
+
+    fun retrieveUser(){
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val userName = sharedPrefs.getString(SignInActivity.USER_NAME_KEY,"")
+        val password = sharedPrefs.getString(SignInActivity.USER_PASS_KEY,"")
+
+        if (sharedPrefs.contains(USER_NAME_KEY) && sharedPrefs.contains(USER_PASS_KEY)){
+            startActivity(Intent(this, MainActivity::class.java))
+        }else{
+            startActivity(Intent(this, SignInActivity::class.java))
+        }
+    }
+
+
+    companion object {
+        const val USER_NAME_KEY = "USER_NAME_KEY"
+        const val USER_PASS_KEY = "USER_PASS_KEY"
     }
 
 

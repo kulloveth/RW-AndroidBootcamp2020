@@ -24,7 +24,7 @@
             android:layout_height="@dimen/movie_poster_height"
             android:contentDescription="@string/profile_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_movie_filter_black_24dp"
+            android:src="@drawable/ic_account_circle_black_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline" />
@@ -43,6 +43,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_name_edit_text"
                 android:layout_width="match_parent"
+                android:drawablePadding="@dimen/padding_standard"
+                android:drawableStart="@drawable/ic_account_box_black_24dp"
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,6 +64,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password_edit_text"
                 android:layout_width="match_parent"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:drawablePadding="@dimen/padding_standard"
                 android:layout_height="match_parent"
                 android:inputType="textPassword" />
 
