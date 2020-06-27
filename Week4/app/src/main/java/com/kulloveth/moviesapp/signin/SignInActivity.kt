@@ -1,7 +1,7 @@
 package com.kulloveth.moviesapp.signin
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import com.kulloveth.moviesapp.databinding.ActivitySignInBinding
 import com.kulloveth.moviesapp.main.MainActivity
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+
 
 /**
  * A simple [Fragment] subclass.
@@ -24,14 +25,17 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //retrieveUser()
         userEditText = binding.userNameEditText
-        userEditText?.setHintTextColor(Color.GRAY)
         userPassword = binding.passwordEditText
 
-        retrieveUser()
+
         binding.signInBtn.setOnClickListener {
             validateUser()
         }
+
+
     }
 
 
@@ -45,14 +49,19 @@ class SignInActivity : AppCompatActivity() {
         } else if (userName.length < 5) {
             userEditText?.setError("username cannot be less than 5")
         } else if (!isValidPassword(password.toString())) {
-            userPassword?.setError("password must contain upper and lower case letters, numbers, special characters and should not beless thean 8 ")
+            userPassword?.setError("password must contain upper and lower case letters, numbers, should not contain space,special characters and should not beless thean 8 ")
         } else {
-            saveUser(userName.toString(),password.toString())
+            saveUser(userName.toString(), password.toString())
             startActivity(Intent(this, MainActivity::class.java))
         }
 
 
+    }
 
+
+    override fun onResume() {
+        super.onResume()
+        // retrieveUser()
     }
 
 
@@ -68,21 +77,18 @@ class SignInActivity : AppCompatActivity() {
 
 
     fun saveUser(userName: String, userPassWord: String) {
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this).edit()
+        val sharedPrefs = sharedPref(this).edit()
         sharedPrefs.putString(USER_NAME_KEY, userName)
         sharedPrefs.putString(USER_PASS_KEY, userPassWord)
         sharedPrefs.apply()
     }
 
 
-    fun retrieveUser(){
+    fun retrieveUser() {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val userName = sharedPrefs.getString(SignInActivity.USER_NAME_KEY,"")
-        val password = sharedPrefs.getString(SignInActivity.USER_PASS_KEY,"")
-
-        if (sharedPrefs.contains(USER_NAME_KEY) && sharedPrefs.contains(USER_PASS_KEY)){
+        if (sharedPrefs.contains(USER_NAME_KEY) && sharedPrefs.contains(USER_PASS_KEY)) {
             startActivity(Intent(this, MainActivity::class.java))
-        }else{
+        } else {
             startActivity(Intent(this, SignInActivity::class.java))
         }
     }
@@ -91,7 +97,11 @@ class SignInActivity : AppCompatActivity() {
     companion object {
         const val USER_NAME_KEY = "USER_NAME_KEY"
         const val USER_PASS_KEY = "USER_PASS_KEY"
+
+        fun sharedPref(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
     }
+
+
 
 
 }

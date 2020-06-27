@@ -13,4 +13,5 @@
     <dimen name="genre_border_width">1dp</dimen>
     <dimen name="genre_radius">500dp</dimen>
     <dimen name="signin_btn_height">60dp</dimen>
+    <dimen name="profie_image_width">100dp</dimen>
 </resources>
