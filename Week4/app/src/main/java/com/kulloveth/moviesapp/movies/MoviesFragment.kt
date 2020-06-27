@@ -59,10 +59,10 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         val userName = SignInActivity.sharedPref(requireActivity()).getString(SignInActivity.USER_NAME_KEY,"")
 
         binding?.contentLayout?.userName?.text = userName?.toUpperCase()
-        Injection.provideRepository.getAllMovie().observe(requireActivity(),
-            Observer {
-                Log.d("chukwuo", "$it")
-            })
+//        Injection.provideRepository.getAllMovie().observe(requireActivity(),
+//            Observer {
+//                Log.d("chukwuo", "$it")
+//            })
 
     }
 
@@ -88,8 +88,11 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
             }
             recyclerView?.layoutManager = layoutManager
         }
+        moviesDataManager?.getMovieComposites()?.observe(requireActivity(), Observer {
+            adapter?.submitList(it)
+            Log.d("chukwu", "$it")
+        })
 
-        adapter?.submitList(moviesDataManager?.getMovieComposites())
         recyclerView?.adapter = adapter
     }
 

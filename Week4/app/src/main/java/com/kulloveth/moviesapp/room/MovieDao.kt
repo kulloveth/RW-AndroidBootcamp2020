@@ -16,7 +16,7 @@ interface MovieDao {
     fun getMovie(id: Int): LiveData<Movie>
 
     @Query("Select * from movie order by id ASC")
-    fun getAllMovie(): LiveData<List<Movie>>
+    suspend fun getAllMovie(): List<Movie>
 
     @Update
     suspend fun updateMovie(movieEntity: Movie)

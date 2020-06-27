@@ -3,7 +3,8 @@ package com.kulloveth.moviesapp.repository
 import androidx.lifecycle.LiveData
 import com.kulloveth.moviesapp.models.Movie
 
-interface MovieRepository {
+interface MovieRepository  {
+
     suspend fun insertAllMovie(movieEntity: List<Movie>)
 
     suspend fun updateMovie(movieEntity: Movie)
@@ -12,7 +13,7 @@ interface MovieRepository {
 
     fun getMovie(id: Int): LiveData<Movie>
 
-    fun getAllMovie(): LiveData<List<Movie>>
+    suspend fun getAllMovie(): List<Movie>
 
 
 }

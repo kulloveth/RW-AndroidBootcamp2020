@@ -7,10 +7,14 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Header
 import com.kulloveth.moviesapp.models.Movie
+import com.kulloveth.moviesapp.repository.Injection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,11 +26,12 @@ import kotlin.collections.ArrayList
  * */
 class MoviesDataManager(application: Application) : AndroidViewModel(application) {
 
-
     private val TAG = MoviesDataManager::class.java.simpleName
     val context = application.applicationContext
+    val repository = Injection.provideRepository
 
     val KEY_FAVORITES = "KEY_FAVORITES"
+
 
     /*
     * keeps track of favorited movies
@@ -34,6 +39,8 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     fun isFavorite(movie: Movie): Boolean {
         return getFavorites(context)?.contains(movie.title) == true
     }
+
+    private val _compositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
 
     // setting up movies to pass between fragments
     private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
@@ -43,24 +50,43 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
 
 
     /*
-    * this method sorts  the movies and arrange
+    * fetch movies from room db on background thread
+    * moves them to the ui then
+    * sorts  the movies and arrange
     * according to its genres
     * */
-    fun getMovieComposites(): List<CompositeItem>? {
-        val moviesByGenre = movieList.sortedBy { it.genre }
-        val genres = moviesByGenre.map { it.genre }.distinct()
+    fun getMovieComposites(): LiveData<List<CompositeItem>> {
+        val moviesList = mutableListOf<Movie>()
 
-        val compositeItem = mutableListOf<CompositeItem>()
-        genres.let {
-            genres.forEach { genre ->
-                compositeItem.add(CompositeItem.withHeader(Header(genre)))
-                val movies =
-                    moviesByGenre.filter { it.genre == genre }.map { CompositeItem.withMovie(it) }
-                compositeItem.addAll(movies)
+        viewModelScope.launch(Dispatchers.IO) {
+            val moviesFromRom = repository.getAllMovie().toMutableList()
+
+            launch(Dispatchers.Main) {
+                moviesList.addAll(moviesFromRom)
+                Log.d(TAG, "$moviesList")
+                val moviesByGenre = moviesList.sortedBy { it.genre }
+                val genres = moviesByGenre.map { it.genre }.distinct()
+
+                val compositeItem = mutableListOf<CompositeItem>()
+                genres.let {
+                    genres.forEach { genre ->
+                        compositeItem.add(CompositeItem.withHeader(Header(genre)))
+                        val movies =
+                            moviesByGenre.filter { it.genre == genre }
+                                .map { CompositeItem.withMovie(it) }
+                        compositeItem.addAll(movies)
+                    }
+                }
+                _compositeLiveData.value = compositeItem
             }
+
         }
-        return compositeItem
+
+        return _compositeLiveData
     }
+
+
+
 
     fun setUpMovie(movie: Movie) {
         _movieLiveData.value = movie
@@ -110,7 +136,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     *
     * */
     private fun getFavorites(context: Context): MutableList<String>? {
-        val sharedPrefs =context.getSharedPreferences("context",MODE_PRIVATE)
+        val sharedPrefs = context.getSharedPreferences("context", MODE_PRIVATE)
         val content = sharedPrefs.all
         val movieList = mutableListOf<String>()
         for (movie in content) {
@@ -135,9 +161,6 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
 
 
     fun getMovieByTitle(title: String) = movieList.firstOrNull { it.title == title }
-
-
-    //fun getMovieList(): MutableList<Movie> = movieList
 
 
     // movie data

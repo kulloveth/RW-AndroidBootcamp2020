@@ -1,12 +1,18 @@
 package com.kulloveth.moviesapp.repository
 
+import android.util.Log
+import androidx.lifecycle.*
+import com.kulloveth.moviesapp.MovieApplication
 import com.kulloveth.moviesapp.MoviesDataManager
+import com.kulloveth.moviesapp.models.CompositeItem
+import com.kulloveth.moviesapp.models.Header
 import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.room.MovieDatabse
 
 
 class RoomRepository : MovieRepository {
     val dao = MovieDatabse.invoke().getMovieDao()
+    var moviesLiveData: LiveData<List<Movie>> = MutableLiveData<List<Movie>>()
     override suspend fun insertAllMovie(movieEntity: List<Movie>) {
         dao.insertAllMovie(movieEntity)
     }
@@ -23,8 +29,9 @@ class RoomRepository : MovieRepository {
         dao.getMovie(id)
 
 
-    override fun getAllMovie() =
+    override suspend fun getAllMovie() =
         dao.getAllMovie()
+
 
 
 }
