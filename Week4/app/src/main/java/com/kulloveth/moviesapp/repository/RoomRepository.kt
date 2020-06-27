@@ -28,6 +28,9 @@ class RoomRepository : MovieRepository {
     override fun getMovie(id: Int) =
         dao.getMovie(id)
 
+    override fun getFavorite(isFavorite: Boolean): LiveData<List<Movie>> {
+        return dao.getFavorites(isFavorite)
+    }
 
     override suspend fun getAllMovie() =
         dao.getAllMovie()

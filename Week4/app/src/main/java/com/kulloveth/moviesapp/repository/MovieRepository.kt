@@ -15,5 +15,7 @@ interface MovieRepository  {
 
     suspend fun getAllMovie(): List<Movie>
 
+    fun getFavorite(isFavorite:Boolean): LiveData<List<Movie>>
+
 
 }

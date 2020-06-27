@@ -37,7 +37,17 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     * keeps track of favorited movies
     * */
     fun isFavorite(movie: Movie): Boolean {
-        return getFavorites(context)?.contains(movie.title) == true
+        var favorites = false
+        viewModelScope.launch(Dispatchers.IO) {
+            val movies = repository.getAllMovie()
+
+            launch(Dispatchers.Main) {
+                movies.forEach {
+                    favorites = it.isFavorite
+                }
+            }
+        }
+        return favorites
     }
 
     private val _compositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
@@ -60,7 +70,6 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
 
         viewModelScope.launch(Dispatchers.IO) {
             val moviesFromRom = repository.getAllMovie().toMutableList()
-
             launch(Dispatchers.Main) {
                 moviesList.addAll(moviesFromRom)
                 Log.d(TAG, "$moviesList")
@@ -85,8 +94,11 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
         return _compositeLiveData
     }
 
-
-
+    fun deleteMovie(movie: Movie) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteMovie(movie)
+        }
+    }
 
     fun setUpMovie(movie: Movie) {
         _movieLiveData.value = movie
@@ -108,13 +120,20 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
      * into the list of favorites]
      * */
     fun addFavorite(movie: Movie, context: Context) {
-        val favorites = getFavorites(context)
-        favorites?.let {
-            movie.isFavorite = true
-            favorites.add(movie.title)
-            saveList(KEY_FAVORITES, favorites, context)
-            Log.d(TAG, "$favorites")
+        var favorites = false
+        viewModelScope.launch(Dispatchers.IO) {
+            val movies = repository.getAllMovie()
+            movies.forEach {
+                favorites = it.isFavorite
+            }
+            favorites?.let {
+                movie.isFavorite = true
+                // favorites.add(movie.title)
+                repository.updateMovie(movie)
+                Log.d(TAG, "$favorites")
+            }
         }
+
     }
 
 
@@ -122,11 +141,19 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     * remove movie from list of favorites
     * */
     fun removeFavorite(movie: Movie, context: Context) {
-        val favorites = getFavorites(context)
-        favorites?.let {
-            movie.isFavorite = false
-            favorites.remove(movie.title)
-            saveList(KEY_FAVORITES, favorites, context)
+
+        var favorites = false
+        viewModelScope.launch(Dispatchers.IO) {
+            val movies = repository.getAllMovie()
+            movies.forEach {
+                favorites = it.isFavorite
+            }
+            favorites?.let {
+                movie.isFavorite = false
+                // favorites.add(movie.title)
+                repository.updateMovie(movie)
+                Log.d(TAG, "$favorites")
+            }
         }
     }
 
@@ -152,10 +179,8 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     /*
     * setup the favorite movies to be observed
     * */
-    fun getFavoriteMovies(context: Context): LiveData<List<Movie>>? {
-        _favoriteLiveData.value = getFavorites(context)?.mapNotNull { getMovieByTitle(it) }
-        Log.d(TAG, "${_favoriteLiveData.value}")
-        return _favoriteLiveData
+    fun getFavoriteMovies(isFavorite: Boolean): LiveData<List<Movie>>? {
+        return repository.getFavorite(isFavorite)
 
     }
 

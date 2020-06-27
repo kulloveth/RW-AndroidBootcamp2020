@@ -102,7 +102,14 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupFavoriteButtonImage(movie: Movie) {
-        if (moviesDataManager?.isFavorite(movie) == true) {
+        val favorite = movie.isFavorite
+        moviesDataManager?.getFavoriteMovies(favorite)?.observe(requireActivity(), Observer {
+
+
+        })
+
+
+        if (favorite == true) {
             favoriteButton?.setImageDrawable(
                 getDrawable(
                     requireActivity(),
@@ -117,14 +124,20 @@ class MovieDetailFragment : Fragment() {
                 )
             )
         }
+
+
     }
 
     /**
      * setup favorite onclick listener checking
      * */
     private fun setupFavoriteButtonClickListener(movie: Movie) {
+        var favorite = movie.isFavorite
         favoriteButton?.setOnClickListener {
-            if (moviesDataManager?.isFavorite(movie) == true) {
+            moviesDataManager?.getFavoriteMovies(favorite)?.observe(requireActivity(), Observer {
+
+            })
+            if (favorite == true) {
                 favoriteButton?.setImageDrawable(
                     getDrawable(
                         requireActivity(),
@@ -132,7 +145,11 @@ class MovieDetailFragment : Fragment() {
                     )
                 )
                 moviesDataManager?.removeFavorite(movie, requireActivity())
-                Snackbar.make(requireView(), getString(R.string.unlike,movie.title), Snackbar.LENGTH_SHORT)
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.unlike, movie.title),
+                    Snackbar.LENGTH_SHORT
+                )
                     .show()
             } else {
                 favoriteButton?.setImageDrawable(
@@ -142,8 +159,14 @@ class MovieDetailFragment : Fragment() {
                     )
                 )
                 moviesDataManager?.addFavorite(movie, requireActivity())
-                Snackbar.make(requireView(), getString(R.string.like,movie.title), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.like, movie.title),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
             }
+
         }
     }
 

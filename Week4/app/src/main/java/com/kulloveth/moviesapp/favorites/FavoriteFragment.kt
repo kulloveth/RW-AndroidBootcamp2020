@@ -66,7 +66,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
             recyclerView?.layoutManager = layoutManager
         }
         recyclerView?.adapter = adapter
-        moviesDataManager?.getFavoriteMovies(requireActivity())
+        moviesDataManager?.getFavoriteMovies(true)
             ?.observe(requireActivity(), Observer {
                 Log.d("fav", "" + it)
                 adapter?.submitList(it)

@@ -23,4 +23,7 @@ interface MovieDao {
 
     @Delete
     suspend fun deleteMovie(movieEntity: Movie)
+
+    @Query("Select * FROM Movie where isFavorite =:isFavorite")
+    fun getFavorites(isFavorite:Boolean):LiveData<List<Movie>>
 }
