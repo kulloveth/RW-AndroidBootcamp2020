@@ -14,7 +14,7 @@ import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.MovieListItemsBinding
 import com.kulloveth.moviesapp.models.Movie
 
-class FavoriteAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
+class FavoriteAdapter() :
     ListAdapter<Movie, FavoriteAdapter.ViewHolder>(MovieDiffCallBack()) {
 
 
@@ -26,10 +26,6 @@ class FavoriteAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
-        //setup click listener passing the movie through an interface
-        holder.itemView.setOnClickListener {
-            movieItemCLickedListener.movieItemCLicked(getItem(position))
-        }
     }
 
 

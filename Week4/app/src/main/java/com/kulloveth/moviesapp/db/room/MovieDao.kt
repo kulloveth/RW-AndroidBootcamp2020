@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kulloveth.moviesapp.models.Movie
 
+/**
+ * contains data access objects
+ * to query room database
+ * */
 @Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

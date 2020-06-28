@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kulloveth.moviesapp.MovieApplication
-import com.kulloveth.moviesapp.ui.signin.MoviesDataManager
+import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.db.Injection
 import kotlinx.coroutines.Dispatchers

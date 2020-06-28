@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.kulloveth.moviesapp.ui.signin.MoviesDataManager
+import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentMovieDetailBinding
 import com.kulloveth.moviesapp.models.Movie
@@ -102,14 +102,14 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupFavoriteButtonImage(movie: Movie) {
-        val favorite = movie.isFavorite
-        moviesDataManager?.getFavoriteMovies(favorite)?.observe(requireActivity(), Observer {
+
+        moviesDataManager?.getFavoriteMovies( movie.isFavorite)?.observe(requireActivity(), Observer {
 
 
         })
 
 
-        if (favorite) {
+        if ( movie.isFavorite) {
             favoriteButton?.setImageDrawable(
                 getDrawable(
                     requireActivity(),
@@ -132,12 +132,12 @@ class MovieDetailFragment : Fragment() {
      * setup favorite onclick listener checking
      * */
     private fun setupFavoriteButtonClickListener(movie: Movie) {
-        var favorite = movie.isFavorite
+
         favoriteButton?.setOnClickListener {
-            moviesDataManager?.getFavoriteMovies(favorite)?.observe(requireActivity(), Observer {
+            moviesDataManager?.getFavoriteMovies( movie.isFavorite)?.observe(requireActivity(), Observer {
 
             })
-            if (favorite) {
+            if ( movie.isFavorite) {
                 favoriteButton?.setImageDrawable(
                     getDrawable(
                         requireActivity(),

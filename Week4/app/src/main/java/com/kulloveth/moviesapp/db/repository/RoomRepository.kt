@@ -1,8 +1,8 @@
 package com.kulloveth.moviesapp.db.repository
 
 import androidx.lifecycle.LiveData
-import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.db.room.MovieDatabse
+import com.kulloveth.moviesapp.models.Movie
 
 
 class RoomRepository : MovieRepository {

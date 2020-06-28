@@ -6,12 +6,16 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/secondaryLightColor</item>
+        <item name="actionOverflowButtonStyle">@style/DotsTheme</item>
     </style>
 
     <style name="toolbar_layout">
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="DotsTheme" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@android:color/white</item>
     </style>
 
 </resources>

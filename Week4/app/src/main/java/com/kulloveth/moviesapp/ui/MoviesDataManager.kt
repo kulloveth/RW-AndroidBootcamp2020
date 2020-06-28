@@ -1,5 +1,4 @@
-package com.kulloveth.moviesapp.ui.signin
-
+package com.kulloveth.moviesapp.ui
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -8,10 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kulloveth.moviesapp.MovieApplication
 import com.kulloveth.moviesapp.R
+import com.kulloveth.moviesapp.db.Injection
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Header
 import com.kulloveth.moviesapp.models.Movie
-import com.kulloveth.moviesapp.db.Injection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,7 +28,6 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
 
 
     private val _compositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
-    private val compositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
 
     // setting up movies to pass between fragments
     private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
@@ -45,7 +43,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
 
 
     fun getMovieComposites(): LiveData<List<CompositeItem>> {
-        var moviesList = mutableListOf<Movie>()
+        var moviesList: MutableList<Movie>
         viewModelScope.launch(Dispatchers.IO) {
             val moviesFromRom = repository.getAllMovie().toMutableList()
             launch(Dispatchers.Main) {
@@ -122,7 +120,6 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
             }
             favorites.let {
                 movie.isFavorite = false
-                // favorites.add(movie.title)
                 repository.updateMovie(movie)
                 Log.d(TAG, "$favorites")
             }

@@ -1,6 +1,5 @@
 package com.kulloveth.moviesapp.ui.movies
 
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -14,13 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.kulloveth.moviesapp.ui.signin.MoviesDataManager
+import com.kulloveth.moviesapp.ui.signin.AuthenticationActivity
+import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.R
+import com.kulloveth.moviesapp.ui.signin.SignInFragment
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Movie
-import com.kulloveth.moviesapp.ui.signin.SignInActivity
 import com.kulloveth.moviesapp.ui.signin.SignInRepository
 
 
@@ -31,7 +32,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     var recyclerView: RecyclerView? = null
     var binding: FragmentMoviesBinding? = null
     var movies = mutableListOf<CompositeItem>()
-    private val PICK_IMAGE = 322
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,9 +61,14 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding?.contentLayout?.toolbar)
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
         bindMoviesRecyclerView()
-        val sharedPref = requireActivity().getSharedPreferences(SignInRepository.SIGNIN_PREFS_REPOSIORY, MODE_PRIVATE)
+        val sharedPref = SignInRepository.sharedPrefs()
         val userName =
-            sharedPref.getString(SignInActivity.USER_NAME_KEY, "")
+            sharedPref.getString(SignInFragment.USER_NAME_KEY, "")
+        val userImage = sharedPref.getString(SignInFragment.USER_IMAGE_KEY,"")
+        binding?.contentLayout?.toolbarImage?.let {
+            Glide.with(this).load(userImage).placeholder(R.drawable.ic_account_circle_white_24dp)
+                .circleCrop().into(it)
+        };
 
         binding?.contentLayout?.userName?.text = userName?.toUpperCase()
 
@@ -168,7 +174,10 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
         if (item.itemId == R.id.logout) {
             SignInRepository.clearUser()
-            requireActivity().startActivity(Intent(requireActivity(),SignInActivity::class.java))
+            val intent = Intent(requireActivity(),
+                AuthenticationActivity::class.java)
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
             return true
         }
 
@@ -176,12 +185,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
     }
 
-    private fun getImagefromGallery() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "select a picture"), PICK_IMAGE)
-    }
+
 
 
 }

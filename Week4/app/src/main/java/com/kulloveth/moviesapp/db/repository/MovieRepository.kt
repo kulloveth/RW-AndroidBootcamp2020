@@ -3,7 +3,7 @@ package com.kulloveth.moviesapp.db.repository
 import androidx.lifecycle.LiveData
 import com.kulloveth.moviesapp.models.Movie
 
-interface MovieRepository  {
+interface MovieRepository {
 
     suspend fun insertAllMovie(movieEntity: List<Movie>)
 
@@ -15,9 +15,9 @@ interface MovieRepository  {
 
     suspend fun getAllMovie(): List<Movie>
 
-     fun getAllMovies(): LiveData<List<Movie>>
+    fun getAllMovies(): LiveData<List<Movie>>
 
-    fun getFavorite(isFavorite:Boolean): LiveData<List<Movie>>
+    fun getFavorite(isFavorite: Boolean): LiveData<List<Movie>>
 
 
 }

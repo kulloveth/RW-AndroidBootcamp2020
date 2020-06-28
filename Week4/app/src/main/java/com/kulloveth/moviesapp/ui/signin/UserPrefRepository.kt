@@ -4,7 +4,7 @@ import android.app.Activity
 
 interface UserPrefRepository {
 
-    fun saveUser(userName:String)
+    fun saveUser(userName:String,userImage:String?)
 
     fun clearUser()
 
