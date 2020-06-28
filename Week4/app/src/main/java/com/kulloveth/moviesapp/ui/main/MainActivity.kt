@@ -1,16 +1,12 @@
-package com.kulloveth.moviesapp.main
+package com.kulloveth.moviesapp.ui.main
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.ActivityMainBinding
-import com.kulloveth.moviesapp.movies.MoviesFragment
-import com.kulloveth.moviesapp.signin.SignInActivity
 
 class MainActivity : AppCompatActivity(){
 

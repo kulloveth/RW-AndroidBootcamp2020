@@ -1,16 +1,26 @@
-package com.kulloveth.moviesapp.room
+package com.kulloveth.moviesapp.db.room
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kulloveth.moviesapp.MovieApplication
-import com.kulloveth.moviesapp.MoviesDataManager
+import com.kulloveth.moviesapp.ui.signin.MoviesDataManager
 import com.kulloveth.moviesapp.models.Movie
-import com.kulloveth.moviesapp.repository.Injection
+import com.kulloveth.moviesapp.db.Injection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
+
+
+/**
+ * Creates a database with table [Movie]
+ * using Room ORM
+ * insert movies once when the db is created using
+ *  [RoomDatabase.Callback.onCreate]
+ *
+ * */
 
 @Database(entities = [Movie::class], version = 1, exportSchema = false)
 abstract class MovieDatabse : RoomDatabase() {
@@ -27,6 +37,8 @@ abstract class MovieDatabse : RoomDatabase() {
             }
         }
 
+
+
         private fun builDatabase() = Room.databaseBuilder(
             context,
             MovieDatabse::class.java,
@@ -35,7 +47,8 @@ abstract class MovieDatabse : RoomDatabase() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 GlobalScope.launch(context = Dispatchers.IO) {
-                    Injection.provideRepository.insertAllMovie(MoviesDataManager.movieList)
+                    Injection.provideRepository.insertAllMovie(
+                        MoviesDataManager.movieList)
                 }
             }
         }).build()

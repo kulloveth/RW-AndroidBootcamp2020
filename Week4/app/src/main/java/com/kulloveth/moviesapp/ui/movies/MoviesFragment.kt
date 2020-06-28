@@ -1,14 +1,12 @@
-package com.kulloveth.moviesapp.movies
+package com.kulloveth.moviesapp.ui.movies
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -17,12 +15,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.kulloveth.moviesapp.MoviesDataManager
+import com.kulloveth.moviesapp.ui.signin.MoviesDataManager
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Movie
-import com.kulloveth.moviesapp.signin.SignInActivity
+import com.kulloveth.moviesapp.ui.signin.SignInActivity
+import com.kulloveth.moviesapp.ui.signin.SignInRepository
 
 
 class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
@@ -31,7 +30,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     var moviesDataManager: MoviesDataManager? = null
     var recyclerView: RecyclerView? = null
     var binding: FragmentMoviesBinding? = null
-    val movies = mutableListOf<CompositeItem>()
+    var movies = mutableListOf<CompositeItem>()
     private val PICK_IMAGE = 322
 
 
@@ -57,14 +56,17 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         binding?.contentLayout?.toolbar?.title = getString(R.string.movies)
         adapter = MovieAdapter(this)
         recyclerView = binding?.contentLayout?.showMoviesRv
-        recyclerView?.adapter = adapter
+
         (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding?.contentLayout?.toolbar)
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
         bindMoviesRecyclerView()
+        val sharedPref = requireActivity().getSharedPreferences(SignInRepository.SIGNIN_PREFS_REPOSIORY, MODE_PRIVATE)
         val userName =
-            SignInActivity.sharedPref(requireActivity()).getString(SignInActivity.USER_NAME_KEY, "")
+            sharedPref.getString(SignInActivity.USER_NAME_KEY, "")
 
         binding?.contentLayout?.userName?.text = userName?.toUpperCase()
+
+
     }
 
 
@@ -88,9 +90,11 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
             recyclerView?.layoutManager = layoutManager
         }
         moviesDataManager?.getMovieComposites()?.observe(requireActivity(), Observer {
-            movies.addAll(it)
+            movies = it.toMutableList()
+            adapter?.submitList(movies)
+            recyclerView?.adapter = adapter
         })
-        adapter?.submitList(movies)
+
 
 
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -121,6 +125,15 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                     )
                     movies.removeAt(viewHolder.adapterPosition)
                     adapter?.notifyDataSetChanged()
+                    adapter?.notifyItemRangeChanged(viewHolder.adapterPosition, movies.size)
+                    moviesDataManager?.getMovieComposites()
+                        ?.observe(requireActivity(), Observer { m ->
+                            // movies.clear()
+                            movies = m.toMutableList()
+                            adapter?.submitList(movies)
+                            recyclerView?.adapter = adapter
+                            requireActivity().recreate()
+                        })
                     Snackbar.make(requireView(), "movie deleted", Snackbar.LENGTH_SHORT).show()
                 }
 
@@ -154,14 +167,9 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
 
         if (item.itemId == R.id.logout) {
-            val preferences: SharedPreferences.Editor =
-                SignInActivity.sharedPref(requireContext()).edit()
-            preferences.clear()
-            preferences.apply()
-            startActivity(Intent(requireActivity(), SignInActivity::class.java))
+            SignInRepository.clearUser()
+            requireActivity().startActivity(Intent(requireActivity(),SignInActivity::class.java))
             return true
-
-
         }
 
         return super.onOptionsItemSelected(item)

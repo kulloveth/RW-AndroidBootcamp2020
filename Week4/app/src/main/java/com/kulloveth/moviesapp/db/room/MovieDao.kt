@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.room
+package com.kulloveth.moviesapp.db.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -17,6 +17,9 @@ interface MovieDao {
 
     @Query("Select * from movie order by id ASC")
     suspend fun getAllMovie(): List<Movie>
+
+    @Query("Select * from movie order by id ASC")
+    fun getAllMovies(): LiveData<List<Movie>>
 
     @Update
     suspend fun updateMovie(movieEntity: Movie)

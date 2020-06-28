@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/movie_list"
-        android:name="com.kulloveth.moviesapp.movies.MoviesFragment"
+        android:name="com.kulloveth.moviesapp.ui.movies.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/favorite_list"
-        android:name="com.kulloveth.moviesapp.favorites.FavoriteFragment"
+        android:name="com.kulloveth.moviesapp.ui.favorites.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.kulloveth.moviesapp.movies.MovieDetailFragment"
+        android:name="com.kulloveth.moviesapp.ui.movies.MovieDetailFragment"
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
         <action

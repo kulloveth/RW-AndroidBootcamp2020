@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.favorites
+package com.kulloveth.moviesapp.ui.favorites
 
 import android.content.Context
 import android.graphics.BitmapFactory

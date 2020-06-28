@@ -52,7 +52,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //shared preference
-    implementation 'androidx.preference:preference:1.1.1'
+   // implementation 'androidx.preference:preference:1.1.1'
 
     //palete
     implementation 'androidx.palette:palette:1.0.0'

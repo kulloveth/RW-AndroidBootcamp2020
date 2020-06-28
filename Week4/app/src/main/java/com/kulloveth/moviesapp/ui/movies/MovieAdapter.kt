@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.movies
+package com.kulloveth.moviesapp.ui.movies
 
 import android.content.Context
 import android.graphics.BitmapFactory

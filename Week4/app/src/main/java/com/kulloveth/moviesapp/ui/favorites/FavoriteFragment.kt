@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.favorites
+package com.kulloveth.moviesapp.ui.favorites
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kulloveth.moviesapp.MoviesDataManager
+import com.kulloveth.moviesapp.ui.signin.MoviesDataManager
 import com.kulloveth.moviesapp.databinding.FragmentFavoriteBinding
 import com.kulloveth.moviesapp.models.Movie
 
@@ -82,6 +83,17 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
     }
 
     override fun movieItemCLicked(movie: Movie) {
+        requireView().findNavController()
+            .navigate(
+                FavoriteFragmentDirections.actionFavoriteListToMovieDetailFragment(
+                    movie.title,
+                    movie.genre,
+                    movie.id,
+                    movie.overview,
+                    movie.releaseDate,
+                    movie.image
+                )
+            )
     }
 
 
