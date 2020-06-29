@@ -5,14 +5,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentSigninBinding
+import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.ui.main.MainActivity
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -22,12 +26,14 @@ import java.util.regex.Pattern
  */
 class SignInFragment : Fragment() {
 
-    var binding:FragmentSigninBinding? =null
+    var binding: FragmentSigninBinding? = null
 
     var userEditText: TextInputEditText? = null
     var userPassword: TextInputEditText? = null
     private val PICK_IMAGE = 5
-    var imageUrl:String? = null
+    var imageUrl: String? = null
+
+    private val TAG = SignInFragment::class.java.simpleName
 
 
     override fun onCreateView(
@@ -35,7 +41,7 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSigninBinding.inflate(inflater,container,false)
+        binding = FragmentSigninBinding.inflate(inflater, container, false)
         val view = binding?.root
         return view
     }
@@ -51,11 +57,16 @@ class SignInFragment : Fragment() {
         binding?.signInBtn?.setOnClickListener {
             validateUser()
         }
-        binding?.select?.setOnClickListener{
+        binding?.select?.setOnClickListener {
             getImagefromGallery()
         }
-    }
 
+        val moviesDataManager =
+            ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
+        moviesDataManager.getMovieComposites().observe(requireActivity(), Observer {
+            Log.d(TAG, "$it")
+        })
+    }
 
 
     //check that input fields meets criteria
@@ -71,7 +82,7 @@ class SignInFragment : Fragment() {
         } else if (!isValidPassword(password.toString())) {
             userPassword?.error = getString(R.string.password_check)
         } else {
-           saveUser(userName.toString(), imageUrl)
+            saveUser(userName.toString(), imageUrl)
 
             val intent = Intent(requireActivity(), MainActivity::class.java)
             startActivity(intent)
@@ -81,9 +92,6 @@ class SignInFragment : Fragment() {
 
 
     }
-
-
-
 
 
     //check if password matches criteria
@@ -104,11 +112,8 @@ class SignInFragment : Fragment() {
      * using [sharedPrefs]
      * */
     fun saveUser(userName: String, userImage: String?) {
-        SignInRepository.saveUser(userName,userImage)
+        SignInRepository.saveUser(userName, userImage)
     }
-
-
-
 
 
     companion object {
@@ -118,10 +123,12 @@ class SignInFragment : Fragment() {
 
 
     }
+
     private fun getImagefromGallery() {
         val intent = Intent(
             Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
         intent.type = "image/*"
         if (intent.resolveActivity(requireActivity().packageManager) != null) {
             startActivityForResult(intent, PICK_IMAGE)
@@ -131,8 +138,8 @@ class SignInFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == PICK_IMAGE ){
-            if(resultCode == Activity.RESULT_OK){
+        if (requestCode == PICK_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
                 val uri: Uri? = data?.data
                 imageUrl = uri.toString()
                 binding?.userImage?.let {

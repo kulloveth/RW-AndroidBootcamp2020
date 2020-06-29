@@ -8,6 +8,7 @@ import com.kulloveth.moviesapp.MovieApplication
 import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.db.Injection
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -46,9 +47,8 @@ abstract class MovieDatabse : RoomDatabase() {
         ).addCallback(object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                GlobalScope.launch(context = Dispatchers.IO) {
-                    Injection.provideRepository.insertAllMovie(
-                        MoviesDataManager.movieList)
+                CoroutineScope(context = Dispatchers.IO).launch {
+                    Injection.provideRepository.insertAllMovie(MoviesDataManager.movieList)
                 }
             }
         }).build()

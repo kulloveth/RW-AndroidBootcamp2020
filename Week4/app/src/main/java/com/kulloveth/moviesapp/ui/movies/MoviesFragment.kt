@@ -57,6 +57,9 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         binding?.contentLayout?.toolbar?.title = getString(R.string.movies)
         adapter = MovieAdapter(this)
         recyclerView = binding?.contentLayout?.showMoviesRv
+        recyclerView?.layoutManager =
+            LinearLayoutManager(requireActivity())
+        recyclerView?.adapter = adapter
 
         (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding?.contentLayout?.toolbar)
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
@@ -78,27 +81,17 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
     //bind data to adapter and recyclerview
     private fun bindMoviesRecyclerView() {
-        if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            recyclerView?.layoutManager =
-                LinearLayoutManager(requireActivity())
-        } else {
-
-            val layoutManager =
-                GridLayoutManager(requireActivity(), 2)
-            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return when (adapter?.getItemViewType(position)) {
-                        0 -> 2
-                        else -> 1
-                    }
-                }
-            }
-            recyclerView?.layoutManager = layoutManager
-        }
         moviesDataManager?.getMovieComposites()?.observe(requireActivity(), Observer {
             movies = it.toMutableList()
             adapter?.submitList(movies)
-            recyclerView?.adapter = adapter
+            if (movies.isEmpty()) {
+                binding?.emptyMovie?.visibility = View.VISIBLE
+                recyclerView?.visibility = View.INVISIBLE
+            } else {
+                binding?.emptyMovie?.visibility = View.INVISIBLE
+                recyclerView?.visibility = View.VISIBLE
+            }
+
         })
 
 
@@ -134,7 +127,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                     adapter?.notifyItemRangeChanged(viewHolder.adapterPosition, movies.size)
                     moviesDataManager?.getMovieComposites()
                         ?.observe(requireActivity(), Observer { m ->
-                            // movies.clear()
+
                             movies = m.toMutableList()
                             adapter?.submitList(movies)
                             recyclerView?.adapter = adapter

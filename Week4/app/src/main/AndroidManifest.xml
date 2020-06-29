@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.signin.AuthenticationActivity"
-            android:label="@string/title_activity_authentication"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
