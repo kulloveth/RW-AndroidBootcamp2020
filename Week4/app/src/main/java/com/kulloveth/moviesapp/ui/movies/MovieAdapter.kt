@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.movies
+package com.kulloveth.moviesapp.ui.movies
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -42,6 +42,7 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
         }
     }
 
+
     override fun getItemViewType(position: Int): Int {
         return if (getItem(position).isHeader) {
             ViewType.HEADER.ordinal
@@ -49,6 +50,9 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
             ViewType.MOVIE.ordinal
         }
     }
+
+
+    fun getNoteAt(position: Int): CompositeItem? = getItem(position)
 
     /**
      * this a diffutil class which uses your Object type
@@ -58,12 +62,12 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
      * from every method updating the adapter
      * */
     class MovieDiffCallBack : DiffUtil.ItemCallback<CompositeItem>() {
-        override fun areItemsTheSame(oldItem: CompositeItem, newItem: CompositeItem): Boolean {
-            return oldItem.movie?.id == newItem.movie?.id
+        override fun areItemsTheSame(oldList: CompositeItem, newItem: CompositeItem): Boolean {
+            return oldList.movie?.id == newItem.movie?.id
         }
 
         override fun areContentsTheSame(oldItem: CompositeItem, newItem: CompositeItem): Boolean {
-            return oldItem.movie == newItem.movie
+            return oldItem == newItem
         }
 
     }
@@ -147,5 +151,6 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
     interface MovieItemCLickedListener {
         fun movieItemCLicked(movie: Movie)
     }
+
 
 }

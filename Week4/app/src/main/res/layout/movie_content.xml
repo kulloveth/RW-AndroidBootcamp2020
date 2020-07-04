@@ -13,7 +13,22 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:titleTextColor="@android:color/white"
-            style="@style/toolbar_layout" />
+            style="@style/toolbar_layout" >
+            <ImageView
+                android:layout_width="@dimen/profie_image_width"
+                android:contentDescription="@string/profile_image"
+                android:id="@+id/toolbarImage"
+                android:src="@drawable/ic_account_circle_white_24dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_standard"
+                tools:text="user"
+                android:textColor="@android:color/white"
+                android:id="@+id/userName"/>
+        </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

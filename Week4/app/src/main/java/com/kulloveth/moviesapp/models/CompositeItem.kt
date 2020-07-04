@@ -31,5 +31,25 @@ class CompositeItem {
     override fun toString(): String {
         return (if (isHeader) header?.name else movie?.title) as String
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CompositeItem) return false
+
+        if (movie != other.movie) return false
+        if (header != other.header) return false
+        if (isHeader != other.isHeader) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = movie?.hashCode() ?: 0
+        result = 31 * result + (header?.hashCode() ?: 0)
+        result = 31 * result + isHeader.hashCode()
+        return result
+    }
+
+
 }
 

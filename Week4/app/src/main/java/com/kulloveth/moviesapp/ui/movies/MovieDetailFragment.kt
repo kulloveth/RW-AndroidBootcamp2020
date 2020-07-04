@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.movies
+package com.kulloveth.moviesapp.ui.movies
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.kulloveth.moviesapp.MoviesDataManager
+import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentMovieDetailBinding
 import com.kulloveth.moviesapp.models.Movie
@@ -102,7 +102,14 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupFavoriteButtonImage(movie: Movie) {
-        if (moviesDataManager?.isFavorite(movie) == true) {
+
+        moviesDataManager?.getFavoriteMovies( movie.isFavorite)?.observe(requireActivity(), Observer {
+
+
+        })
+
+
+        if ( movie.isFavorite) {
             favoriteButton?.setImageDrawable(
                 getDrawable(
                     requireActivity(),
@@ -117,22 +124,32 @@ class MovieDetailFragment : Fragment() {
                 )
             )
         }
+
+
     }
 
     /**
      * setup favorite onclick listener checking
      * */
     private fun setupFavoriteButtonClickListener(movie: Movie) {
+
         favoriteButton?.setOnClickListener {
-            if (moviesDataManager?.isFavorite(movie) == true) {
+            moviesDataManager?.getFavoriteMovies( movie.isFavorite)?.observe(requireActivity(), Observer {
+
+            })
+            if ( movie.isFavorite) {
                 favoriteButton?.setImageDrawable(
                     getDrawable(
                         requireActivity(),
                         R.drawable.ic_favorite_border_black_24dp
                     )
                 )
-                moviesDataManager?.removeFavorite(movie, requireActivity())
-                Snackbar.make(requireView(), getString(R.string.unlike,movie.title), Snackbar.LENGTH_SHORT)
+                moviesDataManager?.removeFavorite(movie)
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.unlike, movie.title),
+                    Snackbar.LENGTH_SHORT
+                )
                     .show()
             } else {
                 favoriteButton?.setImageDrawable(
@@ -141,9 +158,15 @@ class MovieDetailFragment : Fragment() {
                         R.drawable.ic_favorite_black_24dp
                     )
                 )
-                moviesDataManager?.addFavorite(movie, requireActivity())
-                Snackbar.make(requireView(), getString(R.string.like,movie.title), Snackbar.LENGTH_SHORT).show()
+                moviesDataManager?.addFavorite(movie)
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.like, movie.title),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
             }
+
         }
     }
 
