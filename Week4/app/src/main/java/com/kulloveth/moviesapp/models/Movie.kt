@@ -1,6 +1,8 @@
 package com.kulloveth.moviesapp.models
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -9,8 +11,11 @@ import kotlinx.android.parcel.Parcelize
  *  creator factorys for you but for only primary constructor
  *  properties
  * */
+
 @Parcelize
+@Entity
 data class Movie(
+    @PrimaryKey
     val id: Int,
     var title: String,
     val overview: String,

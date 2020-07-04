@@ -1,4 +1,4 @@
-package com.kulloveth.moviesapp.favorites
+package com.kulloveth.moviesapp.ui.favorites
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -12,11 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kulloveth.moviesapp.MoviesDataManager
 import com.kulloveth.moviesapp.databinding.FragmentFavoriteBinding
-import com.kulloveth.moviesapp.models.Movie
+import com.kulloveth.moviesapp.ui.MoviesDataManager
 
-class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
+class FavoriteFragment : Fragment() {
 
     var moviesDataManager: MoviesDataManager? = null
     var binding: FragmentFavoriteBinding? = null
@@ -48,10 +47,10 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
         //initialiazing the moviesDataManager
         moviesDataManager = ViewModelProvider(this).get(MoviesDataManager::class.java)
 
-        adapter = FavoriteAdapter(this)
+        adapter = FavoriteAdapter()
         bindFavoritesToRecyclerView()
 
-
+        binding?.contentLayout?.toolbarImage?.visibility = View.INVISIBLE
     }
 
 
@@ -66,7 +65,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
             recyclerView?.layoutManager = layoutManager
         }
         recyclerView?.adapter = adapter
-        moviesDataManager?.getFavoriteMovies(requireActivity())
+        moviesDataManager?.getFavoriteMovies(true)
             ?.observe(requireActivity(), Observer {
                 Log.d("fav", "" + it)
                 adapter?.submitList(it)
@@ -79,9 +78,6 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.MovieItemCLickedListener {
                 }
 
             })
-    }
-
-    override fun movieItemCLicked(movie: Movie) {
     }
 
 
