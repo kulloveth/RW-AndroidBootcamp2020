@@ -93,6 +93,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
 
 
+        //delete  a movie item from room
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
             override fun isLongPressDragEnabled() = false
@@ -119,17 +120,6 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                     moviesDataManager?.deleteMovie(
                         it
                     )
-                    movies.removeAt(viewHolder.adapterPosition)
-                    adapter?.notifyDataSetChanged()
-                    adapter?.notifyItemRangeChanged(viewHolder.adapterPosition, movies.size)
-                    moviesDataManager?.getMovieComposites()
-                        ?.observe(requireActivity(), Observer { m ->
-
-                            movies = m.toMutableList()
-                            adapter?.submitList(movies)
-                            recyclerView?.adapter = adapter
-                            requireActivity().recreate()
-                        })
                     Snackbar.make(requireView(), "movie deleted", Snackbar.LENGTH_SHORT).show()
                 }
 
