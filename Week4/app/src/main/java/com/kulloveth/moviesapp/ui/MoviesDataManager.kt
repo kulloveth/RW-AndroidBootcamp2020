@@ -59,6 +59,34 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
         }.asLiveData()
     }
 
+    /**
+     * search for movies by
+     * its title with [query]
+     * to display
+     * */
+    fun searchMovieByTitle(query:String): LiveData<List<CompositeItem>>
+    {
+        return repository.searchMovies(query).map {
+            val moviesList = it.toMutableList()
+            Log.d(TAG, "$moviesList")
+            val moviesByGenre = moviesList.sortedBy { it.genre  }
+            val genres = moviesByGenre.map { it.genre}.distinct()
+
+            val compositeItem = mutableListOf<CompositeItem>()
+                    genres.let {
+                        genres.forEach { genre ->
+                            compositeItem.add(CompositeItem.withHeader(Header(genre)))
+                            val movies =
+                                moviesByGenre.filter { it.genre == genre }
+                                    .map { CompositeItem.withMovie(it) }
+                            compositeItem.addAll(movies)
+                        }
+
+            }
+            compositeItem
+        }.asLiveData()
+    }
+
     //deletes a single movie from database
     fun deleteMovie(movie: Movie) {
         viewModelScope.launch(Dispatchers.IO) {

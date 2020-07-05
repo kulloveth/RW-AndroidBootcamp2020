@@ -1,10 +1,9 @@
 package com.kulloveth.moviesapp.db.repository
 
-import androidx.lifecycle.LiveData
-import com.kulloveth.moviesapp.db.room.MovieDao
 import com.kulloveth.moviesapp.db.room.MovieDatabse
 import com.kulloveth.moviesapp.models.Movie
 import kotlinx.coroutines.flow.Flow
+
 
 
 class RoomRepository : MovieRepository {
@@ -24,6 +23,10 @@ class RoomRepository : MovieRepository {
 
     override fun getAllMovies(): Flow<List<Movie>> {
         return dao.getAllMovies()
+    }
+
+    override fun searchMovies(query:String): Flow<List<Movie>> {
+        return dao.searchMovies(query)
     }
 
     override fun getMovie(id: Int) =

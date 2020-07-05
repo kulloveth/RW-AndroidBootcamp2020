@@ -52,7 +52,8 @@ class MovieAdapter(val movieItemCLickedListener: MovieItemCLickedListener) :
     }
 
 
-    fun getNoteAt(position: Int): CompositeItem? = getItem(position)
+    //get a particular movies position
+    fun getMovieAt(position: Int): CompositeItem? = getItem(position)
 
     /**
      * this a diffutil class which uses your Object type

@@ -32,6 +32,9 @@ interface MovieDao {
     @Query("Select * from movie order by id ASC")
     fun getAllMovies(): Flow<List<Movie>>
 
+    @Query("Select * from movie where title like :title")
+    fun searchMovies(title: String): Flow<List<Movie>>
+
     //update a particular movie using coroutine
     @Update
     suspend fun updateMovie(movieEntity: Movie)

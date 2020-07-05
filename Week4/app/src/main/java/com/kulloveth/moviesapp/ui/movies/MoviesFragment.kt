@@ -1,13 +1,18 @@
 package com.kulloveth.moviesapp.ui.movies
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +27,11 @@ import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.ui.signin.AuthenticationActivity
 import com.kulloveth.moviesapp.ui.signin.SignInFragment
 import com.kulloveth.moviesapp.ui.signin.SignInRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 
 class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
@@ -31,6 +41,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     var recyclerView: RecyclerView? = null
     var binding: FragmentMoviesBinding? = null
     var movies = mutableListOf<CompositeItem>()
+    var searchView:SearchView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,12 +77,11 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         val userName =
             sharedPref.getString(SignInFragment.USER_NAME_KEY, "")
         val userImage = sharedPref.getString(SignInFragment.USER_IMAGE_KEY, "")
+        binding?.contentLayout?.toolbarImage?.visibility = View.GONE
         binding?.contentLayout?.toolbarImage?.let {
             Glide.with(this).load(userImage).placeholder(R.drawable.ic_account_circle_white_24dp)
                 .circleCrop().into(it)
         }
-
-        binding?.contentLayout?.userName?.text = userName?.toUpperCase()
 
     }
 
@@ -93,7 +103,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
 
 
-        //delete  a movie item from room
+        //delete  a movie item from room by swiping an item either left or right
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
             override fun isLongPressDragEnabled() = false
@@ -116,7 +126,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                adapter?.getNoteAt(viewHolder.adapterPosition)?.movie?.let {
+                adapter?.getMovieAt(viewHolder.adapterPosition)?.movie?.let {
                     moviesDataManager?.deleteMovie(
                         it
                     )
@@ -144,14 +154,57 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
             )
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.main_menu, menu)
+        val searchItem = menu.findItem(R.id.search)
+        searchView = searchItem.actionView as SearchView
+        searchMovieByTitle()
+        val searchBtn = searchView?.findViewById(R.id.search_button) as ImageView
+        searchBtn.imageTintList = ColorStateList.valueOf(resources.getColor(android.R.color.white))
     }
+
+
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    fun searchMovieByTitle(){
+        lifecycleScope.launch {
+            searchView?.getQueryTextChangeStateFlow()
+                ?.debounce(300)
+                ?.filter { query ->
+                    if (query.isEmpty()) {
+                        adapter?.submitList(movies)
+                        return@filter false
+                    } else {
+                        return@filter true
+                    }
+                }
+                ?.distinctUntilChanged()
+               ?.flatMapLatest { query ->
+                    val title = "%$query%"
+                    moviesDataManager?.searchMovieByTitle(title)?.asFlow()
+                        ?.catch {
+                            emit(movies)
+                        }!!
+                }
+                ?.flowOn(Dispatchers.Default)
+                ?.collect { result ->
+                    if (result.isEmpty()){
+                        adapter?.submitList(emptyList())
+                        Toast.makeText(requireContext(),getString(R.string.not_found),Toast.LENGTH_SHORT).show()
+                    }else{
+                        adapter?.submitList(result)}
+                }
+        }
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
 
+        //sign user out of the app by clearing their data from shared pref
         if (item.itemId == R.id.logout) {
             SignInRepository.clearUser()
             val intent = Intent(
