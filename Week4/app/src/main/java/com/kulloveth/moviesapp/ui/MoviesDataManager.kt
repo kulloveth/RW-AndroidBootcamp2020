@@ -26,19 +26,14 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     val repository = Injection.provideRepository
 
 
-    private val _compositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
-    val _fompositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
-
     // setting up movies to pass between fragments
     private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
     val movieLiveData = _movieLiveData
 
 
     /*
-    * fetch movies from room db on background thread
-    * moves them to the ui then
-    * sorts  the movies and arrange
-    * according to its genres
+    * fetch movies from room using flow
+    * and convert to livedata
     * */
 
     fun getMovieComposites(): LiveData<List<CompositeItem>> {
