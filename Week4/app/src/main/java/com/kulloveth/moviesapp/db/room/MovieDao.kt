@@ -3,6 +3,7 @@ package com.kulloveth.moviesapp.db.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kulloveth.moviesapp.models.Movie
+import kotlinx.coroutines.flow.Flow
 
 /**
  * contains data access objects
@@ -20,10 +21,10 @@ interface MovieDao {
     fun getMovie(id: Int): LiveData<Movie>
 
     @Query("Select * from movie order by id ASC")
-    suspend fun getAllMovie(): List<Movie>
+    fun getAllMovie(): List<Movie>
 
     @Query("Select * from movie order by id ASC")
-    fun getAllMovies(): LiveData<List<Movie>>
+    fun getAllMovies(): Flow<List<Movie>>
 
     @Update
     suspend fun updateMovie(movieEntity: Movie)

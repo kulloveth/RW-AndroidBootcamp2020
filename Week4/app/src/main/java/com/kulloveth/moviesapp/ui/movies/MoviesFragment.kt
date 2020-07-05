@@ -1,27 +1,26 @@
 package com.kulloveth.moviesapp.ui.movies
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.kulloveth.moviesapp.ui.signin.AuthenticationActivity
-import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.R
-import com.kulloveth.moviesapp.ui.signin.SignInFragment
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
 import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Movie
+import com.kulloveth.moviesapp.ui.MoviesDataManager
+import com.kulloveth.moviesapp.ui.signin.AuthenticationActivity
+import com.kulloveth.moviesapp.ui.signin.SignInFragment
 import com.kulloveth.moviesapp.ui.signin.SignInRepository
 
 
@@ -32,7 +31,6 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     var recyclerView: RecyclerView? = null
     var binding: FragmentMoviesBinding? = null
     var movies = mutableListOf<CompositeItem>()
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,14 +65,13 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         val sharedPref = SignInRepository.sharedPrefs()
         val userName =
             sharedPref.getString(SignInFragment.USER_NAME_KEY, "")
-        val userImage = sharedPref.getString(SignInFragment.USER_IMAGE_KEY,"")
+        val userImage = sharedPref.getString(SignInFragment.USER_IMAGE_KEY, "")
         binding?.contentLayout?.toolbarImage?.let {
             Glide.with(this).load(userImage).placeholder(R.drawable.ic_account_circle_white_24dp)
                 .circleCrop().into(it)
-        };
+        }
 
         binding?.contentLayout?.userName?.text = userName?.toUpperCase()
-
 
     }
 
@@ -167,8 +164,10 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
         if (item.itemId == R.id.logout) {
             SignInRepository.clearUser()
-            val intent = Intent(requireActivity(),
-                AuthenticationActivity::class.java)
+            val intent = Intent(
+                requireActivity(),
+                AuthenticationActivity::class.java
+            )
             requireActivity().startActivity(intent)
             requireActivity().finish()
             return true
@@ -179,6 +178,6 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     }
 
 
-
-
 }
+
+

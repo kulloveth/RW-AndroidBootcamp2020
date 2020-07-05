@@ -2,6 +2,7 @@ package com.kulloveth.moviesapp.db.repository
 
 import androidx.lifecycle.LiveData
 import com.kulloveth.moviesapp.models.Movie
+import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
@@ -13,9 +14,9 @@ interface MovieRepository {
 
     fun getMovie(id: Int): LiveData<Movie>
 
-    suspend fun getAllMovie(): List<Movie>
+    fun getAllMovie(): List<Movie>
 
-    fun getAllMovies(): LiveData<List<Movie>>
+    fun getAllMovies(): Flow<List<Movie>>
 
     fun getFavorite(isFavorite: Boolean): LiveData<List<Movie>>
 
