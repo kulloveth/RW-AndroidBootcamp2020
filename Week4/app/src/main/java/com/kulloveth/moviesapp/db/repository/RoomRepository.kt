@@ -33,9 +33,8 @@ class RoomRepository : MovieRepository {
     override fun getAllMovie() =
         dao.getAllMovie()
 
-    override fun getFavorite(isFavorite: Boolean): LiveData<List<Movie>> {
-        return dao.getFavorites(isFavorite)
-    }
+    override fun getFavorite(isFavorite: Boolean) =
+        dao.getFavorites(isFavorite)
 
 
 }

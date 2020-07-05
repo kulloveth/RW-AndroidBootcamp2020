@@ -124,7 +124,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     * setup the favorite movies to be observed
     * */
     fun getFavoriteMovies(isFavorite: Boolean): LiveData<List<Movie>>? {
-        return repository.getFavorite(isFavorite)
+        return repository.getFavorite(isFavorite).asLiveData()
 
     }
 

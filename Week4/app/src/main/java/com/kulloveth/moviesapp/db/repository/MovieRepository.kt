@@ -18,7 +18,7 @@ interface MovieRepository {
 
     fun getAllMovies(): Flow<List<Movie>>
 
-    fun getFavorite(isFavorite: Boolean): LiveData<List<Movie>>
+    fun getFavorite(isFavorite: Boolean): Flow<List<Movie>>
 
 
 }
