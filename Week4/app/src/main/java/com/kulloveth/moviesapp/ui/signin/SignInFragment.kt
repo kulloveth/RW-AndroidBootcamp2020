@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -122,6 +123,14 @@ class SignInFragment : Fragment() {
         //const val USER_PASS_KEY = "USER_PASS_KEY"
         const val USER_IMAGE_KEY = "USER_IMAGE_KEY"
 
+        fun picassoTool(url:String,view:ImageView){
+            Picasso.get()
+                .load(url)
+                .placeholder(R.drawable.ic_account_box_black_24dp)
+                .error(R.drawable.ic_movie_filter_black_24dp)
+                .into(view)
+        }
+
 
     }
 
@@ -143,12 +152,14 @@ class SignInFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val uri: Uri? = data?.data
                 imageUrl = uri.toString()
-                binding?.userImage?.let {
-                    Picasso.get()
-                        .load(imageUrl)
-                        .into(it)
+                binding?.userImage?.let {imgView->
+                    imageUrl?.let {url->
+                        picassoTool(url,imgView)
+                    }
+
                 }
             }
         }
     }
+
 }

@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentProfileBinding
-import com.squareup.picasso.Picasso
 
 /**
  * A simple [Fragment] subclass.
@@ -35,12 +33,11 @@ class ProfileFragment : DialogFragment() {
         binding?.userName?.text = userName?.toUpperCase()
         val userImage = SignInRepository.sharedPrefs().getString(SignInFragment.USER_IMAGE_KEY, "")
 
-        binding?.image?.let {
-            Picasso.get()
-                .load(userImage)
-                .placeholder(R.drawable.ic_account_box_black_24dp)
-                .error(R.drawable.ic_movie_filter_black_24dp)
-                .into(it)
+        binding?.image?.let { imgView ->
+            userImage?.let { url ->
+                SignInFragment.picassoTool(url, imgView)
+            }
+
         }
 
     }
