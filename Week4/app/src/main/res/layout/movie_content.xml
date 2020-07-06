@@ -13,14 +13,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:titleTextColor="@android:color/white"
-            style="@style/toolbar_layout" >
-            <ImageView
-                android:layout_width="@dimen/profie_image_width"
-                android:contentDescription="@string/profile_image"
-                android:id="@+id/toolbarImage"
-                android:src="@drawable/ic_account_circle_white_24dp"
-                android:layout_height="match_parent"/>
-        </androidx.appcompat.widget.Toolbar>
+            style="@style/toolbar_layout" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

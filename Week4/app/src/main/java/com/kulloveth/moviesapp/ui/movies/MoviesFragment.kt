@@ -17,7 +17,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentMoviesBinding
@@ -25,7 +24,7 @@ import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.ui.signin.AuthenticationActivity
-import com.kulloveth.moviesapp.ui.signin.SignInFragment
+import com.kulloveth.moviesapp.ui.signin.ProfileFragment
 import com.kulloveth.moviesapp.ui.signin.SignInRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -71,17 +70,10 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         recyclerView?.adapter = adapter
 
         (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding?.contentLayout?.toolbar)
+
         moviesDataManager = ViewModelProvider(requireActivity()).get(MoviesDataManager::class.java)
         bindMoviesRecyclerView()
-        val sharedPref = SignInRepository.sharedPrefs()
-        val userName =
-            sharedPref.getString(SignInFragment.USER_NAME_KEY, "")
-        val userImage = sharedPref.getString(SignInFragment.USER_IMAGE_KEY, "")
-        binding?.contentLayout?.toolbarImage?.visibility = View.GONE
-        binding?.contentLayout?.toolbarImage?.let {
-            Glide.with(this).load(userImage).placeholder(R.drawable.ic_account_circle_white_24dp)
-                .circleCrop().into(it)
-        }
+
 
     }
 
@@ -130,7 +122,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                     moviesDataManager?.deleteMovie(
                         it
                     )
-                    Snackbar.make(requireView(), "movie deleted", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), getString(R.string.delete_message), Snackbar.LENGTH_SHORT).show()
                 }
 
             }
@@ -167,6 +159,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     }
 
 
+    //search movies by its title using Stateflow
     @FlowPreview
     @ExperimentalCoroutinesApi
     fun searchMovieByTitle(){
@@ -205,21 +198,29 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
 
 
         //sign user out of the app by clearing their data from shared pref
-        if (item.itemId == R.id.logout) {
-            SignInRepository.clearUser()
-            val intent = Intent(
-                requireActivity(),
-                AuthenticationActivity::class.java
-            )
-            requireActivity().startActivity(intent)
-            requireActivity().finish()
-            return true
+        when (item.itemId) {
+            R.id.logout -> {
+                SignInRepository.clearUser()
+                val intent = Intent(
+                    requireActivity(),
+                    AuthenticationActivity::class.java
+                )
+                requireActivity().startActivity(intent)
+                requireActivity().finish()
+                return true
+            }
+            R.id.profile->{
+                val dialog = ProfileFragment()
+                val fm = requireActivity().supportFragmentManager
+                dialog.show(fm,"profile")
+                return true
+            }
         }
 
-        return super.onOptionsItemSelected(item)
+            return super.onOptionsItemSelected(item)
 
-    }
 
+        }
 
 }
 

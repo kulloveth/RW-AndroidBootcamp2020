@@ -6,6 +6,10 @@
         android:id="@+id/logout"
         app:showAsAction="never"/>
 
+    <item android:title="@string/profile"
+        android:id="@+id/profile"
+        app:showAsAction="never"/>
+
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_black_24dp"

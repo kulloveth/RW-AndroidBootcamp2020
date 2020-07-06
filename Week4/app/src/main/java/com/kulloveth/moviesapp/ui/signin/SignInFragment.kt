@@ -12,12 +12,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.databinding.FragmentSigninBinding
 import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.ui.main.MainActivity
+import com.squareup.picasso.Picasso
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -118,7 +118,8 @@ class SignInFragment : Fragment() {
 
     companion object {
         const val USER_NAME_KEY = "USER_NAME_KEY"
-        const val USER_PASS_KEY = "USER_PASS_KEY"
+
+        //const val USER_PASS_KEY = "USER_PASS_KEY"
         const val USER_IMAGE_KEY = "USER_IMAGE_KEY"
 
 
@@ -143,9 +144,10 @@ class SignInFragment : Fragment() {
                 val uri: Uri? = data?.data
                 imageUrl = uri.toString()
                 binding?.userImage?.let {
-                    Glide.with(this).load(imageUrl)
-                        .centerCrop().into(it)
-                };
+                    Picasso.get()
+                        .load(imageUrl)
+                        .into(it)
+                }
             }
         }
     }

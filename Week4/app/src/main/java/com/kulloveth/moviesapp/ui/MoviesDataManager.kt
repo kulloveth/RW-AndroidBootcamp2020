@@ -63,6 +63,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
      * search for movies by
      * its title with [query]
      * to display
+     * converting flow to livedata
      * */
     fun searchMovieByTitle(query:String): LiveData<List<CompositeItem>>
     {
@@ -102,6 +103,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     /**
      * changes isFavorite to true
      * when a movie is liked and updates database
+     * in background thread
      *
      *
      * */
@@ -125,6 +127,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     /*
     * changes isFavorite to false
     * and updates movie in database
+    * in background thread
     * */
     fun removeFavorite(movie: Movie) {
 
