@@ -1,6 +1,5 @@
 package com.kulloveth.moviesapp.ui.signin
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -45,7 +44,7 @@ class SplashFragment : Fragment() {
     fun retrieveUser() {
         val sharedPref = SignInRepository.sharedPrefs()
         if (sharedPref.contains(SignInFragment.USER_NAME_KEY)) {
-            startActivity(Intent(requireActivity(), MainActivity::class.java))
+            SignInFragment.startNewActivity(requireActivity(), MainActivity::class.java)
             requireActivity().finish()
         } else {
             requireView().findNavController()

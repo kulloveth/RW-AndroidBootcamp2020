@@ -1,6 +1,5 @@
 package com.kulloveth.moviesapp.ui.movies
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.*
@@ -25,6 +24,7 @@ import com.kulloveth.moviesapp.models.Movie
 import com.kulloveth.moviesapp.ui.MoviesDataManager
 import com.kulloveth.moviesapp.ui.signin.AuthenticationActivity
 import com.kulloveth.moviesapp.ui.signin.ProfileFragment
+import com.kulloveth.moviesapp.ui.signin.SignInFragment
 import com.kulloveth.moviesapp.ui.signin.SignInRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,7 +40,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     var recyclerView: RecyclerView? = null
     var binding: FragmentMoviesBinding? = null
     var movies = mutableListOf<CompositeItem>()
-    var searchView:SearchView? = null
+    var searchView: SearchView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +94,6 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         })
 
 
-
         //delete  a movie item from room by swiping an item either left or right
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
@@ -122,7 +121,11 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                     moviesDataManager?.deleteMovie(
                         it
                     )
-                    Snackbar.make(requireView(), getString(R.string.delete_message), Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.delete_message),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
 
             }
@@ -162,7 +165,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
     //search movies by its title using Stateflow
     @FlowPreview
     @ExperimentalCoroutinesApi
-    fun searchMovieByTitle(){
+    fun searchMovieByTitle() {
         lifecycleScope.launch {
             searchView?.getQueryTextChangeStateFlow()
                 ?.debounce(300)
@@ -175,7 +178,7 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                     }
                 }
                 ?.distinctUntilChanged()
-               ?.flatMapLatest { query ->
+                ?.flatMapLatest { query ->
                     val title = "%$query%"
                     moviesDataManager?.searchMovieByTitle(title)?.asFlow()
                         ?.catch {
@@ -184,11 +187,16 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
                 }
                 ?.flowOn(Dispatchers.Default)
                 ?.collect { result ->
-                    if (result.isEmpty()){
+                    if (result.isEmpty()) {
                         adapter?.submitList(emptyList())
-                        Toast.makeText(requireContext(),getString(R.string.not_found),Toast.LENGTH_SHORT).show()
-                    }else{
-                        adapter?.submitList(result)}
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.not_found),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        adapter?.submitList(result)
+                    }
                 }
         }
     }
@@ -201,26 +209,25 @@ class MoviesFragment : Fragment(), MovieAdapter.MovieItemCLickedListener {
         when (item.itemId) {
             R.id.logout -> {
                 SignInRepository.clearUser()
-                val intent = Intent(
+                SignInFragment.startNewActivity(
                     requireActivity(),
                     AuthenticationActivity::class.java
                 )
-                requireActivity().startActivity(intent)
                 requireActivity().finish()
                 return true
             }
-            R.id.profile->{
+            R.id.profile -> {
                 val dialog = ProfileFragment()
                 val fm = requireActivity().supportFragmentManager
-                dialog.show(fm,"profile")
+                dialog.show(fm, "profile")
                 return true
             }
         }
 
-            return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
 
 
-        }
+    }
 
 }
 

@@ -1,6 +1,7 @@
 package com.kulloveth.moviesapp.ui.signin
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -84,9 +85,7 @@ class SignInFragment : Fragment() {
             userPassword?.error = getString(R.string.password_check)
         } else {
             saveUser(userName.toString(), imageUrl)
-
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            startActivity(intent)
+            startNewActivity(requireActivity(), MainActivity::class.java)
             requireActivity().finish()
 
         }
@@ -119,11 +118,11 @@ class SignInFragment : Fragment() {
 
     companion object {
         const val USER_NAME_KEY = "USER_NAME_KEY"
-
-        //const val USER_PASS_KEY = "USER_PASS_KEY"
+        const val USER_PASS_KEY = "USER_PASS_KEY"
         const val USER_IMAGE_KEY = "USER_IMAGE_KEY"
 
-        fun picassoTool(url:String,view:ImageView){
+        //picasso util for loading image
+        fun picassoTool(url: String, view: ImageView) {
             Picasso.get()
                 .load(url)
                 .placeholder(R.drawable.ic_account_box_black_24dp)
@@ -131,9 +130,15 @@ class SignInFragment : Fragment() {
                 .into(view)
         }
 
+        //start new activity util
+        fun startNewActivity(context: Context, activity: Class<*>) {
+            context.startActivity(Intent(context, activity))
+        }
+
 
     }
 
+    // selects image from device storage
     private fun getImagefromGallery() {
         val intent = Intent(
             Intent.ACTION_PICK,
@@ -152,9 +157,9 @@ class SignInFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val uri: Uri? = data?.data
                 imageUrl = uri.toString()
-                binding?.userImage?.let {imgView->
-                    imageUrl?.let {url->
-                        picassoTool(url,imgView)
+                binding?.userImage?.let { imgView ->
+                    imageUrl?.let { url ->
+                        picassoTool(url, imgView)
                     }
 
                 }
