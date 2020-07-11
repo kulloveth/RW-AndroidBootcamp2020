@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/standard_padding"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/country_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_padding"
+            android:layout_marginTop="@dimen/standard_padding"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="WorldWide" />
+
+        <TextView
+            android:id="@+id/confirmed_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/double_padding"
+            android:layout_marginStart="@dimen/standard_padding"
+            app:layout_constraintBottom_toTopOf="@id/confirmed_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/country_name"
+            tools:text="11111" />
+
+        <TextView
+            android:id="@+id/recovered_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/double_padding"
+            android:layout_marginStart="@dimen/standard_padding"
+            app:layout_constraintBottom_toTopOf="@id/recovered_tv"
+            app:layout_constraintEnd_toStartOf="@id/deaths_tv"
+            app:layout_constraintStart_toEndOf="@id/confirmed_tv"
+            app:layout_constraintTop_toBottomOf="@id/country_name"
+            tools:text="23234323" />
+
+        <TextView
+            android:id="@+id/deaths_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/double_padding"
+            android:layout_marginEnd="@dimen/standard_padding"
+            app:layout_constraintBottom_toTopOf="@id/deaths_tv"
+            app:layout_constraintStart_toStartOf="@id/deaths_tv"
+            app:layout_constraintEnd_toEndOf="@id/deaths_tv"
+            android:textColor="@android:color/holo_red_dark"
+            app:layout_constraintTop_toBottomOf="@id/country_name"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/confirmed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_padding"
+            android:layout_marginBottom="@dimen/standard_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@android:color/black"
+            android:text="Confirmed" />
+
+        <TextView
+            android:id="@+id/recovered_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_padding"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="@dimen/standard_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/deaths_tv"
+            app:layout_constraintStart_toEndOf="@id/confirmed_tv"
+            android:text="Recovered" />
+
+        <TextView
+            android:id="@+id/deaths_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_padding"
+            android:layout_marginBottom="@dimen/standard_padding"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Deaths" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

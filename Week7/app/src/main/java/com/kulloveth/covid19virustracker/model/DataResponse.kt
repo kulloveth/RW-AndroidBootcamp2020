@@ -1,5 +1,8 @@
 package com.kulloveth.covid19virustracker.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class BaseResponse(val data : Data)
 data class Data(
 
@@ -8,7 +11,9 @@ data class Data(
     val rows: List<CountryStatus>
 )
 
+@Entity(tableName = "status")
 data class CountryStatus(
+    @PrimaryKey
     val country: String,
     val country_abbreviation: String,
     val total_cases: String,
@@ -23,9 +28,9 @@ data class CountryStatus(
 )
 
 data class PaginationMeta(
-
     val currentPage: Int,
     val currentPageSize: Int,
     val totalPages: Int,
     val totalRecords: Int
 )
+

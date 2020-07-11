@@ -1,8 +1,7 @@
 package com.kulloveth.covid19virustracker
 
 import android.app.Application
-import com.kulloveth.covid19virustracker.api.buildApiService
-import com.kulloveth.covid19virustracker.data.Repository
+import com.facebook.stetho.Stetho
 
 class App : Application() {
 
@@ -10,13 +9,14 @@ class App : Application() {
 
         private lateinit var instance: App
 
-        private val apiService by lazy { buildApiService() }
+        fun getContext() = instance.applicationContext
 
-        val remoteApi by lazy { Repository(apiService) }
     }
 
     override fun onCreate() {
-        super.onCreate()
         instance = this
+        super.onCreate()
+        Stetho.initializeWithDefaults(this)
+
     }
 }
