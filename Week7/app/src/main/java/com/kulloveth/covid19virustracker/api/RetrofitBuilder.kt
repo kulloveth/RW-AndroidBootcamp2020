@@ -10,11 +10,10 @@ fun buildClient(): OkHttpClient = OkHttpClient.Builder()
         level = HttpLoggingInterceptor.Level.BODY
     }).build()
 
-fun buildRetrofit(): Retrofit {
-    val BASE_URL = "https://corona-virus-stats.herokuapp.com/api/"
-    return Retrofit.Builder().client(buildClient()).baseUrl(BASE_URL)
+fun buildRetrofit(baseUrl:String): Retrofit {
+    return Retrofit.Builder().client(buildClient()).baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
 
-fun buildApiService() = buildRetrofit().create(ApiService::class.java)
+fun buildApiService(baseUrl: String) = buildRetrofit(baseUrl).create(ApiService::class.java)

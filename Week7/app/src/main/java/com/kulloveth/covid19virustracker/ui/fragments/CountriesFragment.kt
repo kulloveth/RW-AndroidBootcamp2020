@@ -1,6 +1,7 @@
 package com.kulloveth.covid19virustracker.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +9,18 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.covid19virustracker.Injection
 import com.kulloveth.covid19virustracker.R
+import com.kulloveth.covid19virustracker.data.Repository
 import com.kulloveth.covid19virustracker.model.CountryStatus
 import com.kulloveth.covid19virustracker.ui.StatusViewModel
 import com.kulloveth.covid19virustracker.ui.adapter.StatusAdapter
 import com.kulloveth.covid19virustracker.utils.ProgressListener
 import kotlinx.android.synthetic.main.fragment_countries.*
+import kotlinx.coroutines.launch
 
 
 /**
@@ -56,6 +60,10 @@ class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, Progress
         viewModel?.setUpProgress(this)
 
         getStatus()
+        lifecycleScope.launch {
+            var article = Injection.newsApiService.getCovidNews("COVID",Repository.API_KEY).articles
+            Log.d(TAG,"$article")
+        }
 
     }
 

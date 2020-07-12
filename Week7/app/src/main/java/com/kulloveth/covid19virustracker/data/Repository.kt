@@ -2,6 +2,7 @@ package com.kulloveth.covid19virustracker.data
 
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.kulloveth.covid19virustracker.BuildConfig
 import com.kulloveth.covid19virustracker.Injection
 import com.kulloveth.covid19virustracker.data.db.StatusDatabase
 
@@ -21,10 +22,10 @@ class Repository(private val database: StatusDatabase) {
     ).build()
 
     companion object {
+        val API_KEY: String = BuildConfig.API_KEY
         private const val PAGE_SIZE = 30
         private const val ENABLE_PLACEHOLDER = true
     }
-
 
 
 }
