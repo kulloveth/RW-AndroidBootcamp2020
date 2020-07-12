@@ -11,4 +11,6 @@
     <string name="new_cases">New Cases</string>
     <string name="active_cases">Active Cases</string>
     <string name="new_deaths">New Deaths</string>
+    <string name="status">Status</string>
+    <string name="news">News</string>
 </resources>
