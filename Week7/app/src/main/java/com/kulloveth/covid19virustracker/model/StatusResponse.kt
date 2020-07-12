@@ -14,6 +14,7 @@ data class StatusBaseResponse(val data: Data)
 data class Data(
     val paginationMeta: PaginationMeta,
     val last_update: String,
+    @SerializedName("rows")
     val status: List<CountryStatus>
 )
 

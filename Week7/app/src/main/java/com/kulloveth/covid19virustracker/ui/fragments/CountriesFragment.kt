@@ -60,16 +60,15 @@ class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, Progress
         viewModel?.setUpProgress(this)
 
         getStatus()
-        lifecycleScope.launch {
-            var article = Injection.newsApiService.getCovidNews("COVID",Repository.API_KEY).articles
-            Log.d(TAG,"$article")
-        }
-
     }
 
     private fun getStatus() {
+        progress?.visibility = View.VISIBLE
+        statusRv?.visibility = View.INVISIBLE
         viewModel?.getStatus()?.observe(requireActivity(), Observer {
             adapter.submitList(it)
+            progress?.visibility = View.INVISIBLE
+            statusRv?.visibility = View.VISIBLE
         })
     }
 
@@ -80,7 +79,7 @@ class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, Progress
     }
 
     override fun loading() {
-       progress?.visibility = View.VISIBLE
+        progress?.visibility = View.VISIBLE
         statusRv?.visibility = View.INVISIBLE
     }
 

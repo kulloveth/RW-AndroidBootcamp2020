@@ -5,15 +5,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.model.Article
 
 @Dao
-interface StatusDao {
+interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(status: List<CountryStatus>)
+    suspend fun insert(news: List<Article>)
 
-    @Query("SELECT * FROM status order by country ASC")
-    fun statusByCountry(): DataSource.Factory<Int, CountryStatus>
+    @Query("SELECT * FROM news")
+    fun covidNews(): DataSource.Factory<Int, Article>
 
 }
