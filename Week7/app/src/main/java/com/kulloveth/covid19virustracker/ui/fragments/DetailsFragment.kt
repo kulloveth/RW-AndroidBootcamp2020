@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui
+package com.kulloveth.covid19virustracker.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kulloveth.covid19virustracker.Injection
 import com.kulloveth.covid19virustracker.R
+import com.kulloveth.covid19virustracker.ui.StatusViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.*
 

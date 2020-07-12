@@ -5,12 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
+
+//object representation of the api data
 data class BaseResponse(val data : Data)
 data class Data(
-
     val paginationMeta: PaginationMeta,
     val last_update: String,
-    val rows: List<CountryStatus>
+    val status: List<CountryStatus>
 )
 @Parcelize
 @Entity(tableName = "status")

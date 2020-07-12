@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/countriesFragment"
-        android:name="com.kulloveth.covid19virustracker.ui.CountriesFragment"
+        android:name="com.kulloveth.covid19virustracker.ui.fragments.CountriesFragment"
         android:label="fragment_countries"
         tools:layout="@layout/fragment_countries" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.kulloveth.covid19virustracker.ui.DetailsFragment"
+        android:name="com.kulloveth.covid19virustracker.ui.fragments.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
 </navigation>

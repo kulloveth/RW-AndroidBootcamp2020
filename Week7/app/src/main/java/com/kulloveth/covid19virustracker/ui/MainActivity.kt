@@ -1,7 +1,8 @@
-package com.kulloveth.covid19virustracker
+package com.kulloveth.covid19virustracker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kulloveth.covid19virustracker.R
 
 class MainActivity : AppCompatActivity() {
 

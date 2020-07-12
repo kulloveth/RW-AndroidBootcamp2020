@@ -1,7 +1,6 @@
 package com.kulloveth.covid19virustracker.utils
 
-enum class Status {
-    SUCCESS,
-    ERROR,
-    LOADING
+interface ProgressListener {
+    fun loading()
+    fun success()
 }

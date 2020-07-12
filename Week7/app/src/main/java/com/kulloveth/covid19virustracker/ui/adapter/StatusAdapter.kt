@@ -2,7 +2,7 @@ package com.kulloveth.covid19virustracker.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.model.CountryStatus
@@ -12,7 +12,7 @@ import com.kulloveth.covid19virustracker.ui.viewholder.StatusViewHolder
  * Adapter for the list of CountryStatus.
  */
 class StatusAdapter(private val listener: StatusITemListener) :
-    PagingDataAdapter<CountryStatus, StatusViewHolder>(
+    PagedListAdapter<CountryStatus, StatusViewHolder>(
         STATUS_DIFF
     ) {
     override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {

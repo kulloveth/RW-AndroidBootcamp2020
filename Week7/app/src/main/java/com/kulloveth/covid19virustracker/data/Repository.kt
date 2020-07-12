@@ -1,35 +1,30 @@
 package com.kulloveth.covid19virustracker.data
 
-import androidx.paging.*
-import com.kulloveth.covid19virustracker.api.ApiService
-import com.kulloveth.covid19virustracker.db.StatusDatabase
-import com.kulloveth.covid19virustracker.model.CountryStatus
-import kotlinx.coroutines.flow.Flow
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.kulloveth.covid19virustracker.Injection
+import com.kulloveth.covid19virustracker.data.db.StatusDatabase
 
-class Repository( private val service: ApiService,
-                        private val database: StatusDatabase
-) {
+class Repository(private val database: StatusDatabase) {
 
-    /**
-     * Search repositories whose names match the query, exposed as a stream of data that will emit
-     * every time we get more data from the network.
-     */
-    fun getStatus(): Flow<PagingData<CountryStatus>> {
 
-        val pagingSourceFactory = { database.getStatusDao().statusByCountry() }
+    //fetch status from the internet
+    suspend fun fetchStatus() = Injection.apiService.getStatusByCountry(200).data.status
 
-        return Pager(
-            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE),
-            remoteMediator = StatusRemoteMediator(
-                service,
-                database
-            ),
-            pagingSourceFactory = pagingSourceFactory
-        ).flow
-    }
+
+    //display data by paging to avoid overloading the adapter
+    fun getStatus() = LivePagedListBuilder(
+        database.getStatusDao().statusByCountry(), PagedList.Config.Builder()
+            .setPageSize(PAGE_SIZE)
+            .setEnablePlaceholders(ENABLE_PLACEHOLDER)
+            .build()
+    ).build()
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 20
+        private const val PAGE_SIZE = 30
+        private const val ENABLE_PLACEHOLDER = true
     }
+
+
 
 }
