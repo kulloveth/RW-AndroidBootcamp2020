@@ -22,9 +22,12 @@ import kotlinx.android.synthetic.main.fragment_details.*
 class DetailsFragment : Fragment() {
     private var viewModel: StatusViewModel? = null
     private var flagIv: ImageView? = null
-    private var deathsTv:TextView?=null
-    private var recoveredTv:TextView?=null
-    private var confirmedTv:TextView?=null
+    private var totalDeathsTv:TextView?=null
+    private var totalRecoveredTv:TextView?=null
+    private var totalCasesTv:TextView?=null
+    private var newCasesTv:TextView?=null
+    private var activeCasesTv:TextView?=null
+    private var newDeathsTv:TextView?=null
     private var country:TextView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,10 +49,14 @@ class DetailsFragment : Fragment() {
             StatusViewModel::class.java
         )
         flagIv = country_flag
-        deathsTv = deaths_detail
-        recoveredTv=recovered_detail
-        confirmedTv=confirmed_detail
+        totalDeathsTv = total_deaths_detail
+        totalRecoveredTv=total_recovered_detail
+        totalCasesTv=total_cases_detail
+        newCasesTv = new_cases_detail
+        activeCasesTv = active_cases_detail
+        newDeathsTv = new_death_detail
         country = country_name
+
         setUpDetails()
     }
 
@@ -57,10 +64,13 @@ class DetailsFragment : Fragment() {
         viewModel?.sstatusLiveData?.observe(requireActivity(), Observer {
             Picasso.get().load(it.flag).error(R.drawable.ic_launcher_background)
                 .placeholder(R.drawable.ic_launcher_background).into(flagIv)
-            deathsTv?.text = it.total_deaths
-            recoveredTv?.text = it.total_recovered
-            confirmedTv?.text = it.total_cases
+            totalDeathsTv?.text = it.total_deaths
+            totalRecoveredTv?.text = it.total_recovered
+            totalCasesTv?.text = it.total_cases
             country?.text = it.country
+            newCasesTv?.text = it.new_cases
+            activeCasesTv?.text = it.active_cases
+            newDeathsTv?.text = it.new_deaths
         })
     }
 }

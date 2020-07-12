@@ -11,8 +11,8 @@ class StatusViewHolder(val view:View):RecyclerView.ViewHolder(view) {
 
     fun bindStatus(countryStatus: CountryStatus){
         view.country_name.text = countryStatus.country
-        view.confirmed_detail.text = countryStatus.total_cases
-        view.recovered_detail.text = countryStatus.total_recovered
-        view.deaths_detail.text = countryStatus.total_deaths
+        view.total_cases_detail.text = countryStatus.total_cases
+        view.total_recovered_detail.text = countryStatus.total_recovered
+        view.total_deaths_detail.text = countryStatus.total_deaths
     }
 }

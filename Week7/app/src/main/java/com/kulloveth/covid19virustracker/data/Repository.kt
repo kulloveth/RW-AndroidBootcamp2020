@@ -29,7 +29,7 @@ class Repository( private val service: ApiService,
     }
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 30
+        private const val NETWORK_PAGE_SIZE = 20
     }
 
 }

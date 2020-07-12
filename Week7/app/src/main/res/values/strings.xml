@@ -5,4 +5,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="retry">Retry</string>
     <string name="no_internet">😨 Woops No internet</string>
+    <string name="total_deaths">Total Deaths</string>
+    <string name="total_recovered">Total Recovered</string>
+    <string name="total_cases">Total Cases</string>
+    <string name="new_cases">New Cases</string>
+    <string name="active_cases">Active Cases</string>
+    <string name="new_deaths">New Deaths</string>
 </resources>

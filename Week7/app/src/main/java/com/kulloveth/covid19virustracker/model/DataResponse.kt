@@ -21,7 +21,7 @@ data class CountryStatus(
     val total_cases: String,
     val new_cases: String,
     val total_deaths: String,
-    val new_deaths: Int,
+    val new_deaths: String,
     val total_recovered: String,
     val active_cases: String,
     val serious_critical: String,
