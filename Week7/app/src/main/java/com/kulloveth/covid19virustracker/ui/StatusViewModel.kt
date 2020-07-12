@@ -1,5 +1,6 @@
 package com.kulloveth.covid19virustracker.ui
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 class StatusViewModel(private val repository: Repository) : ViewModel() {
 
     private var statusResult: Flow<PagingData<CountryStatus>>? = null
+    val sstatusLiveData = MutableLiveData<CountryStatus>()
 
     fun getStatus(): Flow<PagingData<CountryStatus>> {
         val lastResult = statusResult
@@ -21,4 +23,10 @@ class StatusViewModel(private val repository: Repository) : ViewModel() {
         statusResult = newResult
         return newResult
     }
+
+    fun setUpStatus(countryStatus: CountryStatus) {
+        sstatusLiveData.value = countryStatus
+    }
+
+
 }

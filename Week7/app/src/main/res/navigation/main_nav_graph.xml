@@ -9,5 +9,14 @@
         android:id="@+id/countriesFragment"
         android:name="com.kulloveth.covid19virustracker.ui.CountriesFragment"
         android:label="fragment_countries"
-        tools:layout="@layout/fragment_countries" />
+        tools:layout="@layout/fragment_countries" >
+        <action
+            android:id="@+id/action_countriesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.kulloveth.covid19virustracker.ui.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>

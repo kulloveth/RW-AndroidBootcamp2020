@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui
+package com.kulloveth.covid19virustracker.ui.viewholder
 
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +30,10 @@ class StatusLoadStateViewHolder (private val view: View,
         fun create(parent: ViewGroup, retry: () -> Unit): StatusLoadStateViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.status_load_state_item, parent, false)
-            return StatusLoadStateViewHolder(view, retry)
+            return StatusLoadStateViewHolder(
+                view,
+                retry
+            )
         }
     }
 }

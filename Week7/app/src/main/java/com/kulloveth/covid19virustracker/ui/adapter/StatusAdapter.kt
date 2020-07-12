@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui
+package com.kulloveth.covid19virustracker.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,18 +6,27 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.ui.viewholder.StatusViewHolder
 
 /**
  * Adapter for the list of CountryStatus.
  */
-class StatusAdapter : PagingDataAdapter<CountryStatus, StatusViewHolder>(STATUS_DIFF) {
+class StatusAdapter(private val listener: StatusITemListener) :
+    PagingDataAdapter<CountryStatus, StatusViewHolder>(
+        STATUS_DIFF
+    ) {
     override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {
         getItem(position)?.let { holder.bindStatus(it) }
+        holder.view.setOnClickListener {
+            getItem(position)?.let { status -> listener.onStatusListener(status) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
-        return StatusViewHolder(view)
+        return StatusViewHolder(
+            view
+        )
     }
 
     companion object {
@@ -31,5 +40,9 @@ class StatusAdapter : PagingDataAdapter<CountryStatus, StatusViewHolder>(STATUS_
             ): Boolean =
                 oldItem == newItem
         }
+    }
+
+    interface StatusITemListener {
+        fun onStatusListener(countryStatus: CountryStatus)
     }
 }

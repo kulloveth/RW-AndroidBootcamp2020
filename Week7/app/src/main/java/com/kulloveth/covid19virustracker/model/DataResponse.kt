@@ -1,7 +1,9 @@
 package com.kulloveth.covid19virustracker.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 data class BaseResponse(val data : Data)
 data class Data(
@@ -10,7 +12,7 @@ data class Data(
     val last_update: String,
     val rows: List<CountryStatus>
 )
-
+@Parcelize
 @Entity(tableName = "status")
 data class CountryStatus(
     @PrimaryKey
@@ -25,7 +27,7 @@ data class CountryStatus(
     val serious_critical: String,
     val cases_per_mill_pop: String,
     val flag: String
-)
+):Parcelable
 
 data class PaginationMeta(
     val currentPage: Int,

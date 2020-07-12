@@ -5,15 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.ExperimentalPagingApi
+import androidx.navigation.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.covid19virustracker.Injection
 import com.kulloveth.covid19virustracker.R
+import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.ui.adapter.StatusAdapter
+import com.kulloveth.covid19virustracker.ui.adapter.StatusLoadStateAdapter
 import kotlinx.android.synthetic.main.fragment_countries.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -23,11 +28,13 @@ import kotlinx.coroutines.launch
 /**
  * A simple [Fragment] subclass.
  */
-class CountriesFragment : Fragment() {
+class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener {
 
     private val TAG = CountriesFragment::class.java.simpleName
     private var viewModel: StatusViewModel? = null
-    val adapter = StatusAdapter()
+    val adapter = StatusAdapter(this)
+    private var statusRv: RecyclerView? = null
+    private var progress:ProgressBar? = null
 
     private var statusJob: Job? = null
 //    private val networkStatusChecker by lazy {
@@ -51,7 +58,6 @@ class CountriesFragment : Fragment() {
             viewModel?.getStatus()?.collectLatest {
                 Log.d(TAG, "$it")
                 adapter.submitData(it)
-                list.adapter = adapter
             }
         }
     }
@@ -59,9 +65,10 @@ class CountriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        statusRv = list
+        progress = progress_bar
         viewModel = ViewModelProvider(
-            this,
+            requireActivity(),
             Injection.provideViewModelFactory()
         ).get(StatusViewModel::class.java)
 
@@ -73,17 +80,17 @@ class CountriesFragment : Fragment() {
 
 
     private fun initAdapter() {
-        list.adapter = adapter.withLoadStateHeaderAndFooter(
+        statusRv?.adapter = adapter.withLoadStateHeaderAndFooter(
             header = StatusLoadStateAdapter { adapter.retry() },
             footer = StatusLoadStateAdapter { adapter.retry() }
         )
         adapter.addLoadStateListener { loadState ->
             // Only show the list if refresh succeeds.
-            list.isVisible = loadState.refresh is LoadState.NotLoading
+            statusRv?.isVisible = loadState.refresh is LoadState.NotLoading
             // Show loading spinner during initial load or refresh.
-            progress_bar.isVisible = loadState.refresh is LoadState.Loading
+            progress?.isVisible = loadState.refresh is LoadState.Loading
             // Show the retry state if initial load or refresh fails.
-           // retry_button.isVisible = loadState.refresh is LoadState.Error
+            // retry_button.isVisible = loadState.refresh is LoadState.Error
 
             // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
             val errorState = loadState.source.append as? LoadState.Error
@@ -99,6 +106,11 @@ class CountriesFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onStatusListener(countryStatus: CountryStatus) {
+        viewModel?.setUpStatus(countryStatus)
+        requireView().findNavController().navigate(R.id.action_countriesFragment_to_detailsFragment)
     }
 
 
