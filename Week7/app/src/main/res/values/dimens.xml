@@ -2,4 +2,6 @@
 <resources>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="double_padding">32dp</dimen>
+    <dimen name="flag_size">50dp</dimen>
+    <dimen name="elevation_standard">4dp</dimen>
 </resources>

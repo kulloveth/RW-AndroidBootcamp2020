@@ -8,21 +8,21 @@
 
     <fragment
         android:id="@+id/statusFragment"
-        android:name="com.kulloveth.covid19virustracker.ui.fragments.CountriesFragment"
+        android:name="com.kulloveth.covid19virustracker.ui.status.StatusFragment"
         android:label="fragment_countries"
-        tools:layout="@layout/fragment_countries" >
+        tools:layout="@layout/fragment_status" >
         <action
             android:id="@+id/action_countriesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.kulloveth.covid19virustracker.ui.fragments.DetailsFragment"
+        android:name="com.kulloveth.covid19virustracker.ui.status.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.kulloveth.covid19virustracker.ui.fragments.NewsFragment"
+        android:name="com.kulloveth.covid19virustracker.ui.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
 </navigation>

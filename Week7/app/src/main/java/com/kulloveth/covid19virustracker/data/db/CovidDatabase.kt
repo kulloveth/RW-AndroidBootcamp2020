@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kulloveth.covid19virustracker.App
-import com.kulloveth.covid19virustracker.Injection
+import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.model.Article
 import com.kulloveth.covid19virustracker.model.CountryStatus
 import kotlinx.coroutines.CoroutineScope

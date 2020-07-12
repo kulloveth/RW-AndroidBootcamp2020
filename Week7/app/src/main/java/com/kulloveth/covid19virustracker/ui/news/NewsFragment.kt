@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui.fragments
+package com.kulloveth.covid19virustracker.ui.news
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.kulloveth.covid19virustracker.Injection
+import com.kulloveth.covid19virustracker.data.Injection
 
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.ui.NewsViewModel
-import com.kulloveth.covid19virustracker.ui.adapter.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
 
 /**
@@ -24,6 +21,11 @@ class NewsFragment : Fragment() {
     private var viewModel: NewsViewModel? = null
     private var newsRv: RecyclerView? = null
     private val adapter = NewsAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,9 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity(),Injection.provideNewsViewModelFactory()).get(NewsViewModel::class.java)
+        app_bar.title = "Covid News"
+        viewModel = ViewModelProvider(requireActivity(),
+            Injection.provideViewModelFactory()).get(NewsViewModel::class.java)
         newsRv = news_list
         newsRv?.adapter = adapter
         fetchNews()

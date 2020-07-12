@@ -2,7 +2,6 @@ package com.kulloveth.covid19virustracker.data
 
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.kulloveth.covid19virustracker.Injection
 import com.kulloveth.covid19virustracker.data.db.CovidDatabase
 
 class Repository(private val database: CovidDatabase) {

@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui
+package com.kulloveth.covid19virustracker.ui.status
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.kulloveth.covid19virustracker.data.Repository
 import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.ui.BaseViewModel
 import com.kulloveth.covid19virustracker.utils.ProgressListener
 
-class StatusViewModel(private val repository: Repository) : ViewModel() {
+class StatusViewModel(private val repository: Repository) : BaseViewModel(repository) {
     private var progressListener: ProgressListener? = null
 
     fun setUpProgress(progressListener: ProgressListener) {

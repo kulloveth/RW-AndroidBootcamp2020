@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui.adapter
+package com.kulloveth.covid19virustracker.ui.status
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.model.CountryStatus
-import com.kulloveth.covid19virustracker.ui.viewholder.StatusViewHolder
 
 /**
  * Adapter for the list of CountryStatus.

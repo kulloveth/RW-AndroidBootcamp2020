@@ -1,7 +1,6 @@
-package com.kulloveth.covid19virustracker.ui.fragments
+package com.kulloveth.covid19virustracker.ui.status
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,30 +8,31 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.kulloveth.covid19virustracker.Injection
+import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.data.Repository
 import com.kulloveth.covid19virustracker.model.CountryStatus
-import com.kulloveth.covid19virustracker.ui.StatusViewModel
-import com.kulloveth.covid19virustracker.ui.adapter.StatusAdapter
 import com.kulloveth.covid19virustracker.utils.ProgressListener
-import kotlinx.android.synthetic.main.fragment_countries.*
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_status.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, ProgressListener {
+class StatusFragment : Fragment(), StatusAdapter.StatusITemListener, ProgressListener {
 
-    private val TAG = CountriesFragment::class.java.simpleName
+    private val TAG = StatusFragment::class.java.simpleName
     private var viewModel: StatusViewModel? = null
     val adapter = StatusAdapter(this)
     private var statusRv: RecyclerView? = null
     private var progress: ProgressBar? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
 
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, Progress
     ): View? {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_countries, container, false)
+        return inflater.inflate(R.layout.fragment_status, container, false)
 
 
     }
@@ -50,6 +50,7 @@ class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, Progress
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        app_bar.title = "Covid Status"
         statusRv = list
         progress = progress_bar
         statusRv?.adapter = adapter
@@ -63,12 +64,8 @@ class CountriesFragment : Fragment(), StatusAdapter.StatusITemListener, Progress
     }
 
     private fun getStatus() {
-        progress?.visibility = View.VISIBLE
-        statusRv?.visibility = View.INVISIBLE
         viewModel?.getStatus()?.observe(requireActivity(), Observer {
             adapter.submitList(it)
-            progress?.visibility = View.INVISIBLE
-            statusRv?.visibility = View.VISIBLE
         })
     }
 

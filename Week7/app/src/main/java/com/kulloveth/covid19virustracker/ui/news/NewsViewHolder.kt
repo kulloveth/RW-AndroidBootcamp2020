@@ -1,4 +1,4 @@
-package com.kulloveth.covid19virustracker.ui.viewholder
+package com.kulloveth.covid19virustracker.ui.news
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
