@@ -7,4 +7,6 @@
     <dimen name="zero_dp">0dp</dimen>
     <dimen name="flag_height">300dp</dimen>
     <dimen name="country_text_size">18sp</dimen>
+    <dimen name="news_title_size">18sp</dimen>
+    <dimen name="news_image_height">200dp</dimen>
 </resources>

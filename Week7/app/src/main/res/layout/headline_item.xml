@@ -17,14 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
-        android:textSize="18sp"
+        android:textSize="@dimen/news_title_size"
         android:textStyle="bold"
         tools:text="Exclusive Headline" />
 
     <ImageView
         android:id="@+id/article_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/news_image_height"
         android:contentDescription="@string/newsposter"
         android:scaleType="centerCrop"
         android:src="@drawable/covid" />
