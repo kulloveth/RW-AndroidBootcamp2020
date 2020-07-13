@@ -12,7 +12,6 @@ import com.kulloveth.covid19virustracker.model.CountryStatus
 import com.kulloveth.covid19virustracker.model.Success
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 @Database(entities = [CountryStatus::class, Article::class], version = 1, exportSchema = false)
