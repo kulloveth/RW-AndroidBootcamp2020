@@ -4,4 +4,7 @@
     <dimen name="double_padding">32dp</dimen>
     <dimen name="flag_size">50dp</dimen>
     <dimen name="elevation_standard">4dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="flag_height">300dp</dimen>
+    <dimen name="country_text_size">18sp</dimen>
 </resources>

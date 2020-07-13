@@ -1,185 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.status.DetailsFragment">
 
-    <ImageView
-        android:id="@+id/country_flag"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="@dimen/standard_padding"
-        android:scaleType="centerCrop" />
-
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_padding"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardUseCompatPadding="true">
+        android:orientation="vertical"
+        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            app:navigationIcon="@drawable/ic_keyboard_backspace_black_24dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/country_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginTop="@dimen/standard_padding"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="WorldWide" />
+        <ImageView
+            android:id="@+id/country_flag"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flag_height"
+            android:layout_margin="@dimen/standard_padding"
+            android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/total_cases_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginTop="@dimen/double_padding"
-                app:layout_constraintBottom_toTopOf="@id/total_cases_tv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/country_name"
-                tools:text="11111" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_padding"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/total_recovered_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginTop="@dimen/double_padding"
-                app:layout_constraintBottom_toTopOf="@id/total_recovered_tv"
-                app:layout_constraintEnd_toStartOf="@id/total_deaths_tv"
-                app:layout_constraintStart_toEndOf="@id/total_cases_tv"
-                app:layout_constraintTop_toBottomOf="@id/country_name"
-                tools:text="23234323" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/total_deaths_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/double_padding"
-                android:layout_marginEnd="@dimen/standard_padding"
-                android:textColor="@android:color/holo_red_dark"
-                app:layout_constraintBottom_toTopOf="@id/total_deaths_tv"
-                app:layout_constraintEnd_toEndOf="@id/total_deaths_tv"
-                app:layout_constraintStart_toStartOf="@id/total_deaths_tv"
-                app:layout_constraintTop_toBottomOf="@id/country_name"
-                tools:text="0" />
+                <TextView
+                    android:id="@+id/country_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginTop="@dimen/standard_padding"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/country_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="WorldWide" />
 
-            <TextView
-                android:id="@+id/total_cases_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding"
-                android:text="@string/total_cases"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/total_cases_detail" />
+                <TextView
+                    android:id="@+id/total_cases_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginTop="@dimen/double_padding"
+                    app:layout_constraintBottom_toTopOf="@id/total_cases_tv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/country_name"
+                    tools:text="11111" />
 
-            <TextView
-                android:id="@+id/total_recovered_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding"
-                android:text="@string/total_recovered"
-                android:textColor="@android:color/black"
-                app:layout_constraintEnd_toStartOf="@id/total_deaths_tv"
-                app:layout_constraintStart_toEndOf="@id/total_cases_tv"
-                app:layout_constraintTop_toBottomOf="@id/total_recovered_detail" />
+                <TextView
+                    android:id="@+id/total_recovered_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginTop="@dimen/double_padding"
+                    app:layout_constraintBottom_toTopOf="@id/total_recovered_tv"
+                    app:layout_constraintEnd_toStartOf="@id/total_deaths_tv"
+                    app:layout_constraintStart_toEndOf="@id/total_cases_tv"
+                    app:layout_constraintTop_toBottomOf="@id/country_name"
+                    tools:text="23234323" />
 
-            <TextView
-                android:id="@+id/total_deaths_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding"
-                android:text="@string/total_deaths"
-                android:textColor="@android:color/black"
-                app:layout_constraintTop_toBottomOf="@id/total_deaths_detail"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/total_deaths_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/double_padding"
+                    android:layout_marginEnd="@dimen/standard_padding"
+                    android:textColor="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toTopOf="@id/total_deaths_tv"
+                    app:layout_constraintEnd_toEndOf="@id/total_deaths_tv"
+                    app:layout_constraintStart_toStartOf="@id/total_deaths_tv"
+                    app:layout_constraintTop_toBottomOf="@id/country_name"
+                    tools:text="0" />
+
+                <TextView
+                    android:id="@+id/total_cases_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginBottom="@dimen/standard_padding"
+                    android:text="@string/total_cases"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/total_cases_detail" />
+
+                <TextView
+                    android:id="@+id/total_recovered_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginBottom="@dimen/standard_padding"
+                    android:text="@string/total_recovered"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintEnd_toStartOf="@id/total_deaths_tv"
+                    app:layout_constraintStart_toEndOf="@id/total_cases_tv"
+                    app:layout_constraintTop_toBottomOf="@id/total_recovered_detail" />
+
+                <TextView
+                    android:id="@+id/total_deaths_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/standard_padding"
+                    android:layout_marginBottom="@dimen/standard_padding"
+                    android:text="@string/total_deaths"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/total_deaths_detail" />
 
 
-            <TextView
-                android:id="@+id/new_cases_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginTop="@dimen/double_padding"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/total_cases_tv"
-                tools:text="11111" />
+                <TextView
+                    android:id="@+id/new_cases_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginTop="@dimen/double_padding"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/total_cases_tv"
+                    tools:text="11111" />
 
-            <TextView
-                android:id="@+id/active_cases_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginTop="@dimen/double_padding"
-                app:layout_constraintEnd_toStartOf="@id/total_deaths_tv"
-                app:layout_constraintStart_toEndOf="@id/total_cases_tv"
-                app:layout_constraintTop_toBottomOf="@id/total_recovered_tv"
-                tools:text="23234323" />
+                <TextView
+                    android:id="@+id/active_cases_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginTop="@dimen/double_padding"
+                    app:layout_constraintEnd_toStartOf="@id/total_deaths_tv"
+                    app:layout_constraintStart_toEndOf="@id/total_cases_tv"
+                    app:layout_constraintTop_toBottomOf="@id/total_recovered_tv"
+                    tools:text="23234323" />
 
-            <TextView
-                android:id="@+id/new_death_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/double_padding"
-                android:layout_marginEnd="@dimen/standard_padding"
-                android:textColor="@android:color/holo_red_dark"
-                app:layout_constraintEnd_toEndOf="@id/total_deaths_tv"
-                app:layout_constraintStart_toStartOf="@id/total_deaths_tv"
-                app:layout_constraintTop_toBottomOf="@id/total_deaths_tv"
-                tools:text="0" />
+                <TextView
+                    android:id="@+id/new_death_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/double_padding"
+                    android:layout_marginEnd="@dimen/standard_padding"
+                    android:textColor="@android:color/holo_red_dark"
+                    app:layout_constraintEnd_toEndOf="@id/total_deaths_tv"
+                    app:layout_constraintStart_toStartOf="@id/total_deaths_tv"
+                    app:layout_constraintTop_toBottomOf="@id/total_deaths_tv"
+                    tools:text="0" />
 
-            <TextView
-                android:id="@+id/new_cases_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding"
-                android:text="@string/new_cases"
-                android:textColor="@android:color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_cases_detail" />
+                <TextView
+                    android:id="@+id/new_cases_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginBottom="@dimen/standard_padding"
+                    android:text="@string/new_cases"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/new_cases_detail" />
 
-            <TextView
-                android:id="@+id/active_cases_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding"
-                android:text="@string/active_cases"
-                android:textColor="@android:color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/new_death_tv"
-                app:layout_constraintStart_toEndOf="@id/new_cases_tv"
-                app:layout_constraintTop_toBottomOf="@id/active_cases_detail" />
+                <TextView
+                    android:id="@+id/active_cases_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_padding"
+                    android:layout_marginBottom="@dimen/standard_padding"
+                    android:text="@string/active_cases"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/new_death_tv"
+                    app:layout_constraintStart_toEndOf="@id/new_cases_tv"
+                    app:layout_constraintTop_toBottomOf="@id/active_cases_detail" />
 
-            <TextView
-                android:id="@+id/new_death_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/standard_padding"
-                android:layout_marginBottom="@dimen/standard_padding"
-                android:text="@string/new_deaths"
-                android:textColor="@android:color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_death_detail" />
+                <TextView
+                    android:id="@+id/new_death_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/standard_padding"
+                    android:layout_marginBottom="@dimen/standard_padding"
+                    android:text="@string/new_deaths"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/new_death_detail" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

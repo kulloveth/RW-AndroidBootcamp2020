@@ -27,7 +27,7 @@
         android:layout_height="200dp"
         android:contentDescription="@string/newsposter"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/covid" />
 
     <TextView
         android:id="@+id/description"

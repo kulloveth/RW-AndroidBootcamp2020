@@ -8,7 +8,7 @@ import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.model.CountryStatus
 
 /**
- * Adapter for the list of CountryStatus.
+ * Paging Adapter for the list of CountryStatus.
  */
 class StatusAdapter(private val listener: StatusITemListener) :
     PagedListAdapter<CountryStatus, StatusViewHolder>(

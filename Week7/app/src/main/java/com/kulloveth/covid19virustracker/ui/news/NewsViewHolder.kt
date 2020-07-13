@@ -13,7 +13,7 @@ class NewsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bindArticle(article: Article) {
         view.title.text = article.title
         Picasso.get().load(article.urlToImage).error(R.drawable.ic_launcher_background)
-            .placeholder(R.drawable.ic_launcher_background).into(view.article_image)
+            .placeholder(R.drawable.covid).into(view.article_image)
         view.description.text = article.description
     }
 }

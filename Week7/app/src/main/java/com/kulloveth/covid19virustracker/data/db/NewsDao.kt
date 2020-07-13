@@ -13,6 +13,7 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(news: List<Article>)
 
+    //get news from room as a datasource for paging
     @Query("SELECT * FROM news")
     fun covidNews(): DataSource.Factory<Int, Article>
 

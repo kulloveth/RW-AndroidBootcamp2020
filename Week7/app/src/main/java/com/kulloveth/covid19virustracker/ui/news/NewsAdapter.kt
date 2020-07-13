@@ -8,21 +8,19 @@ import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.model.Article
 
 /**
- * Adapter for the list of CountryStatus.
+ * Paging Adapter for the list of News.
  */
-class NewsAdapter() :
+class NewsAdapter:
     PagedListAdapter<Article, NewsViewHolder>(
         STATUS_DIFF
     ) {
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         getItem(position)?.let { holder.bindArticle(it) }
-        holder.view.setOnClickListener {
-            //getItem(position)?.let { status -> listener.onStatusListener(status) }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.headline_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.headline_item, parent, false)
         return NewsViewHolder(
             view
         )

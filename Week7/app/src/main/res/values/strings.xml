@@ -14,4 +14,6 @@
     <string name="status">Status</string>
     <string name="news">News</string>
     <string name="newsposter">NewsPoster</string>
+    <string name="covid_news">Covid News</string>
+    <string name="covid_status">Covid Status</string>
 </resources>
