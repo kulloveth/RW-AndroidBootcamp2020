@@ -66,4 +66,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="search">Search</string>
+    <string name="not_found">title not found</string>
+    <string name="delete_message">movie deleted</string>
+    <string name="profile">Profile</string>
 </resources>

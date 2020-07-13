@@ -11,4 +11,13 @@
         android:id="@+id/content_layout"
         layout="@layout/movie_content" />
 
+    <ImageView
+        android:id="@+id/empty_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_movie_filter_black_24dp"
+       android:contentDescription="@string/app_name"
+        android:visibility="invisible" />
+
 </FrameLayout>

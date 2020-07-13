@@ -17,6 +17,7 @@ import com.kulloveth.moviesapp.ui.MoviesDataManager
 
 class FavoriteFragment : Fragment() {
 
+    private val TAG = FavoriteFragment::class.java.simpleName
     var moviesDataManager: MoviesDataManager? = null
     var binding: FragmentFavoriteBinding? = null
     var recyclerView: RecyclerView? = null
@@ -49,8 +50,6 @@ class FavoriteFragment : Fragment() {
 
         adapter = FavoriteAdapter()
         bindFavoritesToRecyclerView()
-
-        binding?.contentLayout?.toolbarImage?.visibility = View.INVISIBLE
     }
 
 
@@ -67,7 +66,7 @@ class FavoriteFragment : Fragment() {
         recyclerView?.adapter = adapter
         moviesDataManager?.getFavoriteMovies(true)
             ?.observe(requireActivity(), Observer {
-                Log.d("fav", "" + it)
+                Log.d(TAG, "" + it)
                 adapter?.submitList(it)
                 if (it.isEmpty()) {
                     binding?.noLikeTv?.visibility = View.VISIBLE
