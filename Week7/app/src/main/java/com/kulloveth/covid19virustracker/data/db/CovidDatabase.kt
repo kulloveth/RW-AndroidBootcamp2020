@@ -44,25 +44,25 @@ abstract class CovidDatabase : RoomDatabase() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     CoroutineScope(context = Dispatchers.IO).launch {
-                        insertStatus()
+                        Injection.provideRepository().fetchStatus()
                         insertNews()
                     }
                 }
             }).build()
         }
 
-        //check if result is successful and insert status to database
-        suspend fun insertStatus() {
-            val status = Injection.provideRepository().fetchStatus()
-
-            //insert status to database
-            if (status is Success) {
-                Injection.db.getStatusDao().insert(status.data)
-            } else {
-                Log.d(instance?.TAG, "error fetching status")
-            }
-
-        }
+//        //check if result is successful and insert status to database
+//        suspend fun insertStatus() {
+//            val status = Injection.provideRepository().fetchStatus()
+//
+//            //insert status to database
+//            if (status is Success) {
+//                Injection.db.getStatusDao().insert(status.data)
+//            } else {
+//                Log.d(instance?.TAG, "error fetching status")
+//            }
+//
+//        }
 
         //check if result was successful and  insert news to database
         suspend fun insertNews() {
