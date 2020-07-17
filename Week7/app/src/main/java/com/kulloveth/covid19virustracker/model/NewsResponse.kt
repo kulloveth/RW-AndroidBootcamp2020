@@ -10,10 +10,10 @@ import kotlinx.android.parcel.Parcelize
 data class Article(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val title: String,
-    val description: String,
-    val url: String,
-    val urlToImage: String
+    val title: String? = "",
+    val description: String? = "",
+    val url: String? = "",
+    val urlToImage: String? = ""
 ) : Parcelable
 
 @Parcelize
