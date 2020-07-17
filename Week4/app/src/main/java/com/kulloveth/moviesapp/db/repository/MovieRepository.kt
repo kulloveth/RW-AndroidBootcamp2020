@@ -2,7 +2,11 @@ package com.kulloveth.moviesapp.db.repository
 
 import androidx.lifecycle.LiveData
 import com.kulloveth.moviesapp.models.Movie
+import kotlinx.coroutines.flow.Flow
 
+/**
+ * An interface helper for implementing room queries
+ * */
 interface MovieRepository {
 
     suspend fun insertAllMovie(movieEntity: List<Movie>)
@@ -13,11 +17,13 @@ interface MovieRepository {
 
     fun getMovie(id: Int): LiveData<Movie>
 
-    suspend fun getAllMovie(): List<Movie>
+    fun getAllMovie(): List<Movie>
 
-    fun getAllMovies(): LiveData<List<Movie>>
+    fun getAllMovies(): Flow<List<Movie>>
 
-    fun getFavorite(isFavorite: Boolean): LiveData<List<Movie>>
+    fun searchMovies(query:String): Flow<List<Movie>>
+
+    fun getFavorite(isFavorite: Boolean): Flow<List<Movie>>
 
 
 }

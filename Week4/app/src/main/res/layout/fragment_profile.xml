@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@dimen/four_dp"
+    app:cardUseCompatPadding="true"
+    tools:context=".ui.signin.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/profie_image_width"
+        android:layout_height="@dimen/profie_image_width"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/profile_image"
+        android:src="@drawable/ic_account_box_black_24dp" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/profie_image_width" />
+
+</androidx.cardview.widget.CardView>

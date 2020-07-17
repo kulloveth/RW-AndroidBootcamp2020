@@ -1,10 +1,8 @@
 package com.kulloveth.moviesapp.ui
+
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kulloveth.moviesapp.MovieApplication
 import com.kulloveth.moviesapp.R
 import com.kulloveth.moviesapp.db.Injection
@@ -12,6 +10,7 @@ import com.kulloveth.moviesapp.models.CompositeItem
 import com.kulloveth.moviesapp.models.Header
 import com.kulloveth.moviesapp.models.Movie
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 
@@ -27,47 +26,66 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     val repository = Injection.provideRepository
 
 
-    private val _compositeLiveData: MutableLiveData<List<CompositeItem>> = MutableLiveData()
-
     // setting up movies to pass between fragments
     private val _movieLiveData: MutableLiveData<Movie> = MutableLiveData()
     val movieLiveData = _movieLiveData
 
 
     /*
-    * fetch movies from room db on background thread
-    * moves them to the ui then
-    * sorts  the movies and arrange
-    * according to its genres
+    * fetch movies from room using flow
+    * and convert to livedata
     * */
 
-
     fun getMovieComposites(): LiveData<List<CompositeItem>> {
-        var moviesList: MutableList<Movie>
-        viewModelScope.launch(Dispatchers.IO) {
-            val moviesFromRom = repository.getAllMovie().toMutableList()
-            launch(Dispatchers.Main) {
-                moviesList = moviesFromRom
-                Log.d(TAG, "$moviesList")
-                val moviesByGenre = moviesList.sortedBy { it.genre }
-                val genres = moviesByGenre.map { it.genre }.distinct()
+        return repository.getAllMovies().map {
+            val moviesList = it.toMutableList()
+            Log.d(TAG, "$moviesList")
+            val moviesByGenre = moviesList.sortedBy { it.genre }
+            val genres = moviesByGenre.map { it.genre }.distinct()
 
-                val compositeItem = mutableListOf<CompositeItem>()
-                genres.let {
-                    genres.forEach { genre ->
-                        compositeItem.add(CompositeItem.withHeader(Header(genre)))
-                        val movies =
-                            moviesByGenre.filter { it.genre == genre }
-                                .map { CompositeItem.withMovie(it) }
-                        compositeItem.addAll(movies)
-                    }
+            val compositeItem = mutableListOf<CompositeItem>()
+            genres.let {
+                genres.forEach { genre ->
+                    compositeItem.add(CompositeItem.withHeader(Header(genre)))
+                    val movies =
+                        moviesByGenre.filter { it.genre == genre }
+                            .map { CompositeItem.withMovie(it) }
+                    compositeItem.addAll(movies)
                 }
-                _compositeLiveData.value = compositeItem
+                Log.d(TAG, "flow = $compositeItem")
+
             }
+            compositeItem
+        }.asLiveData()
+    }
 
-        }
+    /**
+     * search for movies by
+     * its title with [query]
+     * to display
+     * converting flow to livedata
+     * */
+    fun searchMovieByTitle(query:String): LiveData<List<CompositeItem>>
+    {
+        return repository.searchMovies(query).map {
+            val moviesList = it.toMutableList()
+            Log.d(TAG, "$moviesList")
+            val moviesByGenre = moviesList.sortedBy { it.genre  }
+            val genres = moviesByGenre.map { it.genre}.distinct()
 
-        return _compositeLiveData
+            val compositeItem = mutableListOf<CompositeItem>()
+                    genres.let {
+                        genres.forEach { genre ->
+                            compositeItem.add(CompositeItem.withHeader(Header(genre)))
+                            val movies =
+                                moviesByGenre.filter { it.genre == genre }
+                                    .map { CompositeItem.withMovie(it) }
+                            compositeItem.addAll(movies)
+                        }
+
+            }
+            compositeItem
+        }.asLiveData()
     }
 
     //deletes a single movie from database
@@ -85,6 +103,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     /**
      * changes isFavorite to true
      * when a movie is liked and updates database
+     * in background thread
      *
      *
      * */
@@ -97,7 +116,6 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
             }
             favorites.let {
                 movie.isFavorite = true
-                // favorites.add(movie.title)
                 repository.updateMovie(movie)
                 Log.d(TAG, "$favorites")
             }
@@ -109,6 +127,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     /*
     * changes isFavorite to false
     * and updates movie in database
+    * in background thread
     * */
     fun removeFavorite(movie: Movie) {
 
@@ -131,7 +150,7 @@ class MoviesDataManager(application: Application) : AndroidViewModel(application
     * setup the favorite movies to be observed
     * */
     fun getFavoriteMovies(isFavorite: Boolean): LiveData<List<Movie>>? {
-        return repository.getFavorite(isFavorite)
+        return repository.getFavorite(isFavorite).asLiveData()
 
     }
 
