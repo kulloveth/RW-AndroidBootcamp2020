@@ -4,20 +4,22 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.model.CountryStatus
 import com.kulloveth.covid19virustracker.model.Failure
 import com.kulloveth.covid19virustracker.model.Success
 
-class StatusPeriodicWorker(context: Context, workerParameters: WorkerParameters) :
+class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParameters) :
     CoroutineWorker(context, workerParameters) {
+
     private val TAG = StatusPeriodicWorker::class.java.simpleName
     override suspend fun doWork(): Result {
         val status = fetchStatus()
         //insert status to database
         return if (status is Success) {
             Injection.db.getStatusDao().insert(status.data)
-            makeStatusNotification("data inserted")
+            makeStatusNotification(context.getString(R.string.status_message))
             Result.success()
         } else {
             Log.d(TAG, "error fetching status")
@@ -32,4 +34,5 @@ class StatusPeriodicWorker(context: Context, workerParameters: WorkerParameters)
         } catch (error: Throwable) {
             Failure(error)
         }
+
 }

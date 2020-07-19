@@ -6,4 +6,4 @@ import com.kulloveth.covid19virustracker.data.Repository
 /**
  *  BaseViewmodel class  for easy factory creation
  * */
-abstract class BaseViewModel(private val repository: Repository) :ViewModel()
+abstract class BaseViewModel:ViewModel()

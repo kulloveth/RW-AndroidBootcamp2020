@@ -1,29 +1,39 @@
 package com.kulloveth.covid19virustracker.ui.status
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.kulloveth.covid19virustracker.data.Repository
+import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.model.CountryStatus
 import com.kulloveth.covid19virustracker.ui.base.BaseViewModel
 
-class StatusViewModel(private val repository: Repository) : BaseViewModel(repository) {
+class StatusViewModel : BaseViewModel() {
 
 
-
-    private var statusResult: LiveData<PagedList<CountryStatus>> = MutableLiveData()
     val sstatusLiveData = MutableLiveData<CountryStatus>()
+    //display status by paging to avoid overloading the adapter
+    fun getStatus() = LivePagedListBuilder(
+        Injection.db.getStatusDao().statusByCountry(), PagedList.Config.Builder()
+            .setPageSize(PAGE_SIZE)
+            .setEnablePlaceholders(ENABLE_PLACEHOLDER)
+            .build()
+    ).build()
 
-    //fetch paged status from room
-    fun getStatus(): LiveData<PagedList<CountryStatus>> {
-        statusResult = repository.getStatus()
-        return statusResult
-    }
+init {
+    Injection.provideRepository().fetchStatus()
+}
 
     //setup status to pass between fragments
     fun setUpStatus(countryStatus: CountryStatus) {
         sstatusLiveData.value = countryStatus
     }
 
+
+
+    companion object {
+        private const val PAGE_SIZE = 30
+         const val NEWS_PAGE_SIZE = 20
+         const val ENABLE_PLACEHOLDER = true
+    }
 
 }
