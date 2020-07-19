@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.data.db.StatusEntity
 
 /**
- * Paging Adapter for the list of CountryStatus.
+ * Paging Adapter for Smooth scrolling of status items.
  */
 class StatusAdapter(private val listener: StatusITemListener) :
-    PagedListAdapter<CountryStatus, StatusViewHolder>(
+    PagedListAdapter<StatusEntity, StatusViewHolder>(
         STATUS_DIFF
     ) {
     override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {
@@ -29,19 +29,19 @@ class StatusAdapter(private val listener: StatusITemListener) :
     }
 
     companion object {
-        private val STATUS_DIFF = object : DiffUtil.ItemCallback<CountryStatus>() {
-            override fun areItemsTheSame(oldItem: CountryStatus, newItem: CountryStatus): Boolean =
+        private val STATUS_DIFF = object : DiffUtil.ItemCallback<StatusEntity>() {
+            override fun areItemsTheSame(oldItem: StatusEntity, newItem: StatusEntity): Boolean =
                 oldItem.country == newItem.country
 
             override fun areContentsTheSame(
-                oldItem: CountryStatus,
-                newItem: CountryStatus
+                oldItem: StatusEntity,
+                newItem: StatusEntity
             ): Boolean =
                 oldItem == newItem
         }
     }
 
     interface StatusITemListener {
-        fun onStatusListener(countryStatus: CountryStatus)
+        fun onStatusListener(statusEntity: StatusEntity)
     }
 }

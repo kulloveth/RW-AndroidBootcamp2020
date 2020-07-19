@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.model.Article
+import com.kulloveth.covid19virustracker.data.db.NewsEntity
 
 /**
- * Paging Adapter for the list of News.
+ * Paging Adapter for smooth scrolling of news items.
  */
-class NewsAdapter:
-    PagedListAdapter<Article, NewsViewHolder>(
+class NewsAdapter :
+    PagedListAdapter<NewsEntity, NewsViewHolder>(
         STATUS_DIFF
     ) {
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
@@ -27,19 +27,19 @@ class NewsAdapter:
     }
 
     companion object {
-        private val STATUS_DIFF = object : DiffUtil.ItemCallback<Article>() {
-            override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean =
+        private val STATUS_DIFF = object : DiffUtil.ItemCallback<NewsEntity>() {
+            override fun areItemsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean =
                 oldItem.id == newItem.id
 
             override fun areContentsTheSame(
-                oldItem: Article,
-                newItem: Article
+                oldItem: NewsEntity,
+                newItem: NewsEntity
             ): Boolean =
                 oldItem == newItem
         }
     }
 
     interface ArticleITemListener {
-        fun articleListener(article: Article)
+        fun articleListener(newsEntity: NewsEntity)
     }
 }

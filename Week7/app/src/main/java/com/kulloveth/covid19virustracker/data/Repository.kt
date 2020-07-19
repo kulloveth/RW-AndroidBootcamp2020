@@ -17,16 +17,13 @@ class Repository{
         .build()
     val workManager = WorkManager.getInstance(App.getContext())
 
-//init {
-//    fetchStatus()
-//    fetchNews()
-//}
     //build and enqeue status work
     fun fetchStatus() {
         val periodicSyncDataWork =
-            PeriodicWorkRequest.Builder(StatusPeriodicWorker::class.java, 16, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(StatusPeriodicWorker::class.java, 1, TimeUnit.HOURS)
                 .addTag(TAG_SYNC_DATA)
-                .setConstraints(constraints) // setting a backoff on case the work needs to retry
+                .setConstraints(constraints)
+                // setting a backoff on case the work needs to retry
                 .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
                 .build()
         workManager.enqueueUniquePeriodicWork("Status", ExistingPeriodicWorkPolicy.KEEP,  //Existing Periodic Work policy
@@ -38,9 +35,10 @@ class Repository{
     //build and engueue news work
     fun fetchNews() {
         val periodicSynDataWork =
-            PeriodicWorkRequest.Builder(NewsPeriodicWorker::class.java, 20, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(NewsPeriodicWorker::class.java, 15, TimeUnit.MINUTES)
                 .addTag(NEWS_TAG_SYNC_DATA)
-                .setConstraints(constraints) // setting a backoff on case the work needs to retry
+                .setConstraints(constraints)
+                // setting a backoff on case the work needs to retry
                 .setBackoffCriteria(
                     BackoffPolicy.LINEAR,
                     PeriodicWorkRequest.MIN_BACKOFF_MILLIS,

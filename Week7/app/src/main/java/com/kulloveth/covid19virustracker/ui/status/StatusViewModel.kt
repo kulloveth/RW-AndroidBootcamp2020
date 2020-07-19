@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.kulloveth.covid19virustracker.data.Injection
-import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.data.db.StatusEntity
 import com.kulloveth.covid19virustracker.ui.base.BaseViewModel
 
 class StatusViewModel : BaseViewModel() {
 
 
-    val sstatusLiveData = MutableLiveData<CountryStatus>()
+    val sstatusLiveData = MutableLiveData<StatusEntity>()
     //display status by paging to avoid overloading the adapter
     fun getStatus() = LivePagedListBuilder(
         Injection.db.getStatusDao().statusByCountry(), PagedList.Config.Builder()
@@ -24,8 +24,8 @@ init {
 }
 
     //setup status to pass between fragments
-    fun setUpStatus(countryStatus: CountryStatus) {
-        sstatusLiveData.value = countryStatus
+    fun setUpStatus(statusEntity: StatusEntity) {
+        sstatusLiveData.value = statusEntity
     }
 
 
