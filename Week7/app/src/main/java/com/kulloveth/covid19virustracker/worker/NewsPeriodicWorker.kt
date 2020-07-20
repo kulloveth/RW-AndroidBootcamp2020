@@ -1,7 +1,6 @@
 package com.kulloveth.covid19virustracker.worker
 
 import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
 import androidx.work.CoroutineWorker

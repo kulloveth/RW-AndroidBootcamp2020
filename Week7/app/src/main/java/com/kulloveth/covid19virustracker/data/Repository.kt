@@ -14,6 +14,7 @@ class Repository{
     // Create Network constraint
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
+        .setRequiresBatteryNotLow(true)
         .build()
     val workManager = WorkManager.getInstance(App.getContext())
 
