@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.kulloveth.covid19virustracker"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -72,4 +72,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v1.7.4'
 }

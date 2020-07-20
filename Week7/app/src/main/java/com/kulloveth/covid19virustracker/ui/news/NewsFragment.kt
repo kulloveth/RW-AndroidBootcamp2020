@@ -43,7 +43,7 @@ class NewsFragment : BaseFragment() {
         viewModel?.getNews()?.observe(requireActivity(), Observer {
             adapter.submitList(it)
             newsRv?.visibility = View.VISIBLE
-            progress_bar.visibility = View.INVISIBLE
+            progress?.visibility = View.INVISIBLE
 
         })
     }

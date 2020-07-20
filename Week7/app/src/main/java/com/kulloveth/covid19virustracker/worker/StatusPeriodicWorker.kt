@@ -2,6 +2,7 @@ package com.kulloveth.covid19virustracker.worker
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kulloveth.covid19virustracker.R
@@ -46,12 +47,23 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
         }
     }
 
-    private suspend fun fetchStatus(): com.kulloveth.covid19virustracker.model.Result<List<CountryStatus>> =
-        try {
-            val data = Injection.apiService.getStatusByCountry(200).data
-            Success(data.status)
-        } catch (error: Throwable) {
-            Failure(error)
+    //check for internet connection and fetch status from api
+    private suspend fun fetchStatus(): com.kulloveth.covid19virustracker.model.Result<List<CountryStatus>>? {
+        var result: com.kulloveth.covid19virustracker.model.Result<List<CountryStatus>>? = null
+        if (isNetworkAvailable(context)) {
+            try {
+                val data = Injection.apiService.getStatusByCountry(200).data
+                result = Success(data.status)
+            } catch (error: Throwable) {
+                result = Failure(error)
+            }
+        } else {
+            Toast.makeText(
+                context,
+                context.resources.getString(R.string.no_internet),
+                Toast.LENGTH_SHORT
+            ).show()
         }
-
+        return result
+    }
 }
