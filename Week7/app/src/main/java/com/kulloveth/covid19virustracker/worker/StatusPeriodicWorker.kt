@@ -38,7 +38,7 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
                 newStatus.add(data)
             }
 
-            Injection.db.getStatusDao().insert(newStatus)
+            Injection.provideDb().getStatusDao().insert(newStatus)
             makeStatusNotification(context.getString(R.string.status_message))
             Result.success()
         } else {

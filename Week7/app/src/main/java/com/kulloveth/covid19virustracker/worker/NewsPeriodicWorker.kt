@@ -7,12 +7,14 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kulloveth.covid19virustracker.BuildConfig.API_KEY
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.api.NetworkStatusChecker
 import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.data.db.NewsEntity
-import com.kulloveth.covid19virustracker.model.*
+import com.kulloveth.covid19virustracker.model.Article
+import com.kulloveth.covid19virustracker.model.Failure
+import com.kulloveth.covid19virustracker.model.Success
 
-class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameters) : CoroutineWorker(context, workerParameters) {
+class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameters) :
+    CoroutineWorker(context, workerParameters) {
 
     private val TAG = NewsPeriodicWorker::class.java.simpleName
     override suspend fun doWork(): Result {
@@ -21,10 +23,15 @@ class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameter
         return if (news is Success) {
             val newNews = mutableListOf<NewsEntity>()
             news.data.forEach {
-                val data = NewsEntity(title = it.title,description = it.description,url = it.url,urlToImage = it.urlToImage)
+                val data = NewsEntity(
+                    title = it.title,
+                    description = it.description,
+                    url = it.url,
+                    urlToImage = it.urlToImage
+                )
                 newNews.add(data)
             }
-            Injection.db.getNewsDao().insert(newNews)
+            Injection.provideDb().getNewsDao().insert(newNews)
             //notify user during every insertion
             makeStatusNotification(context.getString(R.string.news_message))
             Result.success()
@@ -36,7 +43,7 @@ class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameter
 
     //fetch news from api
     private suspend fun fetchNews(): com.kulloveth.covid19virustracker.model.Result<List<Article>>? {
-        var result:com.kulloveth.covid19virustracker.model.Result<List<Article>>? = null
+        var result: com.kulloveth.covid19virustracker.model.Result<List<Article>>? = null
         if (isNetworkAvailable(context)) {
             result = try {
                 val data = Injection.newsApiService.getCovidNews("COVID", API_KEY)
@@ -45,7 +52,11 @@ class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameter
                 Failure(error)
             }
         } else {
-            Toast.makeText(context,context.resources.getString(R.string.no_internet),Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.resources.getString(R.string.no_internet),
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return result
     }
