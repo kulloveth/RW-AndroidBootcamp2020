@@ -3,6 +3,7 @@ package com.kulloveth.covid19virustracker.ui.news
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider

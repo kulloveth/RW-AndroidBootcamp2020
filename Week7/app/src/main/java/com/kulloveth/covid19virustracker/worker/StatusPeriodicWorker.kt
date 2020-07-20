@@ -52,7 +52,7 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
         var result: com.kulloveth.covid19virustracker.model.Result<List<CountryStatus>>? = null
         if (isNetworkAvailable(context)) {
             try {
-                val data = Injection.apiService.getStatusByCountry(200).data
+                val data = Injection.apiService.getStatusByCountry(100).data
                 result = Success(data.status)
             } catch (error: Throwable) {
                 result = Failure(error)

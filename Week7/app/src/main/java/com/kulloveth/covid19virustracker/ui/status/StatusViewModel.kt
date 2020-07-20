@@ -5,6 +5,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
+import com.kulloveth.covid19virustracker.model.CountryStatus
 import com.kulloveth.covid19virustracker.ui.base.BaseViewModel
 
 class StatusViewModel : BaseViewModel() {
