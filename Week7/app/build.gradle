@@ -73,4 +73,20 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v1.7.4'
+
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.ext:truth:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
 }
