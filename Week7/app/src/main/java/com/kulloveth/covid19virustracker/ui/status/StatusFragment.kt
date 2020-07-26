@@ -14,6 +14,7 @@ import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
 import com.kulloveth.covid19virustracker.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_status.*
+import kotlinx.coroutines.FlowPreview
 
 
 /**
@@ -47,8 +48,9 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
     }
 
     //observe status from livedata
+    @FlowPreview
     private fun getStatus() {
-        viewModel?.getStatus()?.observe(requireActivity(), Observer {
+        viewModel?.getNewStatus()?.observe(requireActivity(), Observer {
             Log.d(TAG,"$it")
             adapter.submitList(it)
             statusRv?.visibility = View.VISIBLE

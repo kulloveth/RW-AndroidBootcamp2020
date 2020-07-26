@@ -12,6 +12,9 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(news: List<NewsEntity>)
 
+    @Query("SELECT * FROM news order by id DESC")
+    suspend fun getNewCovidNews(): List<NewsEntity>
+
     //get news from room as a datasource for paging news in descending order
     @Query("SELECT * FROM news order by id DESC")
     fun covidNews(): DataSource.Factory<Int, NewsEntity>
