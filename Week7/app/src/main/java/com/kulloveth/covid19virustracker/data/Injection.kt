@@ -15,7 +15,7 @@ object Injection {
     fun provideDb() = CovidDatabase.invoke()
 
     private fun provideRepository(): Repository {
-        return Repository()
+        return Repository(provideDb().getStatusDao())
     }
 
     fun provideViewModelFactory(): ViewModelProvider.Factory {

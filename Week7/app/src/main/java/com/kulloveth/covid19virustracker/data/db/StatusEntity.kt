@@ -13,15 +13,15 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "status")
 data class StatusEntity(
     @PrimaryKey
-    val country: String,
-    val country_abbreviation: String? = "",
-    val total_cases: String? = "",
-    val new_cases: String? = "",
-    val total_deaths: String? = "",
-    val new_deaths: String? = "",
-    val total_recovered: String? = "",
-    val active_cases: String? = "",
-    val serious_critical: String? = "",
-    val cases_per_mill_pop: String? = "",
-    val flag: String? = ""
+    var country: String,
+    var country_abbreviation: String? = "",
+    var total_cases: String? = "",
+    var new_cases: String? = "",
+    var total_deaths: String? = "",
+    var new_deaths: String? = "",
+    var total_recovered: String? = "",
+    var active_cases: String? = "",
+    var serious_critical: String? = "",
+    var cases_per_mill_pop: String? = "",
+    var flag: String? = ""
 ) : Parcelable

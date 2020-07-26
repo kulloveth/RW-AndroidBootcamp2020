@@ -1,6 +1,7 @@
 package com.kulloveth.covid19virustracker.ui.status
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
@@ -48,6 +49,7 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
     //observe status from livedata
     private fun getStatus() {
         viewModel?.getStatus()?.observe(requireActivity(), Observer {
+            Log.d(TAG,"$it")
             adapter.submitList(it)
             statusRv?.visibility = View.VISIBLE
             progress?.visibility = View.INVISIBLE
