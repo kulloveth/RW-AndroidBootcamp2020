@@ -2,10 +2,7 @@ package com.kulloveth.covid19virustracker.ui.news
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import androidx.paging.PagedList
-import androidx.room.paging.LimitOffsetDataSource
 import com.kulloveth.covid19virustracker.data.Repository
-import com.kulloveth.covid19virustracker.data.db.NewsDao
 import com.kulloveth.covid19virustracker.data.db.NewsEntity
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.timeout
@@ -20,17 +17,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
 class NewsViewModelTest {
-    @Mock
     private lateinit var newsViewModel: NewsViewModel
     private lateinit var repository: Repository
-    private lateinit var newsDao: NewsDao
     private lateinit var newsObserver: Observer<List<NewsEntity>>
     private val newsEntity = NewsEntity(
         id = 1,
@@ -56,7 +49,6 @@ class NewsViewModelTest {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(mainThreadSurrogate)
         repository = mock()
-        newsDao = mock()
         newsViewModel =
             NewsViewModel(
                 repository

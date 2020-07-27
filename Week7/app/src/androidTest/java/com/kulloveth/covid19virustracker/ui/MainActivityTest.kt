@@ -3,10 +3,7 @@ package com.kulloveth.covid19virustracker.ui
 import android.view.MenuItem
 import androidx.core.view.size
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule

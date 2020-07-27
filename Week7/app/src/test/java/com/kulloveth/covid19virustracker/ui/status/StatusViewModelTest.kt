@@ -25,7 +25,6 @@ import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
 class StatusViewModelTest {
-    @Mock
     private lateinit var statusViewModel: StatusViewModel
     private lateinit var repository: Repository
     private lateinit var statusObserver: Observer<List<StatusEntity>>
@@ -52,6 +51,7 @@ class StatusViewModelTest {
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
+    //setups dependencies required for test
     @ExperimentalCoroutinesApi
     @ObsoleteCoroutinesApi
     @Before
@@ -65,6 +65,7 @@ class StatusViewModelTest {
             )
         statusObserver = mock()
     }
+
 
     @ExperimentalCoroutinesApi
     @ObsoleteCoroutinesApi

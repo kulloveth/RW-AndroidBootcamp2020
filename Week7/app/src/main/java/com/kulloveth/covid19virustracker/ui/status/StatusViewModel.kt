@@ -30,10 +30,4 @@ class StatusViewModel(private val repository: Repository) : BaseViewModel(reposi
     }
 
 
-    companion object {
-        const val PAGE_SIZE = 30
-        const val NEWS_PAGE_SIZE = 20
-        const val ENABLE_PLACEHOLDER = true
-    }
-
 }
