@@ -11,10 +11,10 @@ import com.kulloveth.covid19virustracker.model.CountryStatus
 interface StatusDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(status: List<CountryStatus>)
+    suspend fun insert(status: List<StatusEntity>)
 
     //get status from room as a datasource for paging
     @Query("SELECT * FROM status order by country ASC")
-    fun statusByCountry(): DataSource.Factory<Int, CountryStatus>
+    fun statusByCountry(): DataSource.Factory<Int, StatusEntity>
 
 }

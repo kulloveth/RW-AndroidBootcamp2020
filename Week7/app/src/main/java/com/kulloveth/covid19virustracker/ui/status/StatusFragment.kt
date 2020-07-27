@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.Injection
-import com.kulloveth.covid19virustracker.model.CountryStatus
+import com.kulloveth.covid19virustracker.data.db.StatusEntity
 import com.kulloveth.covid19virustracker.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_status.*
 
@@ -55,8 +55,8 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
     }
 
 
-    override fun onStatusListener(countryStatus: CountryStatus) {
-        viewModel?.setUpStatus(countryStatus)
+    override fun onStatusListener(statusEntity: StatusEntity) {
+        viewModel?.setUpStatus(statusEntity)
         requireView().findNavController().navigate(R.id.action_countriesFragment_to_detailsFragment)
     }
 

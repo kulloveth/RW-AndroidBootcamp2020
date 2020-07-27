@@ -9,4 +9,5 @@
     <dimen name="country_text_size">18sp</dimen>
     <dimen name="news_title_size">18sp</dimen>
     <dimen name="news_image_height">200dp</dimen>
+    <dimen name="bar_height">400dp</dimen>
 </resources>
