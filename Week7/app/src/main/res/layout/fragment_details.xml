@@ -22,12 +22,18 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/country_flag"
+<!--        <ImageView-->
+<!--            android:id="@+id/country_flag"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/flag_height"-->
+<!--            android:layout_margin="@dimen/standard_padding"-->
+<!--            android:scaleType="centerCrop" />-->
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart1"
+            android:layout_marginTop="@dimen/standard_padding"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/flag_height"
-            android:layout_margin="@dimen/standard_padding"
-            android:scaleType="centerCrop" />
+            android:layout_height="@dimen/bar_height" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

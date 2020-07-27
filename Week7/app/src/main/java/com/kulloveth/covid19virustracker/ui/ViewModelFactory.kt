@@ -13,7 +13,7 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.F
         }
         try {
             return modelClass.getConstructor(Repository::class.java).newInstance(repository)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             throw RuntimeException()
         }
     }

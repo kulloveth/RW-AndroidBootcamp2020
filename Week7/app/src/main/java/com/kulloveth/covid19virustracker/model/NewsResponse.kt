@@ -1,19 +1,20 @@
 package com.kulloveth.covid19virustracker.model
 
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "news")
 data class Article(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val title: String,
-    val description: String,
-    val url: String,
-    val urlToImage: String
+    @SerializedName("title")
+    val title: String? = "",
+    @SerializedName("description")
+    val description: String? = "",
+    @SerializedName("url")
+    val url: String? = "",
+    @SerializedName("urlToImage")
+    val urlToImage: String? = ""
 ) : Parcelable
 
 @Parcelize

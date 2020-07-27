@@ -6,8 +6,10 @@ buildscript {
         pagingVersion = '2.1.2'
         coroutines = '1.3.6'}
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         jcenter()
+
         
     }
     dependencies {
@@ -21,6 +23,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         jcenter()
         

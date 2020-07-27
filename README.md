@@ -24,7 +24,26 @@ Blackjack is a game played with regular playing cards. Playing cards consist of 
  </td>
    <td>
   
-  ![Winner](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/newWin.PNG)
+  ![Winner](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/newWin.png)
+  
+  </td>
+  </tr>
+</table>
+
+## Week 4
+
+# Sample Output
+
+<table>
+<tr>
+<td>
+  
+  ![Movies](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/movies.png)
+ 
+ </td>
+   <td>
+  
+  ![Details](https://github.com/kulloveth/BlackJackCardGame/blob/master/shots/details.png)
   
   </td>
   </tr>
@@ -43,6 +62,6 @@ Blackjack is a game played with regular playing cards. Playing cards consist of 
 ##### Programming Experience 
 * One Year
 ##### Goal
-* Become an Outstanding Software Engineer in 3 years
+* Become an Outstanding Software Engineer
 ##### Hobbies
 * Watching or Playing Games, Listening to Music

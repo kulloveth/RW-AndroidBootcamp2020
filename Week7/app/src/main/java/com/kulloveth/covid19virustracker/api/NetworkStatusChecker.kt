@@ -5,7 +5,7 @@ import android.net.NetworkCapabilities
 
 class NetworkStatusChecker(private val connectivityManager: ConnectivityManager?) {
 
-    inline fun performIfConnectedToInternet(action: () -> Unit) {
+    inline fun checkInternetStatus(action: () -> Unit) {
         if (hasInternetConnection()) {
             action()
         }

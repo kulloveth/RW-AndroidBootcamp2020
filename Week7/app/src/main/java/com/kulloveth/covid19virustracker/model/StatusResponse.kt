@@ -1,12 +1,9 @@
 package com.kulloveth.covid19virustracker.model
 
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 
 //object representation of the api data
@@ -19,20 +16,30 @@ data class Data(
 )
 
 @Parcelize
-@Entity(tableName = "status")
 data class CountryStatus(
     @PrimaryKey
+    @SerializedName("country")
     val country: String,
-    val country_abbreviation: String,
-    val total_cases: String,
-    val new_cases: String,
-    val total_deaths: String,
-    val new_deaths: String,
-    val total_recovered: String,
-    val active_cases: String,
-    val serious_critical: String,
-    val cases_per_mill_pop: String,
-    val flag: String
+    @SerializedName("country_abbreviation")
+    val country_abbreviation: String? = "",
+    @SerializedName("total_cases")
+    val total_cases: String? = "",
+    @SerializedName("new_cases")
+    val new_cases: String? = "",
+    @SerializedName("total_deaths")
+    val total_deaths: String? = "",
+    @SerializedName("new_deaths")
+    val new_deaths: String? = "",
+    @SerializedName("total_recovered")
+    val total_recovered: String? = "",
+    @SerializedName("active_cases")
+    val active_cases: String? = "",
+    @SerializedName("serious_critical")
+    val serious_critical: String? = "",
+    @SerializedName("cases_per_mill_pop")
+    val cases_per_mill_pop: String? = "",
+    @SerializedName("flag")
+    val flag: String? = ""
 ) : Parcelable
 
 data class PaginationMeta(
