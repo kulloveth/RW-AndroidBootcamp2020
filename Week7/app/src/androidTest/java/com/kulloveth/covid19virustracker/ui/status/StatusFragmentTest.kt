@@ -39,4 +39,6 @@ class StatusFragmentTest {
         }
         onView(withId(R.id.list)).perform(RecyclerViewActions.actionOnItem<NewsViewHolder>(hasDescendant(withText("Belgium")),click()))
     }
+
+
 }

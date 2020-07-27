@@ -59,6 +59,5 @@ open class Repository(private val statusDao: StatusDao,private val newsDao: News
 
     suspend fun fetchNewsFromRoom()=
         newsDao.getNewCovidNews()
-    fun testPaged() = newsDao.covidNews()
 
 }
