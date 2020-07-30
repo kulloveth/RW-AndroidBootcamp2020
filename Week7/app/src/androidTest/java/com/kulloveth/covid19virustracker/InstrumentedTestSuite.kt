@@ -10,4 +10,4 @@ import org.junit.runners.Suite
 //runs all instrumented tests together
 @RunWith(Suite::class)
 @Suite.SuiteClasses(RepositoryNewTest::class,StatusFragmentTest::class,MainActivityTest::class)
-class InstrumentesTestSuite
+class InstrumentedTestSuite

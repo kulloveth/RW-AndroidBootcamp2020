@@ -33,6 +33,9 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    viewBinding{
+        enabled = true
+    }
 
 }
 
@@ -75,6 +78,11 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.3.4"
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v1.7.4'
+
+    //koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     testImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"

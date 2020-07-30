@@ -21,7 +21,7 @@ class StatusFragmentTest {
 
 
     @Test
-    fun testThatAlgeriaIsVisibleWhenThirdPositionIsClicked() {
+    fun testThatCountryAlgeriaDetailIsVisibleWhenItsPositionIsClicked() {
         try {
             Thread.sleep(3000)
         } catch (e: InterruptedException) {
@@ -31,7 +31,7 @@ class StatusFragmentTest {
     }
 
     @Test
-    fun testThatBelgiumIsVisibleWhenItsPositionIsClicked() {
+    fun testThatCountryBelgiumDetailIsVisibleWhenItsPositionIsClicked() {
         try {
             Thread.sleep(3000)
         } catch (e: InterruptedException) {
