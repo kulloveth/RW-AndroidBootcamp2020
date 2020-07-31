@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.kulloveth.covid19virustracker.data.Repository
+import com.kulloveth.covid19virustracker.data.db.CountryInfoEntity
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.timeout
@@ -28,18 +29,18 @@ class StatusViewModelTest {
     private lateinit var statusViewModel: StatusViewModel
     private lateinit var repository: Repository
     private lateinit var statusObserver: Observer<List<StatusEntity>>
+    val countryInfoEntity = CountryInfoEntity(1,"https://www.worldometers.info/img/flags/ag-flag.gif")
     private val statusEntity = StatusEntity(
         country = "Algeria",
-        country_abbreviation = "DZ",
-        total_cases = "6,442",
-        new_cases = "0",
-        total_deaths = "529",
-        new_deaths = "0",
-        total_recovered = "3,158",
-        active_cases = "2,755",
-        serious_critical = "22",
-        cases_per_mill_pop = "147.0",
-        flag = "https://www.worldometers.info/img/flags/ag-flag.gif"
+        countryInfoEntity = countryInfoEntity,
+        cases = 6442,
+        todayCases = 4,
+        deaths = 52,
+        todayDeaths = 6,
+        recovered =158,
+        todayRecovered = 55,
+        critical = 6,
+        active = 2
     )
     val result = listOf(statusEntity)
 

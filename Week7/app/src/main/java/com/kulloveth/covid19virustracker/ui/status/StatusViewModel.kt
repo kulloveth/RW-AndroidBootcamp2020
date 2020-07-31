@@ -15,6 +15,9 @@ class StatusViewModel(private val repository: Repository) : BaseViewModel(reposi
     val sstatusLiveData = MutableLiveData<StatusEntity>()
     private val newStatusLiveData = MutableLiveData<List<StatusEntity>>()
 
+    init {
+        repository.fetchStatus()
+    }
 
     fun getNewStatus(): LiveData<List<StatusEntity>> {
         viewModelScope.launch(Dispatchers.IO) {

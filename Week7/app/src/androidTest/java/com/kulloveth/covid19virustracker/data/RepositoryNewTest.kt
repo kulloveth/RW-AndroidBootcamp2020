@@ -25,18 +25,18 @@ class RepositoryNewTest {
         urlToImage = "https:www.trump.img/trump.jpg"
     )
     val result = listOf(newsEntity)
+    val countryInfoEntity = CountryInfoEntity(1,"https://www.worldometers.info/img/flags/ag-flag.gif")
     private val statusEntity = StatusEntity(
         country = "Algeria",
-        country_abbreviation = "DZ",
-        total_cases = "6,442",
-        new_cases = "0",
-        total_deaths = "529",
-        new_deaths = "0",
-        total_recovered = "3,158",
-        active_cases = "2,755",
-        serious_critical = "22",
-        cases_per_mill_pop = "147.0",
-        flag = "https://www.worldometers.info/img/flags/ag-flag.gif"
+        countryInfoEntity = countryInfoEntity,
+        cases = 6442,
+        todayCases = 4,
+        deaths = 52,
+        todayDeaths = 6,
+        recovered =158,
+        todayRecovered = 55,
+        critical = 6,
+        active = 2
     )
     val statusResult = listOf(statusEntity)
 

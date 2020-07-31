@@ -1,17 +1,16 @@
 package com.kulloveth.covid19virustracker.api
 
 import com.kulloveth.covid19virustracker.model.NewsBaseResponse
-import com.kulloveth.covid19virustracker.model.StatusBaseResponse
+import com.kulloveth.covid19virustracker.model.StatusResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 //This class setsup result from endpoint
 interface ApiService {
     /**
-     * get a certain no of status from api using [limit]
+     * get a certain no of status from api
      */
-    @GET("v1/cases/countries-search")
-    suspend fun getStatusByCountry(@Query("limit") limit: Int): StatusBaseResponse
-
+    @GET("v2/countries")
+    suspend fun getStatus(): List<StatusResponse>
     /**
      *   get news headlines for covid by [topic]
      *   using your personal [apiKey]
