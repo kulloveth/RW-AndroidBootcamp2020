@@ -11,6 +11,7 @@ fun buildClient(): OkHttpClient = OkHttpClient.Builder()
         level = HttpLoggingInterceptor.Level.BODY
     }).build()
 
+
 //retrofit builder method with httpclient and gson converter
 fun buildRetrofit(baseUrl: String): Retrofit {
     return Retrofit.Builder().client(buildClient()).baseUrl(baseUrl)
@@ -18,4 +19,4 @@ fun buildRetrofit(baseUrl: String): Retrofit {
         .build()
 }
 
-fun buildApiService(baseUrl: String) = buildRetrofit(baseUrl).create(ApiService::class.java)
+fun buildApiService(baseUrl: String) = buildRetrofit(baseUrl).create(StatusApiService::class.java)

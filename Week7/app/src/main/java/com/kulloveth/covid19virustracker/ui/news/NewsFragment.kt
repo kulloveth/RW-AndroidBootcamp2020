@@ -13,6 +13,7 @@ import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_news.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_news.*
 class NewsFragment : BaseFragment() {
 
     private val TAG = NewsFragment::class.java.simpleName
-    private var viewModel: NewsViewModel? = null
+    private val viewModel: NewsViewModel by viewModel()
     private var newsRv: RecyclerView? = null
     private var progress: ProgressBar? = null
     private val adapter = NewsAdapter()
@@ -32,10 +33,6 @@ class NewsFragment : BaseFragment() {
 
         app_bar.title = getString(R.string.covid_news)
         progress = progress_bar
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            Injection.provideViewModelFactory()
-        ).get(NewsViewModel::class.java)
         newsRv = news_list
         newsRv?.adapter = adapter
         fetchNews()
