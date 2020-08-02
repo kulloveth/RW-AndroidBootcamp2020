@@ -7,7 +7,7 @@ import com.kulloveth.covid19virustracker.ui.ViewModelFactory
 
 object Injection {
     // build status api
-    val apiService by lazy { buildApiService("https://corona-virus-stats.herokuapp.com/api/") }
+    val statusApiService by lazy { buildApiService(  "https://corona.lmao.ninja/") }
 
     //build news api
     val newsApiService by lazy { buildApiService("https://newsapi.org/") }
@@ -15,7 +15,7 @@ object Injection {
     fun provideDb() = CovidDatabase.invoke()
 
     private fun provideRepository(): Repository {
-        return Repository()
+        return Repository(provideDb().getStatusDao(), provideDb().getNewsDao())
     }
 
     fun provideViewModelFactory(): ViewModelProvider.Factory {

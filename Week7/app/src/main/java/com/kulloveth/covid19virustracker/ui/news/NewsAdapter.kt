@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.db.NewsEntity
 
@@ -11,7 +12,7 @@ import com.kulloveth.covid19virustracker.data.db.NewsEntity
  * Paging Adapter for smooth scrolling of news items.
  */
 class NewsAdapter :
-    PagedListAdapter<NewsEntity, NewsViewHolder>(
+   ListAdapter<NewsEntity, NewsViewHolder>(
         STATUS_DIFF
     ) {
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {

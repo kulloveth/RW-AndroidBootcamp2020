@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.kulloveth.covid19virustracker.App
 import com.kulloveth.covid19virustracker.BuildConfig.API_KEY
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.Injection

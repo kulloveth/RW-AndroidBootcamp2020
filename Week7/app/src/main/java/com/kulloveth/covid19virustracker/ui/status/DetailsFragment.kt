@@ -62,24 +62,24 @@ class DetailsFragment : BaseFragment() {
             entries.clear()
             entries.apply {
                 it?.let {
-                    mapToBarChart(it.total_cases, 0)
-                    mapToBarChart(it.total_recovered, 1)
-                    mapToBarChart(it.total_deaths, 2)
-                    mapToBarChart(it.new_cases, 3)
-                    mapToBarChart(it.active_cases, 4)
-                    mapToBarChart(it.new_deaths, 5)
+                    mapToBarChart(it.cases.toString(), 0)
+                    mapToBarChart(it.recovered.toString(), 1)
+                    mapToBarChart(it.deaths.toString(), 2)
+                    mapToBarChart(it.todayCases.toString(), 3)
+                    mapToBarChart(it.active.toString(), 4)
+                    mapToBarChart(it.critical.toString(), 5)
                 }
             }
 
             val dataSet = BarDataSet(entries, "Case Status")
             dataSet.color = fetchPrimaryColor()
             val label = arrayListOf<String>()
-            label.add("Total Cases")
-            label.add("Total Recovered")
-            label.add("Total Deaths")
-            label.add("New Cases")
-            label.add("Active Cases")
-            label.add("New Death")
+            label.add("Cases")
+            label.add("Recovered")
+            label.add("Deaths")
+            label.add("Today Cases")
+            label.add("Active")
+            label.add("Critical")
 
 
             val barData = BarData(label, dataSet)
@@ -91,13 +91,13 @@ class DetailsFragment : BaseFragment() {
 
 
 
-            totalDeathsTv?.text = it.total_deaths
-            totalRecoveredTv?.text = it.total_recovered
-            totalCasesTv?.text = it.total_cases
+            totalDeathsTv?.text = it.deaths.toString()
+            totalRecoveredTv?.text = it.recovered.toString()
+            totalCasesTv?.text = it.cases.toString()
             country?.text = it.country
-            newCasesTv?.text = it.new_cases
-            activeCasesTv?.text = it.active_cases
-            newDeathsTv?.text = it.new_deaths
+            newCasesTv?.text = it.todayCases.toString()
+            activeCasesTv?.text = it.active.toString()
+            newDeathsTv?.text = it.critical.toString()
         })
     }
 

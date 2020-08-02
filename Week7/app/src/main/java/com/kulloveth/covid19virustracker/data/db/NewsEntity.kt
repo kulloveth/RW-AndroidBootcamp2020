@@ -13,9 +13,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class NewsEntity (
     @PrimaryKey(autoGenerate = true)
-    val id: Int=0,
-    val title: String? = "",
-    val description: String? = "",
-    val url: String? = "",
-    val urlToImage: String? = ""
+    var id: Int=0,
+    var title: String? = "",
+    var description: String? = "",
+    var url: String? = "",
+    var urlToImage: String? = ""
 ): Parcelable

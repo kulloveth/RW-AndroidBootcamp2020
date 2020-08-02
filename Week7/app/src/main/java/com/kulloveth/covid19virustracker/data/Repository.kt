@@ -2,7 +2,8 @@ package com.kulloveth.covid19virustracker.data
 
 import androidx.work.*
 import com.kulloveth.covid19virustracker.App
-import com.kulloveth.covid19virustracker.worker.NOTIFICATION_CHANNEL_NAME
+import com.kulloveth.covid19virustracker.data.db.NewsDao
+import com.kulloveth.covid19virustracker.data.db.StatusDao
 import com.kulloveth.covid19virustracker.worker.NewsPeriodicWorker
 import com.kulloveth.covid19virustracker.worker.StatusPeriodicWorker
 import java.util.concurrent.TimeUnit
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit
 private const val TAG_SYNC_DATA = "TAG_SYNC_DATA"
 private const val NEWS_TAG_SYNC_DATA = "NEWS_SYNC_DATA"
 
-class Repository{
+open class Repository(private val statusDao: StatusDao,private val newsDao: NewsDao){
     // Create Network constraint
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -52,4 +53,11 @@ class Repository{
             periodicSynDataWork //work request
         )
     }
+
+    suspend fun fetchStatusFromRoom()=
+        statusDao.getNewStatus()
+
+    suspend fun fetchNewsFromRoom()=
+        newsDao.getNewCovidNews()
+
 }

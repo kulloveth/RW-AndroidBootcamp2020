@@ -1,11 +1,13 @@
 package com.kulloveth.covid19virustracker.ui.status
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kulloveth.covid19virustracker.R
@@ -13,6 +15,9 @@ import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
 import com.kulloveth.covid19virustracker.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_status.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 
 
 /**
@@ -41,13 +46,14 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
             requireActivity(),
             Injection.provideViewModelFactory()
         ).get(StatusViewModel::class.java)
-
         getStatus()
     }
 
     //observe status from livedata
+    @FlowPreview
     private fun getStatus() {
-        viewModel?.getStatus()?.observe(requireActivity(), Observer {
+        viewModel?.getNewStatus()?.observe(requireActivity(), Observer {
+            Log.d(TAG,"$it")
             adapter.submitList(it)
             statusRv?.visibility = View.VISIBLE
             progress?.visibility = View.INVISIBLE

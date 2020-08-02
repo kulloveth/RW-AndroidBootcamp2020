@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
 
@@ -11,7 +12,7 @@ import com.kulloveth.covid19virustracker.data.db.StatusEntity
  * Paging Adapter for Smooth scrolling of status items.
  */
 class StatusAdapter(private val listener: StatusITemListener) :
-    PagedListAdapter<StatusEntity, StatusViewHolder>(
+    ListAdapter<StatusEntity, StatusViewHolder>(
         STATUS_DIFF
     ) {
     override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {
