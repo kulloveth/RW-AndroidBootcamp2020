@@ -5,12 +5,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.kulloveth.covid19virustracker.App
 import com.kulloveth.covid19virustracker.R
 import com.kulloveth.covid19virustracker.data.Injection
+import com.kulloveth.covid19virustracker.data.db.CountryInfoEntity
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
-import com.kulloveth.covid19virustracker.model.CountryStatus
-import com.kulloveth.covid19virustracker.model.Failure
-import com.kulloveth.covid19virustracker.model.Success
+import com.kulloveth.covid19virustracker.model.*
 
 class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParameters) :
     CoroutineWorker(context, workerParameters) {
@@ -22,18 +22,18 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
         return if (status is Success) {
             val newStatus = mutableListOf<StatusEntity>()
             status.data.forEach {
+                val countryInfoEntity = CountryInfoEntity(it.countryInfo._id,it.countryInfo.flag)
                 val data = StatusEntity(
                     it.country,
-                    it.country_abbreviation,
-                    it.total_cases,
-                    it.new_cases,
-                    it.total_deaths,
-                    it.new_deaths,
-                    it.total_recovered,
-                    it.active_cases,
-                    it.serious_critical,
-                    it.cases_per_mill_pop,
-                    it.flag
+                    countryInfoEntity,
+                    it.cases,
+                    it.todayCases,
+                    it.deaths,
+                    it.todayDeaths,
+                    it.recovered,
+                    it.todayRecovered,
+                    it.critical,
+                    it.active
                 )
                 newStatus.add(data)
             }
@@ -48,12 +48,13 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
     }
 
     //check for internet connection and fetch status from api
-    private suspend fun fetchStatus(): com.kulloveth.covid19virustracker.model.Result<List<CountryStatus>>? {
-        var result: com.kulloveth.covid19virustracker.model.Result<List<CountryStatus>>? = null
+    private suspend fun fetchStatus(): com.kulloveth.covid19virustracker.model.Result<List<StatusResponse>>? {
+        var result: com.kulloveth.covid19virustracker.model.Result<List<StatusResponse>>? = null
         if (isNetworkAvailable(context)) {
             try {
-                val data = Injection.apiService.getStatusByCountry(100).data
-                result = Success(data.status)
+                val data = Injection.statusApiService.getStatus()
+                Log.d("workers","$data")
+                result = Success(data)
             } catch (error: Throwable) {
                 result = Failure(error)
             }

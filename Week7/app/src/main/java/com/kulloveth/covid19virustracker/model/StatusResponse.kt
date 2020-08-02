@@ -1,53 +1,31 @@
 package com.kulloveth.covid19virustracker.model
 
 import android.os.Parcelable
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
 //object representation of the api data
-data class StatusBaseResponse(val data: Data)
-data class Data(
-    val paginationMeta: PaginationMeta,
-    val last_update: String,
-    @SerializedName("rows")
-    val status: List<CountryStatus>
-)
-
 @Parcelize
-data class CountryStatus(
-    @PrimaryKey
-    @SerializedName("country")
-    val country: String,
-    @SerializedName("country_abbreviation")
-    val country_abbreviation: String? = "",
-    @SerializedName("total_cases")
-    val total_cases: String? = "",
-    @SerializedName("new_cases")
-    val new_cases: String? = "",
-    @SerializedName("total_deaths")
-    val total_deaths: String? = "",
-    @SerializedName("new_deaths")
-    val new_deaths: String? = "",
-    @SerializedName("total_recovered")
-    val total_recovered: String? = "",
-    @SerializedName("active_cases")
-    val active_cases: String? = "",
-    @SerializedName("serious_critical")
-    val serious_critical: String? = "",
-    @SerializedName("cases_per_mill_pop")
-    val cases_per_mill_pop: String? = "",
-    @SerializedName("flag")
-    val flag: String? = ""
+data class StatusResponse(
+    @SerializedName("updated") val updated: Long,
+    @SerializedName("country") val country: String,
+    @SerializedName("countryInfo") val countryInfo: CountryInfo,
+    @SerializedName("cases") val cases: Int,
+    @SerializedName("todayCases") val todayCases: Int,
+    @SerializedName("deaths") val deaths: Int,
+    @SerializedName("todayDeaths") val todayDeaths: Int,
+    @SerializedName("recovered") val recovered: Int,
+    @SerializedName("todayRecovered") val todayRecovered: Int,
+    @SerializedName("active") val active: Int,
+    @SerializedName("critical") val critical: Int
 ) : Parcelable
 
-data class PaginationMeta(
-    val currentPage: Int,
-    val currentPageSize: Int,
-    val totalPages: Int,
-    val totalRecords: Int
-)
+@Parcelize
+data class CountryInfo(
+    @SerializedName("_id") val _id: Int,
+    @SerializedName("flag") val flag: String
+) : Parcelable
 
 
 

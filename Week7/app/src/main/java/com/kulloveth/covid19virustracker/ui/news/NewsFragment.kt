@@ -1,6 +1,7 @@
 package com.kulloveth.covid19virustracker.ui.news
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_news.*
  */
 class NewsFragment : BaseFragment() {
 
+    private val TAG = NewsFragment::class.java.simpleName
     private var viewModel: NewsViewModel? = null
     private var newsRv: RecyclerView? = null
     private var progress: ProgressBar? = null
@@ -41,7 +43,8 @@ class NewsFragment : BaseFragment() {
 
     //observe status from livedata
     fun fetchNews() {
-        viewModel?.getNews()?.observe(requireActivity(), Observer {
+        viewModel?.getNewCovidNews()?.observe(requireActivity(), Observer {
+            Log.d(TAG,"$it")
             adapter.submitList(it)
             newsRv?.visibility = View.VISIBLE
             progress?.visibility = View.INVISIBLE
