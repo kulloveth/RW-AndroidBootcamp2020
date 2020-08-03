@@ -66,7 +66,7 @@ class NewsViewModelTest {
 
 
     @Test
-    fun `when status is queried from database`() = runBlocking {
+    fun `when News is queried from database`() = runBlocking {
         whenever(repository.fetchNewsFromRoom()).thenReturn(result)
         newsViewModel.getNewCovidNews().observeForever(newsObserver)
         delay(30)

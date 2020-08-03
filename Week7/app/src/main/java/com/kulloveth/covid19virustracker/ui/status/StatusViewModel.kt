@@ -2,14 +2,14 @@ package com.kulloveth.covid19virustracker.ui.status
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kulloveth.covid19virustracker.data.Repository
 import com.kulloveth.covid19virustracker.data.db.StatusEntity
-import com.kulloveth.covid19virustracker.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class StatusViewModel(private val repository: Repository) : BaseViewModel(repository) {
+class StatusViewModel(private val repository: Repository) : ViewModel() {
 
 
     val sstatusLiveData = MutableLiveData<StatusEntity>()

@@ -1,7 +1,7 @@
 package com.kulloveth.covid19virustracker.di
 
-import com.kulloveth.covid19virustracker.api.StatusApiService
 import com.kulloveth.covid19virustracker.api.NewsApiService
+import com.kulloveth.covid19virustracker.api.StatusApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -18,38 +18,35 @@ val provideNetwork = module {
         "https://corona-virus-stats.herokuapp.com/api/"
     }
     single {
-        http()
+        httpLoggingInterceptor()
     }
     single {
         okHttpBuilder()
     }
     single {
-        StatusApiService
+        buildStatusApiService(get(named("NEWS_BASE_URL")))
     }
-    single { NewsApiService }
+    single { buildNewsApiService(get(named("STATUS_BASE_URL"))) }
 
 }
 
 
-fun http() = HttpLoggingInterceptor().apply {
+private fun httpLoggingInterceptor() = HttpLoggingInterceptor().apply {
     level = HttpLoggingInterceptor.Level.BODY
 }
 
-fun okHttpBuilder() = OkHttpClient.Builder().addInterceptor(http())
+private fun okHttpBuilder() = OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor())
     .build()
 
-fun retrofit(base: String) =
+private fun retrofit(base: String) =
     Retrofit.Builder()
         .client(okHttpBuilder())
         .baseUrl(base)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-fun buildStatusApiService(baseUrl: String) = retrofit(baseUrl).create(StatusApiService::class.java)
+private fun buildStatusApiService(baseUrl: String) =
+    retrofit(baseUrl).create(StatusApiService::class.java)
 
-fun buildNewsApiService(baseUrl: String) = retrofit(baseUrl).create(NewsApiService::class.java)
-
-val StatusApiService by lazy { buildStatusApiService("https://corona-virus-stats.herokuapp.com/api/") }
-
-//build news api
-val NewsApiService by lazy { buildNewsApiService("https://newsapi.org/") }
+private fun buildNewsApiService(baseUrl: String) =
+    retrofit(baseUrl).create(NewsApiService::class.java)
