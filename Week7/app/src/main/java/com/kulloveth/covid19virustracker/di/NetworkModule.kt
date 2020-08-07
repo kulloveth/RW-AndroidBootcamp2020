@@ -15,7 +15,7 @@ val provideNetwork = module {
     }
 
     single(named("STATUS_BASE_URL")) {
-        "https://corona-virus-stats.herokuapp.com/api/"
+            "https://corona.lmao.ninja/"
     }
     single {
         httpLoggingInterceptor()
@@ -24,9 +24,9 @@ val provideNetwork = module {
         okHttpBuilder()
     }
     single {
-        buildStatusApiService(get(named("NEWS_BASE_URL")))
+        buildStatusApiService(get(named("STATUS_BASE_URL")))
     }
-    single { buildNewsApiService(get(named("STATUS_BASE_URL"))) }
+    single { buildNewsApiService(get(named("NEWS_BASE_URL"))) }
 
 }
 
