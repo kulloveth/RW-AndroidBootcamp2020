@@ -46,7 +46,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/introSliderViewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/indicatorContainer" />
 

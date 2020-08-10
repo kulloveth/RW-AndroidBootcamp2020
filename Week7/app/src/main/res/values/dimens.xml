@@ -12,6 +12,6 @@
     <dimen name="bar_height">400dp</dimen>
     <dimen name="margin_50dp">50dp</dimen>
     <dimen name="title_size">14sp</dimen>
-    <dimen name="lottie_image_size">500dp</dimen>
+    <dimen name="lottie_image_size">@dimen/bar_height</dimen>
     <dimen name="onboard_itle_size">24sp</dimen>
 </resources>
