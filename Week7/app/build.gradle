@@ -98,5 +98,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation "org.koin:koin-test:$koin_version"
+    androidTestImplementation ("org.koin:koin-test:$koin_version"){ exclude group: 'org.mockito' }
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
 }

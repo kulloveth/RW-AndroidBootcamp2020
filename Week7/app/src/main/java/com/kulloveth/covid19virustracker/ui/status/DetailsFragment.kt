@@ -1,26 +1,23 @@
 package com.kulloveth.covid19virustracker.ui.status
 
-import android.content.res.TypedArray
-import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_details.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class DetailsFragment : BaseFragment() {
-    private var viewModel: StatusViewModel? = null
+    private val viewModel: StatusViewModel by viewModel()
     val entries = ArrayList<BarEntry>()
     private var totalDeathsTv: TextView? = null
     private var totalRecoveredTv: TextView? = null
@@ -41,9 +38,6 @@ class DetailsFragment : BaseFragment() {
             requireView().findNavController()
                 .navigate(R.id.action_detailsFragment_to_statusFragment)
         }
-        viewModel = ViewModelProvider(requireActivity(), Injection.provideViewModelFactory()).get(
-            StatusViewModel::class.java
-        )
         // flagIv = country_flag
         totalDeathsTv = total_deaths_detail
         totalRecoveredTv = total_recovered_detail
