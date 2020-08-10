@@ -5,16 +5,21 @@ import android.util.Log
 import android.widget.Toast
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kulloveth.covid19virustracker.App
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.data.Injection
 import com.kulloveth.covid19virustracker.data.db.CountryInfoEntity
-import com.kulloveth.covid19virustracker.data.db.StatusEntity
 import com.kulloveth.covid19virustracker.model.*
+import com.kulloveth.covid19virustracker.api.StatusApiService
+import com.kulloveth.covid19virustracker.data.db.StatusDao
+import com.kulloveth.covid19virustracker.data.db.StatusEntity
+import com.kulloveth.covid19virustracker.model.Failure
+import com.kulloveth.covid19virustracker.model.Success
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParameters) :
-    CoroutineWorker(context, workerParameters) {
-
+    CoroutineWorker(context, workerParameters),KoinComponent {
+    val statusDao: StatusDao by inject()
+    val statusURl:StatusApiService by inject()
     private val TAG = StatusPeriodicWorker::class.java.simpleName
     override suspend fun doWork(): Result {
         val status = fetchStatus()
@@ -38,11 +43,11 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
                 newStatus.add(data)
             }
 
-            Injection.provideDb().getStatusDao().insert(newStatus)
+            statusDao.insert(newStatus)
             makeStatusNotification(context.getString(R.string.status_message))
             Result.success()
         } else {
-            Log.d(TAG, "error fetching status")
+            Log.e(TAG, "error fetching status")
             Result.failure()
         }
     }
@@ -52,8 +57,7 @@ class StatusPeriodicWorker(val context: Context, workerParameters: WorkerParamet
         var result: com.kulloveth.covid19virustracker.model.Result<List<StatusResponse>>? = null
         if (isNetworkAvailable(context)) {
             try {
-                val data = Injection.statusApiService.getStatus()
-                Log.d("workers","$data")
+                val data = statusURl.getStatus()
                 result = Success(data)
             } catch (error: Throwable) {
                 result = Failure(error)

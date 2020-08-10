@@ -5,7 +5,7 @@ import com.kulloveth.covid19virustracker.model.StatusResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 //This class setsup result from endpoint
-interface ApiService {
+interface StatusApiService {
     /**
      * get a certain no of status from api
      */

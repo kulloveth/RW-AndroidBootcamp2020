@@ -2,17 +2,17 @@ package com.kulloveth.covid19virustracker.ui.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kulloveth.covid19virustracker.data.Repository
 import com.kulloveth.covid19virustracker.data.db.NewsEntity
-import com.kulloveth.covid19virustracker.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
  * News ViewModel extending from the [BaseViewModel]
  * */
-class NewsViewModel(private val repository: Repository) : BaseViewModel(repository) {
+class NewsViewModel(private val repository: Repository) : ViewModel() {
 
     private val newCovidNewsLiveData = MutableLiveData<List<NewsEntity>>()
 

@@ -5,17 +5,22 @@ import android.util.Log
 import android.widget.Toast
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kulloveth.covid19virustracker.App
 import com.kulloveth.covid19virustracker.BuildConfig.API_KEY
 import com.kulloveth.covid19virustracker.R
-import com.kulloveth.covid19virustracker.data.Injection
+import com.kulloveth.covid19virustracker.api.NewsApiService
+import com.kulloveth.covid19virustracker.data.db.NewsDao
 import com.kulloveth.covid19virustracker.data.db.NewsEntity
 import com.kulloveth.covid19virustracker.model.Article
 import com.kulloveth.covid19virustracker.model.Failure
 import com.kulloveth.covid19virustracker.model.Success
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameters) :
-    CoroutineWorker(context, workerParameters) {
+    CoroutineWorker(context, workerParameters),KoinComponent {
+    val newsDao:NewsDao by inject()
+    private val newsApiService:NewsApiService by inject()
+
 
     private val TAG = NewsPeriodicWorker::class.java.simpleName
     override suspend fun doWork(): Result {
@@ -32,7 +37,7 @@ class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameter
                 )
                 newNews.add(data)
             }
-            Injection.provideDb().getNewsDao().insert(newNews)
+            newsDao.insert(newNews)
             //notify user during every insertion
             makeStatusNotification(context.getString(R.string.news_message))
             Result.success()
@@ -47,7 +52,7 @@ class NewsPeriodicWorker(val context: Context, workerParameters: WorkerParameter
         var result: com.kulloveth.covid19virustracker.model.Result<List<Article>>? = null
         if (isNetworkAvailable(context)) {
             result = try {
-                val data = Injection.newsApiService.getCovidNews("COVID", API_KEY)
+                val data = newsApiService.getCovidNews("COVID", API_KEY)
                 Success(data.articles)
             } catch (error: Throwable) {
                 Failure(error)
