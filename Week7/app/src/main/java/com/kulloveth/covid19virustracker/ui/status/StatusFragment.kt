@@ -23,7 +23,6 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
 
     private val TAG = StatusFragment::class.java.simpleName
     private val viewModel: StatusViewModel by viewModel()
-    val adapter = StatusAdapter(this)
     private var statusRv: RecyclerView? = null
     private var progress: ProgressBar? = null
 
@@ -37,7 +36,6 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
         app_bar.title = getString(R.string.covid_status)
         statusRv = list
         progress = progress_bar
-        statusRv?.adapter = adapter
         getStatus()
     }
 
@@ -46,6 +44,15 @@ class StatusFragment : BaseFragment(), StatusAdapter.StatusITemListener {
     private fun getStatus() {
         viewModel.getNewStatus().observe(requireActivity(), Observer {
             Log.d(TAG,"$it")
+            val adapter = StatusAdapter(this)
+            statusRv?.apply {
+                this.adapter = adapter
+                postponeEnterTransition()
+                viewTreeObserver.addOnPreDrawListener {
+                    startPostponedEnterTransition()
+                    true
+                }
+            }
             adapter.submitList(it)
             statusRv?.visibility = View.VISIBLE
             progress?.visibility = View.INVISIBLE

@@ -13,7 +13,11 @@
         tools:layout="@layout/fragment_status">
         <action
             android:id="@+id/action_countriesFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -23,6 +27,10 @@
         <action
             android:id="@+id/action_detailsFragment_to_statusFragment"
             app:destination="@id/statusFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/statusFragment"
             app:popUpToInclusive="true" />
     </fragment>

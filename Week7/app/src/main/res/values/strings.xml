@@ -18,4 +18,8 @@
     <string name="covid_status">Covid Status</string>
     <string name="news_message">news inserted</string>
     <string name="status_message">status inserted</string>
+    <string name="wash_hands">Keep Your Hands Clean</string>
+    <string name="face_mask">Wear Your Face Mask</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
 </resources>
